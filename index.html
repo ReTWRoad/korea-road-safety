@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="韓國 2005–2025 年道路交通死亡減少超過一半：數據、政策與首爾、世宗現場影像。">
+<style>img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>韓國道路安全考察</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: 單欄捲動敘事；3D 段落用 sticky 釘住，畫布固定在最底層，一般段落以柏油色底蓋過畫布 */
+:root{
+  --asphalt:#121417;      /* 柏油路面 */
+  --asphalt-2:#1b1f24;    /* 較淺的路面，卡片底 */
+  --line:#2a2f36;         /* 分隔線 */
+  --ink:#ecebe6;          /* 行人穿越道白 */
+  --muted:#8f969e;
+  --marking:#f2b21b;      /* 韓國中線黃 */
+  --pave:#c2503f;         /* 學區／行人優先道路紅褐鋪面 */
+  --bus:#3b78d8;          /* 公車專用道藍 */
+  --f-display:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-num:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--asphalt);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.75;margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--asphalt)}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto}
+section{position:relative;z-index:1}
+.solid{background:var(--asphalt)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:.01em}
+h2{font-size:clamp(34px,5.6vw,72px);font-weight:900;line-height:1.12}
+h3{font-size:clamp(22px,2.6vw,30px);font-weight:700;line-height:1.3}
+p{margin:0}
+.eyebrow{font-size:13px;letter-spacing:.18em;color:var(--marking);font-weight:700;text-transform:uppercase}
+.lede{font-size:clamp(18px,1.9vw,22px);color:var(--ink);max-width:36em;opacity:.92}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-num);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.src{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.hl{color:var(--marking)}
+.red{color:var(--pave)}
+
+/* 釘住段落 */
+.pin{position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+
+/* HERO */
+#hero{height:320vh}
+.hero-ui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding-block:max(28px,env(safe-area-inset-top,0px)) 32px}
+.hero-top{display:grid;gap:14px;max-width:760px}
+.hero-top h1{font-size:clamp(40px,7.4vw,104px);font-weight:900;line-height:1.04}
+.counter-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 36px}
+.counter{font-size:clamp(96px,17vw,230px);line-height:.82;color:var(--ink)}
+.counter-meta{display:grid;gap:6px;padding-bottom:10px;min-width:0}
+.counter-meta .y{font-family:var(--f-num);font-size:28px;font-weight:600;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.scroll-hint{font-size:13px;color:var(--muted);letter-spacing:.14em}
+.shade-l{position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,20,23,.85) 0%,rgba(18,20,23,.35) 45%,rgba(18,20,23,0) 70%);pointer-events:none}
+.shade-b{position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(0deg,rgba(18,20,23,.9),rgba(18,20,23,0));pointer-events:none}
+
+/* 影片展開 */
+#reveal{height:240vh}
+#reveal .stick{display:grid;place-items:center}
+.reveal-frame{position:relative;width:100vw;height:100svh;transform-origin:50% 50%;overflow:hidden;will-change:transform,border-radius}
+.reveal-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.reveal-cap{position:absolute;left:0;right:0;bottom:0;padding-block:28px 40px;background:linear-gradient(0deg,rgba(10,11,13,.85),rgba(10,11,13,0))}
+.reveal-cap .wrap{display:grid;gap:10px}
+.reveal-cap h2{font-size:clamp(28px,4.6vw,58px)}
+
+/* 一般段落 */
+.chapter{padding-block:clamp(80px,12vw,160px)}
+.chapter-head{display:grid;gap:18px;margin-bottom:clamp(40px,6vw,72px)}
+
+/* 趨勢 3D */
+#trend{height:420vh}
+.trend-ui{position:absolute;inset:0;padding-block:max(28px,env(safe-area-inset-top,0px)) 28px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.readout{display:flex;align-items:flex-end;gap:10px 28px;flex-wrap:wrap}
+.readout .yr{font-size:clamp(56px,9vw,120px);line-height:.85;color:var(--marking)}
+.readout .val{font-size:clamp(40px,6vw,80px);line-height:.85}
+.readout .lab{font-size:13px;color:var(--muted);letter-spacing:.06em}
+.trend-note{max-width:30em;min-height:5.4em;font-size:clamp(16px,1.7vw,19px)}
+.trend-note b{color:var(--marking);font-weight:700}
+.glabel{position:absolute;left:0;top:0;font-family:var(--f-num);font-size:14px;font-weight:600;color:var(--muted);transform:translate(-50%,0);white-space:nowrap;pointer-events:none}
+.glabel.on{color:var(--marking)}
+.slabel{position:absolute;left:0;top:0;font-size:14px;font-weight:700;white-space:nowrap;transform:translate(-50%,-100%);pointer-events:none;padding:3px 9px;border-radius:4px;background:rgba(18,20,23,.75);border:1px solid var(--line)}
+
+/* 受傷 */
+#injury{height:300vh}
+.inj-wrap{height:100%;display:flex;flex-direction:column;justify-content:center;padding-block:max(24px,env(safe-area-inset-top,0px)) 20px}
+.inj-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,4vw,56px);align-items:center;width:100%}
+.inj-text{display:grid;gap:18px;min-width:0}
+.inj-read{display:flex;flex-wrap:wrap;gap:8px 32px}
+.inj-read .lab{font-size:13px;color:var(--muted)}
+.inj-y{font-size:clamp(40px,5vw,64px);line-height:.9}
+.inj-v{font-size:clamp(32px,3.4vw,48px);line-height:.9}
+.inj-chart{min-width:0}
+.inj-chart svg{width:100%;height:auto;display:block;max-height:68svh}
+
+/* 號誌 */
+.sig-rows{display:grid;gap:22px}
+.sig-row{display:grid;grid-template-columns:minmax(0,7.5em) minmax(0,1fr);gap:8px 20px;align-items:center}
+.sig-row .when{font-family:var(--f-num);font-size:22px;font-weight:600;line-height:1.1}
+.sig-row .when small{display:block;font-family:var(--f-body);font-size:12.5px;color:var(--muted);font-weight:400}
+.sig-pair{display:grid;gap:6px;min-width:0}
+.sig-bar{display:grid;grid-template-columns:3.6em minmax(0,1fr) 3em;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.sig-track{height:26px;position:relative}
+.sig-fill{display:flex;height:100%;border-radius:3px;overflow:hidden;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.sig-fill .d{background:var(--pave)}
+.sig-fill .m{background:#4a5058}
+.sig-fill span{display:flex;align-items:center;padding:0 8px;font-family:var(--f-num);font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.sig-t{position:absolute;top:50%;transform:translate(8px,-50%);font-family:var(--f-num);font-weight:700;font-size:17px;color:var(--ink);white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,40px);margin-top:clamp(40px,6vw,64px)}
+.kpi{display:grid;gap:8px;align-content:start;border-top:2px solid var(--line);padding-top:16px;min-width:0}
+.kpi .stat-big{font-size:clamp(40px,4.8vw,64px)}
+
+/* 預算 3D */
+#budget3d{height:380vh}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.flow div{padding:22px 18px 22px 0;display:grid;gap:6px;align-content:start;min-width:0}
+.flow b{font-family:var(--f-num);font-size:30px;color:var(--marking);line-height:1}
+.crit{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.crit th,.crit td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.crit th{color:var(--muted);font-weight:500;font-size:13px}
+.crit td.n{font-family:var(--f-num);font-size:22px;font-weight:700;color:var(--marking);white-space:nowrap}
+
+/* 國際比較 */
+.race{overflow-x:auto}
+.race svg{display:block;width:100%;min-width:620px;height:auto}
+.race-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.bignote{display:flex;flex-wrap:wrap;gap:16px 48px;align-items:flex-end}
+.bignote .k{font-size:clamp(80px,12vw,160px);line-height:.8;color:var(--marking)}
+
+/* 瑞士起司 */
+#cheese{height:420vh}
+.cheese-ui{position:absolute;inset:0;padding-block:max(28px,env(safe-area-inset-top,0px)) 28px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.quote{max-width:34em;font-size:clamp(17px,1.8vw,21px);font-style:italic;color:var(--ink);opacity:.9}
+.steps{position:relative;max-width:30em;min-height:8.5em}
+.step{position:absolute;inset:0 auto auto 0;transition:opacity .45s ease,transform .45s ease;opacity:0;transform:translateY(10px)}
+.step.on{opacity:1;transform:none}
+.step h3{margin-bottom:8px}
+
+/* 政策時間軸 */
+.tl{display:grid;gap:0;border-top:1px solid var(--line)}
+.tl-row{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr) minmax(0,1fr);gap:24px 40px;padding-block:44px;border-bottom:1px solid var(--line);align-items:start}
+.tl-year{font-family:var(--f-num);font-size:clamp(44px,5vw,64px);font-weight:700;line-height:.9;color:var(--marking)}
+.tl-year small{display:block;font-size:16px;color:var(--muted);font-weight:600;margin-top:6px;letter-spacing:.04em}
+.tl-body{display:grid;gap:12px;min-width:0}
+.tl-body ul{margin:0;padding-left:1.1em;color:var(--ink);opacity:.9}
+.tl-body li{margin:.2em 0}
+.tl-fig{min-width:0;display:grid;gap:10px}
+.tl-fig img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+.stat-big{font-family:var(--f-num);font-size:clamp(48px,6vw,76px);font-weight:700;line-height:.9}
+.stat-big .arrow{color:var(--muted);font-size:.6em;padding:0 .15em}
+
+/* 橫條 */
+.bars{display:grid;gap:14px}
+.bar-row{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) minmax(0,5.5em);gap:14px;align-items:center;font-size:15px}
+.bar-track{height:22px;background:var(--asphalt-2);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:var(--muted);border-radius:3px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.bar-fill.y{background:var(--marking)}
+.bar-fill.r{background:var(--pave)}
+.bar-val{font-family:var(--f-num);font-size:20px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+/* 5030 */
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.media-box{position:relative;border-radius:8px;overflow:hidden;background:var(--asphalt-2)}
+.media-box video,.media-box img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.sign{display:inline-grid;place-items:center;width:clamp(84px,9vw,118px);aspect-ratio:1;border-radius:50%;border:clamp(9px,1vw,13px) solid #d63a2f;background:#f4f2ec;color:#111;font-family:var(--f-num);font-weight:700;font-size:clamp(38px,4.4vw,56px)}
+.signs{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.stack{display:flex;height:46px;border-radius:4px;overflow:hidden;font-family:var(--f-num);font-weight:600;font-size:18px}
+.stack div{display:flex;align-items:center;padding:0 12px;white-space:nowrap;overflow:hidden}
+
+/* 現場橫向 */
+#field{height:900vh}
+#field .stick{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.field-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.track{display:flex;gap:clamp(16px,2vw,28px);will-change:transform;padding-left:max(16px,env(safe-area-inset-left,0px))}
+.card{flex:0 0 auto;width:min(78vw,560px);display:grid;gap:14px}
+.card .m{position:relative;border-radius:8px;overflow:hidden;background:var(--asphalt-2);aspect-ratio:4/3}
+.card .m img,.card .m video{width:100%;height:100%;object-fit:cover;display:block}
+.card .m .badge{position:absolute;left:12px;top:12px;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:3px;background:rgba(18,20,23,.78);color:var(--ink)}
+.card .m .badge.v{background:var(--pave)}
+.tap::after{content:"▶ 點一下播放";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:8px 16px;border-radius:999px;background:rgba(18,20,23,.8);color:var(--ink);font-size:14px;font-weight:700;pointer-events:none}
+.media-box.tap,.reveal-frame.tap{position:relative}
+.card h3{font-size:clamp(19px,1.9vw,23px)}
+.card p{font-size:15.5px;color:var(--ink);opacity:.86;line-height:1.65}
+.card .ref{font-size:12.5px;color:var(--marking);letter-spacing:.04em}
+.progress{height:2px;background:var(--line);border-radius:2px;overflow:hidden;max-width:1180px;margin:0 auto;width:calc(100% - 32px)}
+.progress i{display:block;height:100%;width:0;background:var(--marking)}
+
+/* 未來課題 */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.panel{background:var(--asphalt-2);border-radius:8px;padding:clamp(22px,3vw,36px);display:grid;gap:16px;align-content:start;min-width:0}
+.panel .stat-big{color:var(--marking)}
+.stars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;align-items:end;height:150px}
+.stars div{background:var(--pave);border-radius:3px 3px 0 0;position:relative;transition:height 1.2s cubic-bezier(.2,.7,.2,1)}
+.stars span{position:absolute;top:-24px;left:0;right:0;text-align:center;font-family:var(--f-num);font-weight:600;font-size:16px}
+.stars-x{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* 啟示 */
+.lessons{display:grid;gap:0;counter-reset:l}
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px 48px;padding-block:32px;border-top:1px solid var(--line)}
+.lesson h3{font-size:clamp(20px,2.2vw,26px)}
+.lesson p{color:var(--ink);opacity:.86}
+
+footer{position:relative;z-index:1;background:var(--asphalt);border-top:1px solid var(--line);padding-block:48px 64px;font-size:14px;color:var(--muted)}
+footer .wrap{display:grid;gap:10px}
+.refs{list-style:none;margin:0;padding:0;display:grid;gap:10px;max-width:60em}
+.refs li{line-height:1.7}
+.refs b{color:var(--marking);font-family:var(--f-num);margin-right:6px}
+
+@media (max-width:820px){
+  .tl-row{grid-template-columns:minmax(0,1fr)}
+  .split,.grid2,.lesson,.inj-grid{grid-template-columns:minmax(0,1fr)}
+  .inj-text>p:first-of-type+h2+p{display:none}
+  .inj-text{gap:12px}
+  .kpis{grid-template-columns:minmax(0,1fr)}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sig-row{grid-template-columns:minmax(0,1fr)}
+  .bar-row{grid-template-columns:minmax(0,6.5em) minmax(0,1fr) minmax(0,4.6em)}
+  .shade-l{background:linear-gradient(180deg,rgba(18,20,23,.88) 0%,rgba(18,20,23,.2) 50%,rgba(18,20,23,.85) 100%)}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bar-fill,.stars div,.step{transition:none}
+}
+a{color:var(--marking)}
+:focus-visible{outline:2px solid var(--marking);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="pin">
+  <div class="stick">
+    <div class="shade-l"></div><div class="shade-b"></div>
+    <div class="hero-ui gutter">
+      <div class="hero-top wrap" style="margin:0;max-width:820px">
+        <p class="eyebrow">2026 年 9 月 · 韓國道路安全考察</p>
+        <h1>20 年，減少<span class="hl">超過一半</span>的生命逝去</h1>
+        <p class="lede">畫面上的每一個點，是 2005 年一位在韓國道路上死去的人。往下捲，看到 2025 年少了多少。</p>
+      </div>
+      <div style="display:grid;gap:18px">
+        <div class="counter-row">
+          <div class="counter num" id="heroCount">6,376</div>
+          <div class="counter-meta">
+            <span class="y" id="heroYear">2005</span>
+            <span class="muted" style="font-size:15px">年度道路交通事故死亡人數</span>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="dot" style="background:var(--pave)"></i>當年死亡</span>
+          <span><i class="dot" style="background:var(--marking)"></i>與 2005 年相比，少走的人</span>
+          <span class="scroll-hint">↓ 往下捲動</span>
+        </div>
+        <p class="src">資料：2005–2009 年韓國警察廳／道路交通公團 TAAS；2010–2025 年韓相鎮簡報 p.6 [1][3]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 影片展開 ============ -->
+<section id="reveal" class="pin solid">
+  <div class="stick">
+    <div class="reveal-frame" id="revealFrame">
+      <video data-src="media/v_IMG_9881.mp4" poster="media/v_IMG_9881.jpg" muted loop playsinline autoplay preload="none"></video>
+      <div class="reveal-cap gutter">
+        <div class="wrap">
+          <p class="eyebrow">首爾 · 光化門一帶 · 2026.9.9</p>
+          <h2>到首爾，<br>看這件事怎麼做到的</h2>
+          <p class="lede" style="font-size:17px">首爾大學環境研究所韓相鎮（Sangjin HAN）教授在 2026 年 9 月 9 日的簡報〈Road Safety Policies in Korea: Achievements and Future Tasks〉。本頁韓國的數據主要出自這份簡報，各段標註頁碼，完整出處列在頁尾。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 趨勢 3D ============ -->
+<section id="trend" class="pin">
+  <div class="stick">
+    <div id="trendLabels" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div class="trend-ui gutter">
+      <div class="wrap" style="width:100%;display:grid;gap:14px">
+        <p class="eyebrow">一、成就 · 死亡人數 2010–2025</p>
+        <div class="readout">
+          <div><div class="lab">年份</div><div class="yr num" id="tYear">2010</div></div>
+          <div><div class="lab">死亡人數</div><div class="val num" id="tVal">5,505</div></div>
+          <div><div class="lab">每十萬人死亡率</div><div class="val num muted" id="tRate">11.1</div></div>
+        </div>
+      </div>
+      <div class="wrap" style="width:100%">
+        <p class="trend-note" id="tNote">2010 年，韓國一年有 <b>5,505 人</b>死於交通事故，在 OECD 國家中屬於後段班。</p>
+        <p class="src" style="margin-top:8px">資料：韓相鎮簡報 p.6（警察廳／道路交通公團統計）[1]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 受傷：韓國 vs 台灣 ============ -->
+<section id="injury" class="pin solid">
+  <div class="stick">
+    <div class="gutter inj-wrap">
+      <div class="wrap inj-grid">
+        <div class="inj-text">
+          <p class="eyebrow">不只看死亡 · 受傷人數</p>
+          <h2 style="font-size:clamp(28px,3.4vw,46px)">台灣只看死亡，<br>受傷人數卻翻了一倍</h2>
+          <p>2009 到 2023 年，台灣的 30 日死亡人數幾乎沒變（3,232 → 3,023），受傷人數卻從 24.6 萬增加到 <b class="red">54.0 萬</b>，創下新高。同一段時間，韓國的受傷人數減少了兩成。</p>
+          <div class="inj-read">
+            <div><div class="lab">年份</div><div class="num inj-y" id="iYear">2009</div></div>
+            <div><div class="lab"><i class="dot" style="background:var(--pave)"></i>台灣受傷</div><div class="num inj-v red" id="iTW">245,835</div></div>
+            <div><div class="lab"><i class="dot" style="background:var(--marking)"></i>韓國受傷</div><div class="num inj-v hl" id="iKR">361,875</div></div>
+          </div>
+          <p class="muted" style="font-size:15px">韓國人口約是台灣的 2.2 倍。換算成每十萬人，2023 年台灣約 <b style="color:var(--ink)">2,300 人</b>受傷，韓國約 <b style="color:var(--ink)">550 人</b>，相差四倍多。<br><span class="src">* 台灣數據目前到 2023 年。</span></p>
+        </div>
+        <div class="inj-chart"><svg id="injSvg" viewBox="0 0 1000 620" role="img" aria-label="2009 至 2025 年台灣與韓國道路交通事故受傷人數"></svg></div>
+      </div>
+      <p class="src wrap" style="margin-top:14px;width:100%">資料：台灣為監察院調查報告引用之交通部統計（2009–2023，30 日死亡與受傷）[2]；韓國 2009–2020 為警察廳／道路交通公團 TAAS [3][4]，2021–2025 為韓相鎮簡報 p.3 [1]；每十萬人換算用 2023 年人口 [5]。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 國際比較 ============ -->
+<section class="chapter solid gutter" id="race">
+  <div class="wrap">
+    <div class="chapter-head">
+      <p class="eyebrow">國際比較</p>
+      <h2>每十萬人死亡率從 10 降到 5.9，<br>瑞典花了 18 年，韓國只用 <span class="hl">7 年</span></h2>
+      <p class="lede">2013 年到 2020 年，韓國用比 OECD 先進國家更短的時間跨過同一段距離。每萬輛車死亡率從 2 降到 1.1 也只花 6 年，日本是 17 年。</p>
+    </div>
+    <div class="race-wrap">
+      <div class="race"><svg id="raceSvg" viewBox="0 0 1000 520" role="img" aria-label="各國每十萬人死亡率從10降到5.9所花的年數"></svg></div>
+      <p class="src">資料：韓相鎮簡報 p.9–10（OECD 國家比較）[1]。年數依簡報表格；愛爾蘭箭頭圖寫 9 年、表格寫 8 年，此處採表格。</p>
+      <div class="bignote" style="margin-top:28px">
+        <div><div class="k num">4.9</div><div class="muted" style="margin-top:10px">2024 年每十萬人死亡率<br>OECD 平均 4.73</div></div>
+        <div><div class="k num" style="color:var(--ink)">0.84</div><div class="muted" style="margin-top:10px">2024 年每萬輛車死亡率<br>OECD 平均 0.82</div></div>
+        <p style="max-width:22em;padding-bottom:6px">從 OECD 後段班走到中段。2016 年只有首爾、釜山、仁川三個市道優於 OECD 平均，2024 年增加到九個。</p>
+      </div>
+      <p class="src">資料：韓相鎮簡報 p.4–5 [1]</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 瑞士起司 ============ -->
+<section id="cheese" class="pin">
+  <div class="stick">
+    <div id="cheeseLabels" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div class="cheese-ui gutter">
+      <div class="wrap" style="width:100%;display:grid;gap:14px">
+        <p class="eyebrow">二、Safe System 安全系統</p>
+        <p class="quote">「我們改變不了人性，但可以改變人所處的條件。」<br><span class="src" style="font-style:normal">James Reason · 韓相鎮簡報 p.14</span></p>
+      </div>
+      <div class="wrap" style="width:100%">
+        <div class="steps" id="steps">
+          <div class="step on" data-i="0"><h3>每一片起司，是一道防線</h3><p>用路人、車輛、道路各是一道防線，每一道都有洞：分心、超速、視線不良、設計缺陷。只要有一道擋住，事故就不會發生。</p></div>
+          <div class="step" data-i="1"><h3 class="red">洞剛好對齊時，事故就發生了</h3><p>個人取向把責任推給犯錯的人：懲罰、再訓練、究責。系統取向承認人一定會犯錯，追問防線為什麼同時失效。</p></div>
+          <div class="step" data-i="2"><h3 class="hl">再加一道：安全速度</h3><p>車與路無法把衝擊控制在人體能承受的範圍內時，就調降速限。這是瑞典 Vision Zero 的責任分擔：系統設計者為整體安全水準負責。</p></div>
+        </div>
+        <p class="src" style="margin-top:10px">資料：韓相鎮簡報 p.14–17（瑞士起司模型、Vision Zero、Safe System）[1]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 措施時間軸 ============ -->
+<section class="chapter solid gutter" id="measures">
+  <div class="wrap">
+    <div class="chapter-head">
+      <p class="eyebrow">三、做對的事</p>
+      <h2>2018 年起，<br>把交通死亡當成國家目標</h2>
+      <p class="lede">2018 年 1 月，總統新年致詞把自殺、交通事故、職災死亡列為「保護國民生命三大計畫」，目標在 2022 年前把交通死亡從 4,292 人（2016）減半。國務調整室副首長每季開會檢查，各部會每兩個月回報一次。</p>
+      <p class="src">資料：韓相鎮簡報 p.20 [1]</p>
+    </div>
+
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-year">2018.9<small>全座位安全帶</small></div>
+        <div class="tl-body">
+          <h3>所有道路、所有座位都要繫安全帶</h3>
+          <p>原本只有高速公路要求全座位繫安全帶，改為所有道路。違規罰駕駛 3 萬韓元。</p>
+          <p class="src">資料：韓相鎮簡報 p.21 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <p class="src">後座安全帶使用率</p>
+          <div class="bars" data-bars>
+            <div class="bar-row"><span>德國</span><div class="bar-track"><div class="bar-fill" data-w="98"></div></div><span class="bar-val">98%</span></div>
+            <div class="bar-row"><span>日本</span><div class="bar-track"><div class="bar-fill" data-w="35"></div></div><span class="bar-val">35%</span></div>
+            <div class="bar-row"><span>韓國</span><div class="bar-track"><div class="bar-fill r" data-w="22"></div></div><span class="bar-val">22%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year">2018.12<small>尹昌浩法</small></div>
+        <div class="tl-body">
+          <h3>酒駕：標準更嚴，刑期更重</h3>
+          <ul>
+            <li>酒駕標準 BAC 0.05% → <b class="hl">0.03%</b>；吊照 0.1% → 0.08%</li>
+            <li>酒駕致死：最低 1 年 → 無期徒刑或最低 3 年</li>
+            <li>三振改兩振，禁考期間 1 年延長為 2 年</li>
+          </ul>
+          <p class="src">資料：韓相鎮簡報 p.23 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <p class="src">酒駕死亡人數</p>
+          <div class="bars" data-bars>
+            <div class="bar-row"><span>2018</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">346</span></div>
+            <div class="bar-row"><span>2019</span><div class="bar-track"><div class="bar-fill" data-w="85.3"></div></div><span class="bar-val">295</span></div>
+            <div class="bar-row"><span>2020</span><div class="bar-track"><div class="bar-fill y" data-w="82.9"></div></div><span class="bar-val">287</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year">2018–<small>高齡者與職業駕駛</small></div>
+        <div class="tl-body">
+          <h3>高齡死亡占 45.5%，是高齡人口比例的 3 倍</h3>
+          <ul>
+            <li>75 歲以上駕駛適性檢查從每 5 年改為每 3 年，加入認知能力自我檢測</li>
+            <li>65 歲以上主動繳回駕照，發給免費交通卡</li>
+            <li>公車司機納入每週 52 小時工時上限，從「做二休一、每天近 15 小時」改為做一休一</li>
+            <li>防踩錯踏板裝置：2026 年試辦 3,260 輛，2029 年起新車強制</li>
+          </ul>
+          <p class="src">資料：韓相鎮簡報 p.22、p.24 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <div class="stat-big"><span>31.8</span><span class="arrow">→</span><span class="red">45.5%</span></div>
+          <p class="muted" style="font-size:15px">死者中 65 歲以上的比例（2010 → 2019）。高齡人口比例只有 15.4%。</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year">2019<small>金民植法</small></div>
+        <div class="tl-body">
+          <h3>學區：測速照相、減速丘、取消停車</h3>
+          <p>2019 年 9 月忠南牙山學區事故後立法。學區增設測速照相、減速丘與號誌，取消路邊停車；在學區撞死兒童處無期徒刑或 3 年以上，罰鍰加重為 3 倍。</p>
+          <div class="bars" data-bars style="margin-top:6px">
+            <div class="bar-row"><span>測速照相 2019</span><div class="bar-track"><div class="bar-fill" data-w="6"></div></div><span class="bar-val">6%</span></div>
+            <div class="bar-row"><span>2020</span><div class="bar-track"><div class="bar-fill" data-w="21"></div></div><span class="bar-val">21%</span></div>
+            <div class="bar-row"><span>2021</span><div class="bar-track"><div class="bar-fill y" data-w="54"></div></div><span class="bar-val">54%</span></div>
+          </div>
+          <p class="muted" style="font-size:15px">一年後：學區事故 567 → 483 件（−15%），死亡事故 6 → 3 件。</p>
+          <p class="src">資料：韓相鎮簡報 p.25 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <img src="media/p0612.jpg" alt="首爾住宅區學區路面，寫著어린이 보호구역與紅底 30 速限標字">
+          <p class="src">首爾 · 學區路面「어린이 보호구역」與 30 速限標字</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year">2021.4<small>安全速度 5030</small></div>
+        <div class="tl-body">
+          <h3>都市道路 50，住宅與學區巷道 30</h3>
+          <p>2021 年 4 月 17 日全國實施。口號是「速度降下來，行人就看得見」。警察廳、國土交通部、行政安全部共同成立「5030 協議會」，研究機構與學會組成諮詢團，並出版《安全速度 5030 設計運用手冊》。</p>
+          <p class="src">資料：韓相鎮簡報 p.26 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <img src="media/p9848.jpg" alt="從巴士車窗看到的首爾道路，路旁有 SLOW 行人警告標誌與 50 速限標誌">
+          <p class="src">首爾 · 巴士車窗外的「천천히 SLOW」與 50 km/h 速限</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year">2022<small>行人優先道路</small></div>
+        <div class="tl-body">
+          <h3>沒有人行道的路，駕駛要讓行人</h3>
+          <p>2022 年《道路交通法》把「보행자우선도로」入法：速限 20 km/h 以下，或與步行速度相同；停車只能停在指定位置。手法以鋪面材質和色彩為主，不另外分隔人行道。</p>
+          <p class="src">資料：韓相鎮簡報 p.29 [1]</p>
+        </div>
+        <div class="tl-fig">
+          <img src="media/p0380.jpg" alt="首爾市區紅色鋪面路口，大量行人穿越">
+          <p class="src">首爾市區 · 整片紅色鋪面的行人優先路口</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5030 實證 ============ -->
+<section class="chapter solid gutter" id="speed">
+  <div class="wrap">
+    <div class="split" style="margin-bottom:clamp(48px,7vw,88px)">
+      <div class="media-box"><video data-src="media/v_IMG_9844.mp4" poster="media/v_IMG_9844.jpg" muted loop playsinline autoplay preload="none"></video></div>
+      <div style="display:grid;gap:22px;min-width:0">
+        <div class="signs"><span class="sign">50</span><span class="sign">30</span></div>
+        <p class="eyebrow">首爾奉恩寺路 · 5030 降速前後實測</p>
+        <h2 style="font-size:clamp(30px,4.2vw,56px)">市區的效率<br>看的是<span class="hl">紅綠燈</span>，不是速限</h2>
+        <p>降速最常聽到的反對是「會塞車」。首爾在奉恩寺路做了降速前後的實測：四個時段的旅行時間差異，在統計上都不顯著。</p>
+      </div>
+    </div>
+
+    <div class="chapter-head" style="margin-bottom:28px">
+      <h3>同一條路、同一段距離，降速前後的旅行時間</h3>
+      <p class="muted" style="font-size:15px"><i class="dot" style="background:var(--pave)"></i>在路口停等的時間　<i class="dot" style="background:#4a5058;margin-left:14px"></i>在路段上行駛的時間　· 單位：秒，平均值</p>
+    </div>
+    <div class="sig-rows" id="sigRows"></div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="stat-big hl">−3 ~ +54</div><p>秒。四個時段降速前後的平均旅行時間差，統計上都不顯著。</p></div>
+      <div class="kpi"><div class="stat-big red">57.6%</div><p>傍晚尖峰（17–20 時），767 秒裡有 460 秒停在路口。白天時段也有 55% 以上。</p></div>
+      <div class="kpi"><div class="stat-big">13–28</div><p>km/h。這條路實際的空間平均速度。車子本來就跑不到 50，速限從來不是瓶頸。</p></div>
+    </div>
+    <p class="hl" style="font-weight:700;font-size:clamp(19px,2vw,24px);margin-top:clamp(36px,5vw,56px);max-width:34em">要讓市區道路更有效率，該檢討的是號誌週期、時相和連鎖。這也是韓國接下來把號誌週期壓到 120 秒以內、改用行人等待時間當指標的原因。</p>
+    <p class="src" style="margin-top:12px">資料：韓相鎮簡報 p.27–28，首爾奉恩寺路 5030 實施前後比較（樣本 24–61 趟）[1]；號誌週期與行人等待時間見 p.33。</p>
+  </div>
+</section>
+
+<!-- ============ 現場橫向 ============ -->
+<section id="field" class="pin solid">
+  <div class="stick">
+    <div class="gutter"><div class="wrap field-head">
+      <div style="display:grid;gap:10px"><p class="eyebrow">現場 · 首爾與世宗</p><h2 style="font-size:clamp(30px,4.4vw,56px)">在街上看到的韓國</h2></div>
+      <p class="muted" style="max-width:24em;font-size:15px">照片與影片為考察期間拍攝。</p>
+    </div></div>
+    <div class="track" id="track"></div>
+    <div class="progress"><i id="fieldProg"></i></div>
+  </div>
+</section>
+
+<!-- ============ 預算：選址 3D ============ -->
+<section id="budget3d" class="pin">
+  <div class="stick">
+    <div class="shade-l"></div>
+    <div id="hotLabels" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div class="cheese-ui gutter">
+      <div class="wrap" style="width:100%;display:grid;gap:14px">
+        <p class="eyebrow">五、錢怎麼分 · 改善哪些路口</p>
+        <h2 style="font-size:clamp(28px,4vw,52px);max-width:14em">要改善死亡多的路口，<br>還是事故多的路口？</h2>
+      </div>
+      <div class="wrap" style="width:100%">
+        <div class="legend" style="margin-bottom:14px">
+          <span><i class="dot" style="background:var(--marking)"></i>受傷事故</span>
+          <span><i class="dot" style="background:var(--pave)"></i>死亡事故</span>
+        </div>
+        <div class="steps" id="hsteps" style="min-height:9.5em">
+          <div class="step on"><h3>一年的事故，落在城市路網上</h3><p>每個點是一件事故。大多數是受傷事故，死亡事故只占很小一部分。</p></div>
+          <div class="step"><h3 class="red">只看死亡，點太少、太分散</h3><p>死亡事故散落各處，很難看出哪個路口有問題。等到死亡發生才改善，通常已經晚了。</p></div>
+          <div class="step"><h3 class="hl">韓國看的是事故件數</h3><p>易肇事路段改善計畫的選點標準：廣域市 200 公尺內 5 件以上、其他城市 400 公尺內 3 件以上。受傷事故也算進去，問題路口提早浮現。</p></div>
+        </div>
+        <p class="src" style="margin-top:10px">路網與事故點為示意；選點標準出自韓相鎮簡報 p.39 [1]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter solid gutter" id="budget">
+  <div class="wrap">
+    <div class="chapter-head">
+      <p class="eyebrow">兩套改善計畫 · 2025 年預算</p>
+      <h2>先用事故件數找點，<br>再用嚴重度排優先</h2>
+      <p class="lede">韓國有兩套道路改善計畫。地方與都市道路用事故件數選點，國道用加權評分排序，其中事故的部分用 EPDO（當量財損事故），把死亡與受傷事故依嚴重程度換算成同一個單位。</p>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <span class="tag">易肇事路段改善計畫 Black Spot</span>
+        <div class="stat-big">756 <span style="font-size:.45em;color:var(--muted)">億韓元</span></div>
+        <p>道路交通公團（KoROAD）選點，國土交通部改善國道、行政安全部改善地方道路。</p>
+        <div style="overflow-x:auto"><table class="crit">
+          <tr><th>類型</th><th>地區</th><th>門檻</th><th>範圍</th></tr>
+          <tr><td>地點</td><td>廣域市</td><td class="n">5 件以上</td><td>都市道路 200 m 內</td></tr>
+          <tr><td></td><td>其他城市</td><td class="n">3 件以上</td><td>其他道路 400 m 內</td></tr>
+          <tr><td>路段</td><td>廣域市</td><td class="n">17 件以上</td><td>1 km 以上路段</td></tr>
+          <tr><td></td><td>其他城市</td><td class="n">8 件以上</td><td>1 km 以上路段</td></tr>
+        </table></div>
+      </div>
+      <div class="panel">
+        <span class="tag">國道安全改善計畫</span>
+        <div class="stat-big">224 <span style="font-size:.45em;color:var(--muted)">億韓元</span></div>
+        <p>國土交通部自行選點並改善國道，以 100 分評分排序。</p>
+        <div class="bars" data-bars>
+          <div class="bar-row"><span>道路幾何</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">45 分</span></div>
+          <div class="bar-row"><span>事故 EPDO＋交通量</span><div class="bar-track"><div class="bar-fill y" data-w="100"></div></div><span class="bar-val">45 分</span></div>
+          <div class="bar-row"><span>工程費、陳情</span><div class="bar-track"><div class="bar-fill" data-w="22"></div></div><span class="bar-val">10 分</span></div>
+        </div>
+        <p class="muted" style="font-size:14.5px">道路幾何包括曲率半徑、路況、視距、縱坡、車道寬與路肩寬。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(40px,6vw,64px)">
+      <h3 style="margin-bottom:6px">從找出熱點到驗收成效</h3>
+      <p class="muted" style="font-size:15px;margin-bottom:18px">易肇事路段改善計畫的流程，最後一步由選點的同一個單位評估成效。</p>
+      <div class="flow">
+        <div><b>1</b><strong>選點</strong><span class="muted" style="font-size:14.5px">KoROAD、警察廳、道路管理機關</span></div>
+        <div><b>2</b><strong>擬定改善計畫</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
+        <div><b>3</b><strong>施工</strong><span class="muted" style="font-size:14.5px">道路管理機關</span></div>
+        <div><b>4</b><strong>評估成效</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:clamp(40px,6vw,64px)">
+      <div class="panel">
+        <span class="tag">問題：錢沒跟著死亡走</span>
+        <div class="stat-big">75%</div>
+        <p>的死亡發生在地方政府管理的道路上（2020 年：地方道路 2,300 人、國道 781 人）。</p>
+        <div class="stack" style="height:34px;font-size:16px">
+          <div style="width:74.6%;background:var(--pave)">地方 2,300</div>
+          <div style="width:25.4%;background:var(--muted);color:var(--asphalt)">國道 781</div>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="tag">每公里改善預算</span>
+        <div class="stat-big">1/76</div>
+        <p>易肇事路段改善預算：國道每公里 251 萬韓元，廣域市道與地方道路每公里只有 3.3 萬韓元。韓相鎮教授建議提高對地方政府的補助，並評比地方政府與地方警察的道路安全績效。</p>
+        <div class="bars" data-bars>
+          <div class="bar-row"><span>國道</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">251 萬</span></div>
+          <div class="bar-row"><span>地方道路</span><div class="bar-track"><div class="bar-fill r" data-w="1.3"></div></div><span class="bar-val">3.3 萬</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:clamp(20px,3vw,40px)">
+      <span class="tag">濟州：罰款回到地方</span>
+      <p>濟州自治警察 2024 年接手測速照相，449 台的罰款進入濟州地方帳戶。2026 年的 <b class="hl">163 億韓元</b>用在學區與銀髮區安全設施、智慧行人穿越道、易肇事路段改善，以及汰換老舊號誌。</p>
+    </div>
+    <p class="src" style="margin-top:16px">資料：韓相鎮簡報 p.37（地方道路與預算）、p.39–40（選點標準與流程）、p.44（濟州）[1]</p>
+  </div>
+</section>
+
+<!-- ============ 未來課題 ============ -->
+<section class="chapter solid gutter" id="future">
+  <div class="wrap">
+    <div class="chapter-head">
+      <p class="eyebrow">四、還沒做完的事</p>
+      <h2>2023 年起停在 4.9，<br>下一步在地方道路</h2>
+      <p class="lede">死亡人數連續三年持平。韓相鎮教授點出的未來課題，大多落在地方政府管的路、住宅巷道和行人穿越。</p>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <span class="tag">住宅巷道</span>
+        <div class="stat-big">52.9%</div>
+        <p>首爾的事故發生在寬度不到 12 公尺的道路上，占死亡加重傷的 46.3%。住宅區要做 30 km/h 交通寧靜、停止路口和行人優先道路。</p>
+        <p class="src">資料：韓相鎮簡報 p.38 [1]</p>
+      </div>
+      <div class="panel">
+        <span class="tag">道路評估 KoRAP</span>
+        <p>iRAP 每車公里死傷成本（美元）：每升一顆星，風險約減半。聯合國目標是 2030 年前新建道路都達 3 星以上。</p>
+        <div class="stars" id="stars">
+          <div data-h="100"><span>0.19</span></div><div data-h="47"><span>0.09</span></div><div data-h="26"><span>0.05</span></div><div data-h="11"><span>0.02</span></div><div data-h="5"><span>0.01</span></div>
+        </div>
+        <div class="stars-x"><span>1 星</span><span>2 星</span><span>3 星</span><span>4 星</span><span>5 星</span></div>
+        <p class="src">資料：韓相鎮簡報 p.36，引用 iRAP 與聯合國道路安全全球目標 [1]</p>
+      </div>
+    </div>
+
+    <div class="tl" style="margin-top:clamp(48px,7vw,88px)">
+      <div class="tl-row">
+        <div class="tl-year">≤120<small>秒 · 號誌週期</small></div>
+        <div class="tl-body">
+          <h3>以行人等待時間當績效指標</h3>
+          <p>路口號誌週期原則上不超過 120 秒，一個週期給兩次行人時相；以平均行人等待時間作為績效指標，依步行速度設定號誌連鎖。</p>
+          <p class="src">資料：韓相鎮簡報 p.33，引《安全速度 5030 設計運用手冊》[1]</p>
+        </div>
+        <div class="tl-body">
+          <h3>行人庇護島變成預設</h3>
+          <p>很多穿越道超過 70 公尺，高齡者難以一次走完。FHWA 研究指出庇護島可減少 32% 行人事故；行人觸動號誌在英國減少 30% 事故。</p>
+          <p class="src">資料：韓相鎮簡報 p.31，引美國 FHWA 與英國經驗 [1]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 啟示 ============ -->
+<section class="chapter solid gutter" id="lessons" style="padding-top:0">
+  <div class="wrap">
+    <div class="chapter-head">
+      <p class="eyebrow">給台灣的對照</p>
+      <h2>可以直接帶回來討論的六件事</h2>
+    </div>
+    <div class="lessons">
+      <div class="lesson"><h3>受傷人數也要列為目標</h3><p>台灣的死亡人數十幾年持平，受傷人數卻翻倍到 54 萬。只追死亡，會看不到這個趨勢。</p></div>
+      <div class="lesson"><h3>降速不等於塞車</h3><p>奉恩寺路的實測顯示，市區道路的時間花在路口。要談效率，該檢討的是號誌時制，不是速限。</p></div>
+      <div class="lesson"><h3>用事故件數選點，用嚴重度排序</h3><p>韓國用 200 公尺內的事故件數找出問題路口，受傷事故也算；國道再用 EPDO 依嚴重度加權。不必等到有人死亡才改善。</p></div>
+      <div class="lesson"><h3>錢要跟著死亡發生的地方走</h3><p>75% 的死亡在地方道路，每公里預算卻只有國道的 1/76。台灣的縣市道路可能也是類似結構。</p></div>
+      <div class="lesson"><h3>行人優先道路寫進法律</h3><p>沒有人行道的巷子，用法律加重駕駛責任、用鋪面讓人看得懂。對照台灣的人本巷弄與標線型人行道。</p></div>
+      <div class="lesson"><h3>罰款回到地方，變成安全設施</h3><p>濟州自 2024 年接手測速照相，罰款進入地方帳戶，2026 年 163 億韓元用在學區、銀髮區與智慧穿越道。</p></div>
+    </div>
+    <p class="src" style="margin-top:16px">依本頁各段資料整理，出處見頁尾 [1]–[5]。</p>
+  </div>
+</section>
+
+<footer class="gutter">
+  <div class="wrap">
+    <h3 style="color:var(--ink);font-size:20px;margin-bottom:6px">資料來源</h3>
+    <ol class="refs">
+      <li><b>[1]</b> 韓相鎮（Sangjin HAN），首爾大學環境研究所。〈Road Safety Policies in Korea: Achievements and Future Tasks〉，簡報，2026 年 9 月 9 日，共 44 頁。本頁韓國 2010–2025 年死亡人數、OECD 比較、Safe System、各項政策成效、奉恩寺路 5030 實測、選點標準與預算、未來課題皆出自此簡報，頁碼標於各段。簡報中引用的 FHWA、英國號誌經驗、iRAP、聯合國目標與 OECD 數據，均依簡報轉引。各頁數據基準年不同（2016、2019、2020、2022、2024、2025），引用時請註明年份。</li>
+      <li><b>[2]</b> 監察院調查報告，引用交通部道路交通事故統計：台灣 2009–2023 年 30 日死亡與受傷人數。<a href="https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72182" target="_blank" rel="noopener">cybsbox.cy.gov.tw</a></li>
+      <li><b>[3]</b> 韓國警察廳／道路交通公團（KoROAD）交通事故分析系統 TAAS：韓國 2005–2009 年死亡人數、2009–2014 年受傷人數。指標頁面：<a href="https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=1614" target="_blank" rel="noopener">e-나라지표 교통사고 현황</a></li>
+      <li><b>[4]</b> 韓國 2015–2019 年受傷人數交叉比對：<a href="https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/south-korea-number-of-injured-in-road-accidents" target="_blank" rel="noopener">South Korea – Number of Injured in Road Accidents</a>；2020 年受傷人數見簡報 p.3 [1]。</li>
+      <li><b>[5]</b> 每十萬人受傷數為本頁換算：2023 年底台灣人口約 2,342 萬（內政部戶政司），韓國約 5,133 萬（韓國行政安全部住民登錄人口）。結果取概數。</li>
+    </ol>
+    <p style="margin-top:8px">照片與影片：劉冠頡提供，攝於 2026 年 9 月韓國道路安全考察（首爾、世宗）。「錢怎麼分」段落的路網與事故點 3D 圖為示意，非實際事故資料。</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const ss=(a,b,x)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t)};
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C={marking:css('--marking'),pave:css('--pave'),ink:css('--ink'),muted:css('--muted'),line:css('--line'),asphalt2:css('--asphalt-2')};
+
+function prog(el){const r=el.getBoundingClientRect();const span=r.height-innerHeight;return clamp(-r.top/span)}
+function visible(el){const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight}
+
+/* ---------- 資料 ---------- */
+const YEARS=[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const DEATHS=[5505,5229,5392,5092,4762,4621,4292,4185,3781,3349,3081,2916,2735,2551,2521,2549];
+const RATE=[11.1,10.5,10.8,10.1,9.4,9.1,8.4,8.1,7.3,6.5,5.9,5.6,5.3,4.9,4.9,4.9];
+const HERO_D=[6376,6327,6166,5870,5838].concat(DEATHS); // 2005–2025
+/* 受傷人數 */
+const INJ_Y=[2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const INJ_KR=[361875,352458,341391,344565,328711,337497,350400,331720,322829,323037,341712,306194,291608,281803,283799,278482,271751];
+const INJ_TW=[245835,292534,314003,332940,372445,412010,408861,402697,393046,426799,455400,482333,476304,499179,539535,null,null];
+
+/* ---------- 受傷 SVG ---------- */
+const inj=(function(){
+  const svg=document.getElementById('injSvg');const W=1000,H=620,L=92,R=120,T=30,B=60;
+  const x=y=>L+(y-2009)/(2025-2009)*(W-L-R);const yv=v=>T+(1-v/600000)*(H-T-B);
+  let s='';
+  for(let v=0;v<=600000;v+=100000){s+=`<line x1="${L}" x2="${W-R}" y1="${yv(v)}" y2="${yv(v)}" stroke="${C.line}"/><text x="${L-12}" y="${yv(v)+7}" fill="${C.muted}" font-size="20" text-anchor="end" font-family="Barlow Condensed, sans-serif" font-weight="600">${v/10000} 萬</text>`}
+  for(let y=2009;y<=2025;y+=2)s+=`<text x="${x(y)}" y="${H-B+34}" fill="${C.muted}" font-size="20" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="600">${y}</text>`;
+  const path=(arr)=>arr.map((v,i)=>v==null?'':`${i&&arr[i-1]!=null?'L':'M'}${x(INJ_Y[i]).toFixed(1)},${yv(v).toFixed(1)}`).join('');
+  s+=`<defs><clipPath id="injClip"><rect id="injClipR" x="0" y="0" width="${W}" height="${H}"/></clipPath></defs>`;
+  s+=`<g clip-path="url(#injClip)"><path d="${path(INJ_KR)}" fill="none" stroke="${C.marking}" stroke-width="5" stroke-linejoin="round"/><path d="${path(INJ_TW)}" fill="none" stroke="${C.pave}" stroke-width="5" stroke-linejoin="round"/></g>`;
+  s+=`<circle id="injDK" r="8" fill="${C.marking}"/><circle id="injDT" r="8" fill="${C.pave}"/>`;
+  s+=`<text id="injLK" fill="${C.marking}" font-size="22" font-weight="700">韓國</text><text id="injLT" fill="${C.pave}" font-size="22" font-weight="700">台灣</text>`;
+  svg.innerHTML=s;
+  const g=id=>document.getElementById(id);
+  return {x,yv,clip:g('injClipR'),dk:g('injDK'),dt:g('injDT'),lk:g('injLK'),lt:g('injLT'),L,R,W};
+})();
+function setInj(f){ // f: 0..1 → 年份位置
+  const yr=2009+f*16;const i=Math.min(16,Math.floor(yr-2009+1e-6));const fr=yr-2009-i;
+  inj.clip.setAttribute('width',inj.x(yr)+2);
+  const lerp=(a,b)=>a+(b-a)*fr;
+  const kv=i<16?lerp(INJ_KR[i],INJ_KR[i+1]):INJ_KR[16];
+  inj.dk.setAttribute('cx',inj.x(yr));inj.dk.setAttribute('cy',inj.yv(kv));
+  inj.lk.setAttribute('x',inj.x(yr)+14);inj.lk.setAttribute('y',inj.yv(kv)+28);
+  const twEnd=14;const ti=Math.min(i,twEnd);const tv=ti<twEnd&&i<twEnd?lerp(INJ_TW[ti],INJ_TW[ti+1]):INJ_TW[twEnd];const tx=Math.min(yr,2023);
+  inj.dt.setAttribute('cx',inj.x(tx));inj.dt.setAttribute('cy',inj.yv(tv));
+  inj.lt.setAttribute('x',inj.x(tx)+14);inj.lt.setAttribute('y',inj.yv(tv)-14);
+  const yi=Math.round(yr)-2009;
+  document.getElementById('iYear').textContent=2009+yi;
+  document.getElementById('iKR').textContent=fmt(INJ_KR[yi]);
+  document.getElementById('iTW').textContent=INJ_TW[yi]==null?fmt(INJ_TW[14])+'*':fmt(INJ_TW[yi]);
+}
+setInj(0);
+
+/* ---------- 號誌：降速前後旅行時間 ---------- */
+(function sig(){
+  const D=[['00–05','深夜',[335,119],[349,131]],['07–10','早上',[396,138],[405,155]],['13–16','午後',[741,431],[737,430]],['17–20','傍晚尖峰',[713,413],[767,460]]];
+  const MAX=820;
+  const bar=(lab,[t,d])=>`<div class="sig-bar"><span>${lab}</span><div class="sig-track"><div class="sig-fill bar-fill" data-w="${(t/MAX*100).toFixed(1)}" style="width:${(t/MAX*100).toFixed(1)}%"><span class="d" style="width:${(d/t*100).toFixed(1)}%">${d}</span><span class="m" style="width:${(100-d/t*100).toFixed(1)}%">${t-d}</span></div><span class="sig-t" style="left:${(t/MAX*100).toFixed(1)}%">${t}</span></div></div>`;
+  document.getElementById('sigRows').innerHTML=D.map(r=>`<div class="sig-row"><div class="when">${r[0]} 時<small>${r[1]} · 路口占 ${(r[3][1]/r[3][0]*100).toFixed(1)}%</small></div><div class="sig-pair">${bar('降速前',r[2])}${bar('降速後',r[3])}</div></div>`).join('');
+})();
+
+/* ---------- 國際比較 SVG ---------- */
+(function race(){
+  const data=[['瑞典',1980,1998],['英國',1983,1998],['挪威',1987,1996],['以色列',1993,2006],['瑞士',1994,2005],['日本',1995,2006],['丹麥',1996,2004],['德國',1998,2007],['愛爾蘭',2001,2009],['西班牙',2005,2009],['韓國',2013,2020]];
+  const svg=document.getElementById('raceSvg');const W=1000,L=96,R=40,T=40,rowH=40;
+  const x=y=>L+(y-1980)/(2021-1980)*(W-L-R);
+  let s='';
+  for(let y=1980;y<=2020;y+=5){s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${T-14}" y2="${T+data.length*rowH}" stroke="${C.line}" stroke-width="1"/><text x="${x(y)}" y="${T-20}" fill="${C.muted}" font-size="14" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="600">${y}</text>`}
+  data.forEach((d,i)=>{const yy=T+i*rowH+10;const k=d[0]==='韓國';const col=k?C.marking:C.muted;
+    s+=`<text x="${L-14}" y="${yy+15}" fill="${k?C.marking:C.ink}" font-size="16" text-anchor="end" font-weight="${k?700:500}">${d[0]}</text>`;
+    s+=`<rect class="rbar" data-w="${x(d[2])-x(d[1])}" x="${x(d[1])}" y="${yy+2}" width="${x(d[2])-x(d[1])}" height="18" rx="2" fill="${col}" opacity="${k?1:.55}"/>`;
+    s+=`<text class="rlab" x="${x(d[2])+8}" y="${yy+16}" fill="${k?C.marking:C.ink}" font-size="18" font-family="Barlow Condensed, sans-serif" font-weight="700">${d[2]-d[1]} 年</text>`;});
+  svg.setAttribute('viewBox',`0 0 ${W} ${T+data.length*rowH+10}`);svg.innerHTML=s;
+})();
+
+/* ---------- 橫條進場（靜止狀態可見；只把尚未進入畫面的先歸零） ---------- */
+const grow=[...document.querySelectorAll('.bar-fill'),...document.querySelectorAll('#stars div'),...document.querySelectorAll('.rbar')];
+function setFull(el){if(el.classList.contains('rbar'))el.setAttribute('width',el.dataset.w);else if(el.parentElement.id==='stars')el.style.height=el.dataset.h+'%';else el.style.width=el.dataset.w+'%';}
+function setZero(el){if(el.classList.contains('rbar'))el.setAttribute('width',0);else if(el.parentElement.id==='stars')el.style.height='0%';else el.style.width='0%';}
+grow.forEach(setFull);
+if('IntersectionObserver' in window && !reduce){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;requestAnimationFrame(()=>setFull(el));io.unobserve(el)}}),{threshold:.3});
+  grow.forEach(el=>{const r=el.getBoundingClientRect();if(r.top>innerHeight){setZero(el);io.observe(el)}});
+  document.querySelectorAll('.rbar').forEach(el=>{el.style.transition='width 1.4s cubic-bezier(.2,.7,.2,1)'});
+}
+
+/* ---------- 現場卡片 ---------- */
+const CARDS=[
+  ['v','v_IMG_0016.mp4','光化門北側的小型圓環','單車道圓環、中央島植栽。影片中車輛減速進環，讓環內車先行。','簡報 p.34 · 降低進入速度、優先用在單車道道路'],
+  ['p','p0373.jpg','倒三角「양보 YIELD」','號誌桿上掛著「讓」與「회전차량우선」（環內車輛優先），整個路口鋪紅色。','簡報 p.34 · 推廣「讓」的觀念'],
+  ['v','v_IMG_9634.mp4','世宗市新市鎮圓環','入口同時有行人穿越道、自行車穿越道和整排護柱，速限 40 km/h。','簡報 p.18、p.34 · 圓環'],
+  ['v','v_IMG_0069.mp4','鍾路巷口的高架穿越道','支道口和人行道同高，車輛在穿越道前停下讓行人先走。','簡報 p.34 · 建立路口停車的習慣'],
+  ['p','p0065.jpg','人行道不中斷','不同鋪面材質、導盲磚、護柱和斑馬線，讓出入的車知道自己正在穿越人行道。','簡報 p.29、p.31'],
+  ['p','p9140.jpg','縮小轉角半徑','緣石延伸到路口，縮短穿越距離，也逼右轉車減速。','簡報 p.31 · 更安全的行人穿越'],
+  ['p','p9648.jpg','槽化島變成行人等候區','世宗市路口：紅色自行車道沿路口穿越，右轉槽化島上設行人等候空間。','簡報 p.31 · 行人庇護島'],
+  ['p','p0484.jpg','右轉槽化島兼庇護島','首爾忠正路一帶，長距離穿越被切成兩段。','簡報 p.31 · 庇護島可減少 32% 行人事故'],
+  ['p','p0592.jpg','窄巷的低成本人行道','一道低緣石加護柱隔出紅褐色人行道，車道上有 30 速限與自行車標誌。','簡報 p.38 · 首爾 52.9% 事故在 12 m 以下道路'],
+  ['v','v_IMG_0271.mp4','德壽宮旁的公車站','世宗大路上，自行車道從候車亭後方繞過，和候車乘客分開。','補充 · 行人與自行車空間重新分配'],
+  ['p','p0320.jpg','中央分隔欄杆','搭配反光環與「무단횡단금지」（禁止任意穿越）。','補充 · 中央分隔']
+];
+const track=document.getElementById('track');
+track.innerHTML=CARDS.map(c=>`<article class="card"><div class="m">${c[0]==='v'?`<video data-src="media/${c[1]}" poster="media/${c[1].replace('.mp4','.jpg')}" muted loop playsinline preload="none"></video><span class="badge v">影片</span>`:`<img src="media/${c[1]}" alt="${c[2]}">`}</div><h3>${c[2]}</h3><p>${c[3]}</p></article>`).join('')+'<div style="flex:0 0 1px"></div>';
+const vids=[...document.querySelectorAll('video')];
+/* 影片：手機上較保險的載入與播放 */
+vids.forEach(v=>{v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('webkit-playsinline','');v.addEventListener('click',()=>{v.paused?v.play().catch(()=>{}):v.pause()});v.addEventListener('playing',()=>v.closest('.tap')?.classList.remove('tap'))});
+function loadVid(v){
+  if(v.dataset.state)return;v.dataset.state='loading';const url=v.dataset.src;
+  const direct=()=>{v.src=url;v.load();};
+  // 先整段下載成 blob 再播放，避開不支援分段讀取的主機
+  fetch(url).then(r=>{if(!r.ok)throw 0;return r.blob()}).then(b=>{v.src=URL.createObjectURL(new Blob([b],{type:'video/mp4'}));v.load();v.dataset.state='ready';if(v.dataset.want)tryPlay(v)}).catch(()=>{direct();v.dataset.state='ready';if(v.dataset.want)tryPlay(v)});
+}
+function tryPlay(v){const p=v.play();if(p&&p.catch)p.catch(()=>{v.closest('.m,.media-box,.reveal-frame')?.classList.add('tap')})}
+if('IntersectionObserver' in window){
+  const pre=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){loadVid(e.target);pre.unobserve(e.target)}}),{rootMargin:'800px 800px'});
+  const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.dataset.want='1';if(v.dataset.state==='ready')tryPlay(v);else loadVid(v)}else{v.dataset.want='';v.pause()}}),{threshold:.2});
+  vids.forEach(v=>{pre.observe(v);vio.observe(v)});
+}else vids.forEach(v=>{loadVid(v);v.dataset.want='1'});
+
+/* ---------- three.js ---------- */
+const canvas=document.getElementById('gl');
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});}catch(e){renderer=null}
+const hasGL=!!renderer&&typeof THREE!=='undefined';
+if(hasGL){renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x000000,0);}
+const col=h=>new THREE.Color(h);
+
+/* 場景一：每一點一位死者 */
+let hero={};
+if(hasGL){
+  const s=new THREE.Scene();const cam=new THREE.PerspectiveCamera(42,1,.1,100);
+  const N=6376,SAVED=3827;const pos=new Float32Array(N*3),rnd=new Float32Array(N),sv=new Float32Array(N);
+  const cols=92,rows=Math.ceil(N/cols),sp=.112;
+  const idx=[...Array(N).keys()];for(let i=N-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]]}
+  const savedSet=new Set(idx.slice(0,SAVED));
+  for(let i=0;i<N;i++){const cx=i%cols,cz=Math.floor(i/cols);
+    pos[i*3]=(cx-cols/2)*sp+(Math.random()-.5)*.07;pos[i*3+1]=0;pos[i*3+2]=(cz-rows/2)*sp+(Math.random()-.5)*.07;
+    rnd[i]=Math.random();sv[i]=savedSet.has(i)?1:0;}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('aR',new THREE.BufferAttribute(rnd,1));g.setAttribute('aS',new THREE.BufferAttribute(sv,1));
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uP:{value:0},uT:{value:0},uPx:{value:renderer.getPixelRatio()},cR:{value:col(C.pave)},cY:{value:col(C.marking)}},
+  vertexShader:`attribute float aR;attribute float aS;uniform float uP;uniform float uT;uniform float uPx;varying float vS;varying float vA;
+    void main(){vec3 p=position;float st=aR*.6;float t=smoothstep(st,st+.4,uP)*aS;vS=t;
+      p.y+=t*(2.2+aR*1.6)+sin(uT*.8+aR*20.)*.03;p.x+=t*sin(aR*30.)*.6;p.z+=t*cos(aR*30.)*.6-t*1.2;
+      vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;gl_PointSize=(aS>.5?1.:1.)*uPx*(6.0+t*3.)*(9./-mv.z);vA=1.;}`,
+  fragmentShader:`uniform vec3 cR;uniform vec3 cY;varying float vS;void main(){vec2 c=gl_PointCoord-.5;float d=length(c);if(d>.5)discard;float a=smoothstep(.5,.3,d);gl_FragColor=vec4(mix(cR,cY,vS),a*(.95-vS*.15));}`});
+  const pts=new THREE.Points(g,m);s.add(pts);
+  hero={s,cam,m,pts};
+}
+
+/* 場景二：年度死亡 3D 長條 */
+let trend={};
+if(hasGL){
+  const s=new THREE.Scene();const cam=new THREE.PerspectiveCamera(38,1,.1,200);
+  s.add(new THREE.AmbientLight(0xffffff,.45));const dl=new THREE.DirectionalLight(0xffffff,.9);dl.position.set(-6,12,8);s.add(dl);const dl2=new THREE.DirectionalLight(0xffffff,.25);dl2.position.set(8,4,-6);s.add(dl2);
+  const bars=[];const geo=new THREE.BoxGeometry(.72,1,.72);geo.translate(0,.5,0);
+  YEARS.forEach((y,i)=>{const mat=new THREE.MeshStandardMaterial({color:col('#3a4048'),roughness:.6,metalness:.05});const b=new THREE.Mesh(geo,mat);b.position.x=(i-7.5)*1.05;b.scale.y=.001;s.add(b);bars.push(b)});
+  // 路面標線：中央黃線與白色虛線
+  const lineM=new THREE.MeshBasicMaterial({color:col(C.marking)});const ln=new THREE.Mesh(new THREE.PlaneGeometry(18,.05),lineM);ln.rotation.x=-Math.PI/2;ln.position.set(0,.002,.7);s.add(ln);
+  const ln2=ln.clone();ln2.position.z=.8;s.add(ln2);
+  const dashM=new THREE.MeshBasicMaterial({color:col('#5a6068')});for(let i=-8;i<8;i++){const d=new THREE.Mesh(new THREE.PlaneGeometry(.5,.04),dashM);d.rotation.x=-Math.PI/2;d.position.set(i*1.1+.3,.002,-.75);s.add(d)}
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(40,20),new THREE.MeshStandardMaterial({color:col('#15181c'),roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.001;s.add(ground);
+  // 2017 參考線（4,185）
+  const ref=new THREE.Mesh(new THREE.BoxGeometry(17.2,.012,.012),new THREE.MeshBasicMaterial({color:col(C.ink),transparent:true,opacity:.35}));ref.position.y=4.185;s.add(ref);
+  const labels=document.getElementById('trendLabels');
+  const yl=YEARS.map(y=>{const e=document.createElement('span');e.className='glabel';e.textContent=y;labels.appendChild(e);return e});
+  const refL=document.createElement('span');refL.className='glabel';refL.style.transform='translate(0,-50%)';refL.textContent='2017 年水準 4,185';labels.appendChild(refL);
+  trend={s,cam,bars,yl,ref,refL};
+}
+
+/* 場景三：瑞士起司 */
+let cheese={};
+if(hasGL){
+  const s=new THREE.Scene();const cam=new THREE.PerspectiveCamera(40,1,.1,200);
+  s.add(new THREE.AmbientLight(0xffffff,.55));const dl=new THREE.DirectionalLight(0xffffff,.85);dl.position.set(-5,8,6);s.add(dl);const dl2=new THREE.DirectionalLight(0xffffff,.3);dl2.position.set(6,-2,-4);s.add(dl2);
+  let seed=7;const rand=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+  const R=.95;const names=['安全用路人','安全車輛','安全道路','安全速度'];const theta=[.9,2.6,4.2,5.4];
+  const slices=[];
+  names.forEach((nm,i)=>{
+    const sh=new THREE.Shape();const w=1.6,h=1.6,r=.25;
+    sh.moveTo(-w+r,-h);sh.lineTo(w-r,-h);sh.quadraticCurveTo(w,-h,w,-h+r);sh.lineTo(w,h-r);sh.quadraticCurveTo(w,h,w-r,h);sh.lineTo(-w+r,h);sh.quadraticCurveTo(-w,h,-w,h-r);sh.lineTo(-w,-h+r);sh.quadraticCurveTo(-w,-h,-w+r,-h);
+    const holes=[[R*Math.cos(theta[i]),R*Math.sin(theta[i]),.26]];
+    let tries=0;while(holes.length<6&&tries<200){tries++;const hx=(rand()*2-1)*1.15,hy=(rand()*2-1)*1.15,hr=.1+rand()*.17;
+      if(holes.every(o=>Math.hypot(o[0]-hx,o[1]-hy)>o[2]+hr+.12)&&Math.hypot(hx,hy)>.0){
+        // 避免其他洞落在對齊位置附近
+        const ang=Math.atan2(hy,hx)-theta[i];const rx=Math.hypot(hx,hy)*Math.cos(ang),ry=Math.hypot(hx,hy)*Math.sin(ang);
+        if(Math.hypot(rx-R,ry)>hr+.35)holes.push([hx,hy,hr]);}}
+    holes.forEach(o=>{const p=new THREE.Path();p.absarc(o[0],o[1],o[2],0,Math.PI*2,true);sh.holes.push(p)});
+    const geo=new THREE.ExtrudeGeometry(sh,{depth:.14,bevelEnabled:true,bevelThickness:.03,bevelSize:.03,bevelSegments:2,curveSegments:24});geo.translate(0,0,-.07);
+    const mat=new THREE.MeshStandardMaterial({color:col(i===3?C.marking:'#d9a63a'),roughness:.55,metalness:0,transparent:true,opacity:i===3?1:.93});
+    const mesh=new THREE.Mesh(geo,mat);const outer=new THREE.Group();outer.rotation.y=Math.PI/2;outer.position.x=-3.3+i*2.2;outer.add(mesh);s.add(outer);
+    slices.push({outer,mesh,theta:theta[i],off:[1.3,-1.1,.8,2.0][i]});
+  });
+  const rayM=new THREE.MeshBasicMaterial({color:col(C.pave)});const ray=new THREE.Mesh(new THREE.CylinderGeometry(.045,.045,1,12),rayM);ray.rotation.z=Math.PI/2;s.add(ray);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.13,20,16),new THREE.MeshBasicMaterial({color:col(C.pave)}));s.add(head);
+  const crash=new THREE.Mesh(new THREE.RingGeometry(.2,.32,40),new THREE.MeshBasicMaterial({color:col(C.pave),transparent:true,side:THREE.DoubleSide}));crash.rotation.y=Math.PI/2;s.add(crash);
+  // 行人標記
+  const ped=new THREE.Group();const pm=new THREE.MeshStandardMaterial({color:col(C.ink)});const body=new THREE.Mesh(new THREE.CylinderGeometry(.12,.16,.7,16),pm);body.position.y=.35;const hd=new THREE.Mesh(new THREE.SphereGeometry(.13,16,12),pm);hd.position.y=.86;ped.add(body,hd);ped.position.set(5.6,-.55,-R);s.add(ped);
+  const labels=document.getElementById('cheeseLabels');
+  const sl=names.map(n=>{const e=document.createElement('span');e.className='slabel';e.textContent=n;labels.appendChild(e);return e});
+  cheese={s,cam,slices,ray,head,crash,ped,sl,R};
+}
+
+/* 場景四：事故熱點選址 */
+let hot={};
+if(hasGL){
+  const s=new THREE.Scene();const cam=new THREE.PerspectiveCamera(40,1,.1,200);
+  let seed=11;const rand=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+  const G=2.4,NX=9,NZ=6;
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(40,30),new THREE.MeshBasicMaterial({color:col('#15181c')}));ground.rotation.x=-Math.PI/2;ground.position.y=-.01;s.add(ground);
+  const blockM=new THREE.MeshBasicMaterial({color:col('#1d2126')});
+  for(let ix=0;ix<NX-1;ix++)for(let iz=0;iz<NZ-1;iz++){const b=new THREE.Mesh(new THREE.PlaneGeometry(G-.6,G-.6),blockM);b.rotation.x=-Math.PI/2;b.position.set((ix-(NX-1)/2+.5)*G,0,(iz-(NZ-1)/2+.5)*G);s.add(b)}
+  const lineM=new THREE.MeshBasicMaterial({color:col('#3a4048')});
+  for(let ix=0;ix<NX;ix++){const l=new THREE.Mesh(new THREE.PlaneGeometry(.03,(NZ-1)*G+1),lineM);l.rotation.x=-Math.PI/2;l.position.set((ix-(NX-1)/2)*G,.002,0);s.add(l)}
+  for(let iz=0;iz<NZ;iz++){const l=new THREE.Mesh(new THREE.PlaneGeometry((NX-1)*G+1,.03),lineM);l.rotation.x=-Math.PI/2;l.position.set(0,.002,(iz-(NZ-1)/2)*G);s.add(l)}
+  const hotIdx=[[2,1,8],[5,3,6],[6,1,7],[1,4,5],[7,4,6]];
+  const inj=[],fat=[],rIn=[],rFa=[];
+  const hotSet=new Map(hotIdx.map(h=>[h[0]+','+h[1],h[2]]));
+  for(let ix=0;ix<NX;ix++)for(let iz=0;iz<NZ;iz++){
+    const cx=(ix-(NX-1)/2)*G,cz=(iz-(NZ-1)/2)*G;const k=hotSet.get(ix+','+iz);const n=k!=null?k:Math.floor(rand()*3.2);
+    for(let j=0;j<n;j++){const a=rand()*6.283,r=Math.sqrt(rand())*.6;inj.push(cx+Math.cos(a)*r,.06,cz+Math.sin(a)*r);rIn.push(rand())}
+  }
+  for(let j=0;j<46;j++){const ix=Math.floor(rand()*NX),iz=Math.floor(rand()*NZ);const along=rand()<.5;const t=(rand()-.5)*G;
+    inj.push((ix-(NX-1)/2)*G+(along?t:(rand()-.5)*.2),.06,(iz-(NZ-1)/2)*G+(along?(rand()-.5)*.2:t));rIn.push(rand())}
+  const fatPos=[[0,5,.4,0],[3,0,0,.9],[8,2,-.8,0],[4,5,0,-.5],[5,3,.3,.2],[2,3,1.1,0],[7,0,0,0]];
+  fatPos.forEach(f=>{fat.push((f[0]-(NX-1)/2)*G+f[2],.08,(f[1]-(NZ-1)/2)*G+f[3]);rFa.push(rand())});
+  const dotTex=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');g.beginPath();g.arc(32,32,28,0,6.283);g.fillStyle='#fff';g.fill();return new THREE.CanvasTexture(c)})();
+  const mk=(arr,color,size)=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(arr,3));const m=new THREE.PointsMaterial({color:col(color),size,map:dotTex,transparent:true,alphaTest:.05,depthWrite:false,sizeAttenuation:true});const p=new THREE.Points(g,m);s.add(p);return p};
+  const pInj=mk(inj,C.marking,.26),pFat=mk(fat,C.pave,.42);
+  const rings=hotIdx.map(h=>{const m=new THREE.Mesh(new THREE.RingGeometry(.95,1.05,48),new THREE.MeshBasicMaterial({color:col(C.ink),transparent:true,opacity:0,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;m.position.set((h[0]-(NX-1)/2)*G,.05,(h[1]-(NZ-1)/2)*G);s.add(m);return m});
+  const labels=document.getElementById('hotLabels');
+  const rl=hotIdx.map(h=>{const e=document.createElement('span');e.className='slabel';e.style.color=C.ink;e.textContent=h[2]+' 件';labels.appendChild(e);return e});
+  hot={s,cam,pInj,pFat,rings,rl,nInj:inj.length/3};
+}
+
+/* ---------- 尺寸 ---------- */
+function resize(){if(!hasGL)return;renderer.setSize(innerWidth,innerHeight,false);const a=innerWidth/innerHeight;[hero.cam,trend.cam,cheese.cam,hot.cam].forEach(c=>{c.aspect=a;c.updateProjectionMatrix()})}
+addEventListener('resize',resize);resize();
+
+const elHero=document.getElementById('hero'),elTrend=document.getElementById('trend'),elCheese=document.getElementById('cheese'),elReveal=document.getElementById('reveal'),elField=document.getElementById('field');
+const heroCount=document.getElementById('heroCount'),heroYear=document.getElementById('heroYear');
+const tYear=document.getElementById('tYear'),tVal=document.getElementById('tVal'),tRate=document.getElementById('tRate'),tNote=document.getElementById('tNote');
+const revealFrame=document.getElementById('revealFrame'),fieldProg=document.getElementById('fieldProg');
+const steps=[...document.querySelectorAll('#steps .step')];
+const hsteps=[...document.querySelectorAll('#hsteps .step')];
+const elInj=document.getElementById('injury'),elBud=document.getElementById('budget3d');
+const v3=hasGL?new THREE.Vector3():null;
+function toScreen(v,cam){v.project(cam);return [(v.x*.5+.5)*innerWidth,(-v.y*.5+.5)*innerHeight]}
+
+const NOTES=[
+  [2010,2016,y=>`${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>。2010 年代前半每年只少幾百人，在 OECD 國家中屬於後段班。`],
+  [2017,2020,y=>`2018 年起，交通死亡被列為國家目標：四年內減半。安全帶、酒駕、學區、高齡駕駛的措施在這段時間接連上路。${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>。`],
+  [2021,2022,y=>`2021 年 4 月「安全速度 5030」全國實施。${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>，每十萬人死亡率降到 ${RATE[y-2010]}。`],
+  [2023,2025,y=>`2023 年到 2025 年停在每十萬人 <b>4.9</b> 左右，降幅趨緩。比 2017 年少了 1,636 人（−39.1%）。`]
+];
+let lastNote='';
+
+let t0=performance.now();
+function frame(now){
+  const t=(now-t0)/1000;
+  /* reveal 影片 */
+  if(visible(elReveal)){const p=prog(elReveal);const k=ss(0,.55,p);const sc=.56+.44*k;revealFrame.style.transform=`scale(${sc})`;revealFrame.style.borderRadius=`${(1-k)*28}px`;}
+  /* 現場橫向 */
+  if(visible(elField)){const p=prog(elField);const max=track.scrollWidth-innerWidth+32;track.style.transform=`translate3d(${-max*ss(.04,.96,p)}px,0,0)`;fieldProg.style.width=(p*100)+'%';}
+
+  /* hero 數字 */
+  const ph=prog(elHero);const ky=ss(.05,.8,ph);const yearNow=Math.round(2005+ky*20);
+  const val=HERO_D[yearNow-2005];heroCount.textContent=fmt(val);heroYear.textContent=yearNow+(yearNow>2005?'  −'+fmt(6376-val):'');
+  /* 受傷 */
+  if(visible(elInj))setInj(ss(.08,.85,prog(elInj)));
+  /* 選址步驟 */
+  const pb=prog(elBud);const bi=pb<.34?0:pb<.64?1:2;hsteps.forEach((s,i)=>s.classList.toggle('on',i===bi));
+
+  /* trend 文字 */
+  const pt=prog(elTrend);const kt=ss(.05,.88,pt);const shown=Math.min(15,Math.floor(kt*16.0001));const yr=YEARS[shown];
+  tYear.textContent=yr;tVal.textContent=fmt(DEATHS[shown]);tRate.textContent=RATE[shown].toFixed(1);
+  const nt=NOTES.find(n=>yr>=n[0]&&yr<=n[1]);const html=nt[2](yr);if(html!==lastNote){tNote.innerHTML=html;lastNote=html}
+
+  /* cheese 步驟 */
+  const pc=prog(elCheese);const si=pc<.36?0:pc<.66?1:2;steps.forEach((s,i)=>s.classList.toggle('on',i===si));
+
+  if(hasGL){
+    let drew=false;
+    const vh=visible(elHero),vt=visible(elTrend),vc=visible(elCheese);
+    const narrow=innerWidth/innerHeight<.85;
+    renderer.setScissorTest(false);renderer.clear();
+    if(vh){
+      hero.m.uniforms.uP.value=ss(.05,.85,ph);hero.m.uniforms.uT.value=t;
+      const d=narrow?14:10.5;const a=reduce?0:t*.04;
+      hero.cam.position.set(Math.sin(a+ph*.6)*d*.55,6.2-ph*1.6,Math.cos(a+ph*.6)*d);hero.cam.lookAt(narrow?0:-1.8,1.0+ph*.6,0);
+      renderer.render(hero.s,hero.cam);drew=true;
+    }
+    if(vt){
+      trend.bars.forEach((b,i)=>{const h=DEATHS[i]/1000;const on=ss(i/16,i/16+.06,kt);b.scale.y=Math.max(.001,h*on);
+        b.material.color.set(i===shown?C.marking:(YEARS[i]>=2017?'#7c4a42':'#3a4048'));});
+      const d=narrow?33:24;const ang=-.28+pt*.56;
+      trend.cam.position.set(Math.sin(ang)*d,narrow?5.5:4.6,Math.cos(ang)*d);trend.cam.lookAt(0,narrow?3.4:2.3,0);trend.cam.updateMatrixWorld();
+      trend.yl.forEach((e,i)=>{v3.set(trend.bars[i].position.x,-.05,.6);const [x,y]=toScreen(v3,trend.cam);e.style.left=x+'px';e.style.top=(y+6)+'px';e.classList.toggle('on',i===shown);e.style.display=(narrow&&i%3!==0&&i!==shown)?'none':''});
+      v3.set(8.7,4.185,0);const [rx,ry]=toScreen(v3,trend.cam);trend.refL.style.left=(rx+8)+'px';trend.refL.style.top=ry+'px';
+      renderer.render(trend.s,trend.cam);drew=true;
+    }
+    if(vc){
+      const R=cheese.R;
+      const align=ss(.30,.48,pc);const drop=ss(.62,.8,pc);
+      const wob=reduce?0:Math.sin(t*.6);
+      cheese.slices.forEach((sl,i)=>{
+        if(i<3){sl.mesh.rotation.z=-sl.theta+sl.off*(1-align)+wob*.04*(1-align);sl.outer.position.y=0;}
+        else{sl.mesh.rotation.z=-sl.theta+sl.off;sl.outer.position.y=(1-drop)*6;sl.mesh.material.opacity=drop;}
+      });
+      // 光束停在第一道擋住的防線
+      let endX=5.4,blocked=false;
+      for(let i=0;i<4;i++){const sl=cheese.slices[i];if(i===3&&drop<.95)continue;
+        let d=((sl.mesh.rotation.z+sl.theta)%(Math.PI*2)+Math.PI*3)%(Math.PI*2)-Math.PI;
+        if(Math.abs(d)>.16){endX=sl.outer.position.x-.12;blocked=true;break;}}
+      const startX=-6.2;const grow=reduce?1:clamp((t*1.6)%2.4/1.4);const curEnd=startX+(endX-startX)*grow;
+      const len=curEnd-startX;cheese.ray.scale.y=Math.max(.001,len);cheese.ray.position.set(startX+len/2,0,-R);
+      cheese.head.position.set(curEnd,0,-R);
+      const hit=grow>=.99;cheese.crash.position.set(endX-.02,0,-R);cheese.crash.material.opacity=hit?.9:0;cheese.crash.scale.setScalar(hit?1+((t*3)%1)*.8:1);
+      const col2=blocked?C.marking:C.pave;cheese.crash.material.color.set(col2);
+      cheese.ped.children.forEach(c=>c.material.color.set(!blocked&&hit?C.pave:C.ink));
+      const d=narrow?19:14.5;cheese.cam.position.set(-d*.62,3.2-pc*.8,d*.72);cheese.cam.lookAt(narrow?0:1.2,narrow?-.8:-.2,-R*.5);cheese.cam.updateMatrixWorld();
+      cheese.sl.forEach((e,i)=>{const sl=cheese.slices[i];v3.set(sl.outer.position.x,sl.outer.position.y+1.85,0);const [x,y]=toScreen(v3,cheese.cam);e.style.left=x+'px';e.style.top=y+'px';e.style.opacity=i===3?drop:1;e.style.color=i===3?C.marking:C.ink});
+      renderer.render(cheese.s,cheese.cam);drew=true;
+    }
+    if(visible(elBud)){
+      const pop=ss(0,.22,pb);const dim=ss(.34,.42,pb)*(1-ss(.64,.72,pb));const ringA=ss(.66,.76,pb);
+      hot.pInj.geometry.setDrawRange(0,Math.floor(hot.nInj*pop));
+      hot.pInj.material.opacity=.95-dim*.85;
+      hot.pFat.material.size=.42+dim*.35;hot.pFat.material.opacity=pop;
+      const pulse=reduce?0:(t*1.2)%1;
+      hot.rings.forEach(r=>{r.material.opacity=ringA*(1-pulse*.5);r.scale.setScalar(1+pulse*.12*ringA)});
+      const d=narrow?30:21;
+      hot.cam.position.set(narrow?0:-2.5+pb*2,d*.9,d*.62);hot.cam.lookAt(narrow?0:-3.2,0,narrow?.8:.4);hot.cam.updateMatrixWorld();
+      hot.rl.forEach((e,i)=>{const r=hot.rings[i];v3.set(r.position.x,0,r.position.z-1.1);const [x,y]=toScreen(v3,hot.cam);e.style.left=x+'px';e.style.top=y+'px';e.style.opacity=ringA});
+      renderer.render(hot.s,hot.cam);drew=true;
+    }
+    canvas.style.visibility=drew?'visible':'hidden';
+  }
+  requestAnimationFrame(frame);
+}
+if(hasGL)renderer.autoClear=false;
+requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
