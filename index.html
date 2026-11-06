@@ -9,7 +9,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <style>
 /* Layout: 單欄捲動敘事；3D 段落用 sticky 釘住，畫布固定在最底層，一般段落以柏油色底蓋過畫布 */
 :root{
@@ -189,7 +189,7 @@ p{margin:0}
 .card .m img,.card .m video{width:100%;height:100%;object-fit:cover;display:block}
 .card .m .badge{position:absolute;left:12px;top:12px;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:3px;background:rgba(18,20,23,.78);color:var(--ink)}
 .card .m .badge.v{background:var(--pave)}
-.tap::after{content:"▶ 點一下播放";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:8px 16px;border-radius:999px;background:rgba(18,20,23,.8);color:var(--ink);font-size:14px;font-weight:700;pointer-events:none}
+.tap::after{content:var(--tap,"▶ 點一下播放");position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:8px 16px;border-radius:999px;background:rgba(18,20,23,.8);color:var(--ink);font-size:14px;font-weight:700;pointer-events:none}
 .media-box.tap,.reveal-frame.tap{position:relative}
 .card h3{font-size:clamp(19px,1.9vw,23px)}
 .card p{font-size:15.5px;color:var(--ink);opacity:.86;line-height:1.65}
@@ -235,11 +235,23 @@ footer .wrap{display:grid;gap:10px}
 }
 a{color:var(--marking)}
 :focus-visible{outline:2px solid var(--marking);outline-offset:3px}
+
+/* 語言切換（仿 kuan.retwroad.com） */
+.lang{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);right:max(16px,env(safe-area-inset-right,0px));z-index:30;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(18,20,23,.78);border:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lang button{font:inherit;font-size:12.5px;font-weight:800;border:0;background:transparent;color:var(--ink);padding:5px 11px;border-radius:999px;cursor:pointer;min-width:38px;line-height:1.4}
+.lang button:hover{background:var(--asphalt-2);color:var(--marking)}
+.lang button[aria-pressed="true"]{background:var(--marking);color:#121417}
+@media (max-width:700px){.lang button{padding:5px 9px;min-width:34px}}
+html:lang(ja){--f-display:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;--f-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+html:lang(en) h1,html:lang(en) h2{letter-spacing:0}
+.hero-top{padding-right:96px}
+@media (max-width:700px){.hero-top{padding-right:0;padding-top:34px}.trend-ui,.cheese-ui,.inj-wrap{padding-top:calc(env(safe-area-inset-top,0px) + 58px)}}
 </style>
 </head>
 <body>
 
 <canvas id="gl" aria-hidden="true"></canvas>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="true">中</button><button type="button" data-lang="tw" lang="nan-Hant-TW" aria-pressed="false">台</button><button type="button" data-lang="ja" lang="ja" aria-pressed="false">日</button><button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button></div>
 
 <!-- ============ HERO ============ -->
 <section id="hero" class="pin">
@@ -247,24 +259,24 @@ a{color:var(--marking)}
     <div class="shade-l"></div><div class="shade-b"></div>
     <div class="hero-ui gutter">
       <div class="hero-top wrap" style="margin:0;max-width:820px">
-        <p class="eyebrow">2026 年 9 月 · 韓國道路安全考察</p>
-        <h1>20 年，減少<span class="hl">超過一半</span>的生命逝去</h1>
-        <p class="lede">畫面上的每一個點，是 2005 年一位在韓國道路上死去的人。往下捲，看到 2025 年少了多少。</p>
+        <p data-i18n="k000" class="eyebrow">2026 年 9 月 · 韓國道路安全考察</p>
+        <h1 data-i18n="k001">20 年，減少<span class="hl">超過一半</span>的生命逝去</h1>
+        <p data-i18n="k002" class="lede">畫面上的每一個點，是 2005 年一位在韓國道路上死去的人。往下捲，看到 2025 年少了多少。</p>
       </div>
       <div style="display:grid;gap:18px">
         <div class="counter-row">
           <div class="counter num" id="heroCount">6,376</div>
           <div class="counter-meta">
             <span class="y" id="heroYear">2005</span>
-            <span class="muted" style="font-size:15px">年度道路交通事故死亡人數</span>
+            <span data-i18n="k003" class="muted" style="font-size:15px">年度道路交通事故死亡人數</span>
           </div>
         </div>
         <div class="legend">
-          <span><i class="dot" style="background:var(--pave)"></i>當年死亡</span>
-          <span><i class="dot" style="background:var(--marking)"></i>與 2005 年相比，少走的人</span>
-          <span class="scroll-hint">↓ 往下捲動</span>
+          <span data-i18n="k004"><i class="dot" style="background:var(--pave)"></i>當年死亡</span>
+          <span data-i18n="k005"><i class="dot" style="background:var(--marking)"></i>與 2005 年相比，少走的人</span>
+          <span data-i18n="k006" class="scroll-hint">↓ 往下捲動</span>
         </div>
-        <p class="src">資料：2005–2009 年韓國警察廳／道路交通公團 TAAS；2010–2025 年韓相鎮簡報 p.6 [1][3]</p>
+        <p data-i18n="k007" class="src">資料：2005–2009 年韓國警察廳／道路交通公團 TAAS；2010–2025 年韓相鎮簡報 p.6 [1][3]</p>
       </div>
     </div>
   </div>
@@ -277,9 +289,9 @@ a{color:var(--marking)}
       <video data-src="media/v_IMG_9881.mp4" poster="media/v_IMG_9881.jpg" muted loop playsinline autoplay preload="none"></video>
       <div class="reveal-cap gutter">
         <div class="wrap">
-          <p class="eyebrow">首爾 · 光化門一帶 · 2026.9.9</p>
-          <h2>到首爾，<br>看這件事怎麼做到的</h2>
-          <p class="lede" style="font-size:17px">首爾大學環境研究所韓相鎮（Sangjin HAN）教授在 2026 年 9 月 9 日的簡報〈Road Safety Policies in Korea: Achievements and Future Tasks〉。本頁韓國的數據主要出自這份簡報，各段標註頁碼，完整出處列在頁尾。</p>
+          <p data-i18n="k008" class="eyebrow">首爾 · 光化門一帶 · 2026.9.9</p>
+          <h2 data-i18n="k009">到首爾，<br>看這件事怎麼做到的</h2>
+          <p data-i18n="k010" class="lede" style="font-size:17px">首爾大學環境研究所韓相鎮（Sangjin HAN）教授在 2026 年 9 月 9 日的簡報〈Road Safety Policies in Korea: Achievements and Future Tasks〉。本頁韓國的數據主要出自這份簡報，各段標註頁碼，完整出處列在頁尾。</p>
         </div>
       </div>
     </div>
@@ -292,16 +304,16 @@ a{color:var(--marking)}
     <div id="trendLabels" style="position:absolute;inset:0;pointer-events:none"></div>
     <div class="trend-ui gutter">
       <div class="wrap" style="width:100%;display:grid;gap:14px">
-        <p class="eyebrow">一、成就 · 死亡人數 2010–2025</p>
+        <p data-i18n="k011" class="eyebrow">一、成就 · 死亡人數 2010–2025</p>
         <div class="readout">
-          <div><div class="lab">年份</div><div class="yr num" id="tYear">2010</div></div>
-          <div><div class="lab">死亡人數</div><div class="val num" id="tVal">5,505</div></div>
-          <div><div class="lab">每十萬人死亡率</div><div class="val num muted" id="tRate">11.1</div></div>
+          <div><div data-i18n="k012" class="lab">年份</div><div class="yr num" id="tYear">2010</div></div>
+          <div><div data-i18n="k013" class="lab">死亡人數</div><div class="val num" id="tVal">5,505</div></div>
+          <div><div data-i18n="k014" class="lab">每十萬人死亡率</div><div class="val num muted" id="tRate">11.1</div></div>
         </div>
       </div>
       <div class="wrap" style="width:100%">
         <p class="trend-note" id="tNote">2010 年，韓國一年有 <b>5,505 人</b>死於交通事故，在 OECD 國家中屬於後段班。</p>
-        <p class="src" style="margin-top:8px">資料：韓相鎮簡報 p.6（警察廳／道路交通公團統計）[1]</p>
+        <p data-i18n="k015" class="src" style="margin-top:8px">資料：韓相鎮簡報 p.6（警察廳／道路交通公團統計）[1]</p>
       </div>
     </div>
   </div>
@@ -313,19 +325,19 @@ a{color:var(--marking)}
     <div class="gutter inj-wrap">
       <div class="wrap inj-grid">
         <div class="inj-text">
-          <p class="eyebrow">不只看死亡 · 受傷人數</p>
-          <h2 style="font-size:clamp(28px,3.4vw,46px)">台灣只看死亡，<br>受傷人數卻翻了一倍</h2>
-          <p>2009 到 2023 年，台灣的 30 日死亡人數幾乎沒變（3,232 → 3,023），受傷人數卻從 24.6 萬增加到 <b class="red">54.0 萬</b>，創下新高。同一段時間，韓國的受傷人數減少了兩成。</p>
+          <p data-i18n="k016" class="eyebrow">不只看死亡 · 受傷人數</p>
+          <h2 data-i18n="k017" style="font-size:clamp(28px,3.4vw,46px)">台灣只看死亡，<br>受傷人數卻翻了一倍</h2>
+          <p data-i18n="k018">2009 到 2023 年，台灣的 30 日死亡人數幾乎沒變（3,232 → 3,023），受傷人數卻從 24.6 萬增加到 <b class="red">54.0 萬</b>，創下新高。同一段時間，韓國的受傷人數減少了兩成。</p>
           <div class="inj-read">
-            <div><div class="lab">年份</div><div class="num inj-y" id="iYear">2009</div></div>
-            <div><div class="lab"><i class="dot" style="background:var(--pave)"></i>台灣受傷</div><div class="num inj-v red" id="iTW">245,835</div></div>
-            <div><div class="lab"><i class="dot" style="background:var(--marking)"></i>韓國受傷</div><div class="num inj-v hl" id="iKR">361,875</div></div>
+            <div><div data-i18n="k019" class="lab">年份</div><div class="num inj-y" id="iYear">2009</div></div>
+            <div><div data-i18n="k020" class="lab"><i class="dot" style="background:var(--pave)"></i>台灣受傷</div><div class="num inj-v red" id="iTW">245,835</div></div>
+            <div><div data-i18n="k021" class="lab"><i class="dot" style="background:var(--marking)"></i>韓國受傷</div><div class="num inj-v hl" id="iKR">361,875</div></div>
           </div>
-          <p class="muted" style="font-size:15px">韓國人口約是台灣的 2.2 倍。換算成每十萬人，2023 年台灣約 <b style="color:var(--ink)">2,300 人</b>受傷，韓國約 <b style="color:var(--ink)">550 人</b>，相差四倍多。<br><span class="src">* 台灣數據目前到 2023 年。</span></p>
+          <p data-i18n="k022" class="muted" style="font-size:15px">韓國人口約是台灣的 2.2 倍。換算成每十萬人，2023 年台灣約 <b style="color:var(--ink)">2,300 人</b>受傷，韓國約 <b style="color:var(--ink)">550 人</b>，相差四倍多。<br><span class="src">* 台灣數據目前到 2023 年。</span></p>
         </div>
         <div class="inj-chart"><svg id="injSvg" viewBox="0 0 1000 620" role="img" aria-label="2009 至 2025 年台灣與韓國道路交通事故受傷人數"></svg></div>
       </div>
-      <p class="src wrap" style="margin-top:14px;width:100%">資料：台灣為監察院調查報告引用之交通部統計（2009–2023，30 日死亡與受傷）[2]；韓國 2009–2020 為警察廳／道路交通公團 TAAS [3][4]，2021–2025 為韓相鎮簡報 p.3 [1]；每十萬人換算用 2023 年人口 [5]。</p>
+      <p data-i18n="k023" class="src wrap" style="margin-top:14px;width:100%">資料：台灣為監察院調查報告引用之交通部統計（2009–2023，30 日死亡與受傷）[2]；韓國 2009–2020 為警察廳／道路交通公團 TAAS [3][4]，2021–2025 為韓相鎮簡報 p.3 [1]；每十萬人換算用 2023 年人口 [5]。</p>
     </div>
   </div>
 </section>
@@ -334,19 +346,19 @@ a{color:var(--marking)}
 <section class="chapter solid gutter" id="race">
   <div class="wrap">
     <div class="chapter-head">
-      <p class="eyebrow">國際比較</p>
-      <h2>每十萬人死亡率從 10 降到 5.9，<br>瑞典花了 18 年，韓國只用 <span class="hl">7 年</span></h2>
-      <p class="lede">2013 年到 2020 年，韓國用比 OECD 先進國家更短的時間跨過同一段距離。每萬輛車死亡率從 2 降到 1.1 也只花 6 年，日本是 17 年。</p>
+      <p data-i18n="k024" class="eyebrow">國際比較</p>
+      <h2 data-i18n="k025">每十萬人死亡率從 10 降到 5.9，<br>瑞典花了 18 年，韓國只用 <span class="hl">7 年</span></h2>
+      <p data-i18n="k026" class="lede">2013 年到 2020 年，韓國用比 OECD 先進國家更短的時間跨過同一段距離。每萬輛車死亡率從 2 降到 1.1 也只花 6 年，日本是 17 年。</p>
     </div>
     <div class="race-wrap">
       <div class="race"><svg id="raceSvg" viewBox="0 0 1000 520" role="img" aria-label="各國每十萬人死亡率從10降到5.9所花的年數"></svg></div>
-      <p class="src">資料：韓相鎮簡報 p.9–10（OECD 國家比較）[1]。年數依簡報表格；愛爾蘭箭頭圖寫 9 年、表格寫 8 年，此處採表格。</p>
+      <p data-i18n="k027" class="src">資料：韓相鎮簡報 p.9–10（OECD 國家比較）[1]。年數依簡報表格；愛爾蘭箭頭圖寫 9 年、表格寫 8 年，此處採表格。</p>
       <div class="bignote" style="margin-top:28px">
-        <div><div class="k num">4.9</div><div class="muted" style="margin-top:10px">2024 年每十萬人死亡率<br>OECD 平均 4.73</div></div>
-        <div><div class="k num" style="color:var(--ink)">0.84</div><div class="muted" style="margin-top:10px">2024 年每萬輛車死亡率<br>OECD 平均 0.82</div></div>
-        <p style="max-width:22em;padding-bottom:6px">從 OECD 後段班走到中段。2016 年只有首爾、釜山、仁川三個市道優於 OECD 平均，2024 年增加到九個。</p>
+        <div><div class="k num">4.9</div><div data-i18n="k028" class="muted" style="margin-top:10px">2024 年每十萬人死亡率<br>OECD 平均 4.73</div></div>
+        <div><div class="k num" style="color:var(--ink)">0.84</div><div data-i18n="k029" class="muted" style="margin-top:10px">2024 年每萬輛車死亡率<br>OECD 平均 0.82</div></div>
+        <p data-i18n="k030" style="max-width:22em;padding-bottom:6px">從 OECD 後段班走到中段。2016 年只有首爾、釜山、仁川三個市道優於 OECD 平均，2024 年增加到九個。</p>
       </div>
-      <p class="src">資料：韓相鎮簡報 p.4–5 [1]</p>
+      <p data-i18n="k031" class="src">資料：韓相鎮簡報 p.4–5 [1]</p>
     </div>
   </div>
 </section>
@@ -357,16 +369,16 @@ a{color:var(--marking)}
     <div id="cheeseLabels" style="position:absolute;inset:0;pointer-events:none"></div>
     <div class="cheese-ui gutter">
       <div class="wrap" style="width:100%;display:grid;gap:14px">
-        <p class="eyebrow">二、Safe System 安全系統</p>
-        <p class="quote">「我們改變不了人性，但可以改變人所處的條件。」<br><span class="src" style="font-style:normal">James Reason · 韓相鎮簡報 p.14</span></p>
+        <p data-i18n="k032" class="eyebrow">二、Safe System 安全系統</p>
+        <p data-i18n="k033" class="quote">「我們改變不了人性，但可以改變人所處的條件。」<br><span class="src" style="font-style:normal">James Reason · 韓相鎮簡報 p.14</span></p>
       </div>
       <div class="wrap" style="width:100%">
         <div class="steps" id="steps">
-          <div class="step on" data-i="0"><h3>每一片起司，是一道防線</h3><p>用路人、車輛、道路各是一道防線，每一道都有洞：分心、超速、視線不良、設計缺陷。只要有一道擋住，事故就不會發生。</p></div>
-          <div class="step" data-i="1"><h3 class="red">洞剛好對齊時，事故就發生了</h3><p>個人取向把責任推給犯錯的人：懲罰、再訓練、究責。系統取向承認人一定會犯錯，追問防線為什麼同時失效。</p></div>
-          <div class="step" data-i="2"><h3 class="hl">再加一道：安全速度</h3><p>車與路無法把衝擊控制在人體能承受的範圍內時，就調降速限。這是瑞典 Vision Zero 的責任分擔：系統設計者為整體安全水準負責。</p></div>
+          <div class="step on" data-i="0"><h3 data-i18n="k034">每一片起司，是一道防線</h3><p data-i18n="k035">用路人、車輛、道路各是一道防線，每一道都有洞：分心、超速、視線不良、設計缺陷。只要有一道擋住，事故就不會發生。</p></div>
+          <div class="step" data-i="1"><h3 data-i18n="k036" class="red">洞剛好對齊時，事故就發生了</h3><p data-i18n="k037">個人取向把責任推給犯錯的人：懲罰、再訓練、究責。系統取向承認人一定會犯錯，追問防線為什麼同時失效。</p></div>
+          <div class="step" data-i="2"><h3 data-i18n="k038" class="hl">再加一道：安全速度</h3><p data-i18n="k039">車與路無法把衝擊控制在人體能承受的範圍內時，就調降速限。這是瑞典 Vision Zero 的責任分擔：系統設計者為整體安全水準負責。</p></div>
         </div>
-        <p class="src" style="margin-top:10px">資料：韓相鎮簡報 p.14–17（瑞士起司模型、Vision Zero、Safe System）[1]</p>
+        <p data-i18n="k040" class="src" style="margin-top:10px">資料：韓相鎮簡報 p.14–17（瑞士起司模型、Vision Zero、Safe System）[1]</p>
       </div>
     </div>
   </div>
@@ -376,43 +388,43 @@ a{color:var(--marking)}
 <section class="chapter solid gutter" id="measures">
   <div class="wrap">
     <div class="chapter-head">
-      <p class="eyebrow">三、做對的事</p>
-      <h2>2018 年起，<br>把交通死亡當成國家目標</h2>
-      <p class="lede">2018 年 1 月，總統新年致詞把自殺、交通事故、職災死亡列為「保護國民生命三大計畫」，目標在 2022 年前把交通死亡從 4,292 人（2016）減半。國務調整室副首長每季開會檢查，各部會每兩個月回報一次。</p>
-      <p class="src">資料：韓相鎮簡報 p.20 [1]</p>
+      <p data-i18n="k041" class="eyebrow">三、做對的事</p>
+      <h2 data-i18n="k042">2018 年起，<br>把交通死亡當成國家目標</h2>
+      <p data-i18n="k043" class="lede">2018 年 1 月，總統新年致詞把自殺、交通事故、職災死亡列為「保護國民生命三大計畫」，目標在 2022 年前把交通死亡從 4,292 人（2016）減半。國務調整室副首長每季開會檢查，各部會每兩個月回報一次。</p>
+      <p data-i18n="k044" class="src">資料：韓相鎮簡報 p.20 [1]</p>
     </div>
 
     <div class="tl">
       <div class="tl-row">
-        <div class="tl-year">2018.9<small>全座位安全帶</small></div>
+        <div class="tl-year">2018.9<small data-i18n="k045">全座位安全帶</small></div>
         <div class="tl-body">
-          <h3>所有道路、所有座位都要繫安全帶</h3>
-          <p>原本只有高速公路要求全座位繫安全帶，改為所有道路。違規罰駕駛 3 萬韓元。</p>
-          <p class="src">資料：韓相鎮簡報 p.21 [1]</p>
+          <h3 data-i18n="k046">所有道路、所有座位都要繫安全帶</h3>
+          <p data-i18n="k047">原本只有高速公路要求全座位繫安全帶，改為所有道路。違規罰駕駛 3 萬韓元。</p>
+          <p data-i18n="k048" class="src">資料：韓相鎮簡報 p.21 [1]</p>
         </div>
         <div class="tl-fig">
-          <p class="src">後座安全帶使用率</p>
+          <p data-i18n="k049" class="src">後座安全帶使用率</p>
           <div class="bars" data-bars>
-            <div class="bar-row"><span>德國</span><div class="bar-track"><div class="bar-fill" data-w="98"></div></div><span class="bar-val">98%</span></div>
-            <div class="bar-row"><span>日本</span><div class="bar-track"><div class="bar-fill" data-w="35"></div></div><span class="bar-val">35%</span></div>
-            <div class="bar-row"><span>韓國</span><div class="bar-track"><div class="bar-fill r" data-w="22"></div></div><span class="bar-val">22%</span></div>
+            <div class="bar-row"><span data-i18n="k050">德國</span><div class="bar-track"><div class="bar-fill" data-w="98"></div></div><span class="bar-val">98%</span></div>
+            <div class="bar-row"><span data-i18n="k051">日本</span><div class="bar-track"><div class="bar-fill" data-w="35"></div></div><span class="bar-val">35%</span></div>
+            <div class="bar-row"><span data-i18n="k052">韓國</span><div class="bar-track"><div class="bar-fill r" data-w="22"></div></div><span class="bar-val">22%</span></div>
           </div>
         </div>
       </div>
 
       <div class="tl-row">
-        <div class="tl-year">2018.12<small>尹昌浩法</small></div>
+        <div class="tl-year">2018.12<small data-i18n="k053">尹昌浩法</small></div>
         <div class="tl-body">
-          <h3>酒駕：標準更嚴，刑期更重</h3>
+          <h3 data-i18n="k054">酒駕：標準更嚴，刑期更重</h3>
           <ul>
-            <li>酒駕標準 BAC 0.05% → <b class="hl">0.03%</b>；吊照 0.1% → 0.08%</li>
-            <li>酒駕致死：最低 1 年 → 無期徒刑或最低 3 年</li>
-            <li>三振改兩振，禁考期間 1 年延長為 2 年</li>
+            <li data-i18n="k055">酒駕標準 BAC 0.05% → <b class="hl">0.03%</b>；吊照 0.1% → 0.08%</li>
+            <li data-i18n="k056">酒駕致死：最低 1 年 → 無期徒刑或最低 3 年</li>
+            <li data-i18n="k057">三振改兩振，禁考期間 1 年延長為 2 年</li>
           </ul>
-          <p class="src">資料：韓相鎮簡報 p.23 [1]</p>
+          <p data-i18n="k058" class="src">資料：韓相鎮簡報 p.23 [1]</p>
         </div>
         <div class="tl-fig">
-          <p class="src">酒駕死亡人數</p>
+          <p data-i18n="k059" class="src">酒駕死亡人數</p>
           <div class="bars" data-bars>
             <div class="bar-row"><span>2018</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">346</span></div>
             <div class="bar-row"><span>2019</span><div class="bar-track"><div class="bar-fill" data-w="85.3"></div></div><span class="bar-val">295</span></div>
@@ -422,65 +434,65 @@ a{color:var(--marking)}
       </div>
 
       <div class="tl-row">
-        <div class="tl-year">2018–<small>高齡者與職業駕駛</small></div>
+        <div class="tl-year">2018–<small data-i18n="k060">高齡者與職業駕駛</small></div>
         <div class="tl-body">
-          <h3>高齡死亡占 45.5%，是高齡人口比例的 3 倍</h3>
+          <h3 data-i18n="k061">高齡死亡占 45.5%，是高齡人口比例的 3 倍</h3>
           <ul>
-            <li>75 歲以上駕駛適性檢查從每 5 年改為每 3 年，加入認知能力自我檢測</li>
-            <li>65 歲以上主動繳回駕照，發給免費交通卡</li>
-            <li>公車司機納入每週 52 小時工時上限，從「做二休一、每天近 15 小時」改為做一休一</li>
-            <li>防踩錯踏板裝置：2026 年試辦 3,260 輛，2029 年起新車強制</li>
+            <li data-i18n="k062">75 歲以上駕駛適性檢查從每 5 年改為每 3 年，加入認知能力自我檢測</li>
+            <li data-i18n="k063">65 歲以上主動繳回駕照，發給免費交通卡</li>
+            <li data-i18n="k064">公車司機納入每週 52 小時工時上限，從「做二休一、每天近 15 小時」改為做一休一</li>
+            <li data-i18n="k065">防踩錯踏板裝置：2026 年試辦 3,260 輛，2029 年起新車強制</li>
           </ul>
-          <p class="src">資料：韓相鎮簡報 p.22、p.24 [1]</p>
+          <p data-i18n="k066" class="src">資料：韓相鎮簡報 p.22、p.24 [1]</p>
         </div>
         <div class="tl-fig">
           <div class="stat-big"><span>31.8</span><span class="arrow">→</span><span class="red">45.5%</span></div>
-          <p class="muted" style="font-size:15px">死者中 65 歲以上的比例（2010 → 2019）。高齡人口比例只有 15.4%。</p>
+          <p data-i18n="k067" class="muted" style="font-size:15px">死者中 65 歲以上的比例（2010 → 2019）。高齡人口比例只有 15.4%。</p>
         </div>
       </div>
 
       <div class="tl-row">
-        <div class="tl-year">2019<small>金民植法</small></div>
+        <div class="tl-year">2019<small data-i18n="k068">金民植法</small></div>
         <div class="tl-body">
-          <h3>學區：測速照相、減速丘、取消停車</h3>
-          <p>2019 年 9 月忠南牙山學區事故後立法。學區增設測速照相、減速丘與號誌，取消路邊停車；在學區撞死兒童處無期徒刑或 3 年以上，罰鍰加重為 3 倍。</p>
+          <h3 data-i18n="k069">學區：測速照相、減速丘、取消停車</h3>
+          <p data-i18n="k070">2019 年 9 月忠南牙山學區事故後立法。學區增設測速照相、減速丘與號誌，取消路邊停車；在學區撞死兒童處無期徒刑或 3 年以上，罰鍰加重為 3 倍。</p>
           <div class="bars" data-bars style="margin-top:6px">
-            <div class="bar-row"><span>測速照相 2019</span><div class="bar-track"><div class="bar-fill" data-w="6"></div></div><span class="bar-val">6%</span></div>
+            <div class="bar-row"><span data-i18n="k071">測速照相 2019</span><div class="bar-track"><div class="bar-fill" data-w="6"></div></div><span class="bar-val">6%</span></div>
             <div class="bar-row"><span>2020</span><div class="bar-track"><div class="bar-fill" data-w="21"></div></div><span class="bar-val">21%</span></div>
             <div class="bar-row"><span>2021</span><div class="bar-track"><div class="bar-fill y" data-w="54"></div></div><span class="bar-val">54%</span></div>
           </div>
-          <p class="muted" style="font-size:15px">一年後：學區事故 567 → 483 件（−15%），死亡事故 6 → 3 件。</p>
-          <p class="src">資料：韓相鎮簡報 p.25 [1]</p>
+          <p data-i18n="k072" class="muted" style="font-size:15px">一年後：學區事故 567 → 483 件（−15%），死亡事故 6 → 3 件。</p>
+          <p data-i18n="k073" class="src">資料：韓相鎮簡報 p.25 [1]</p>
         </div>
         <div class="tl-fig">
           <img src="media/p0612.jpg" alt="首爾住宅區學區路面，寫著어린이 보호구역與紅底 30 速限標字">
-          <p class="src">首爾 · 學區路面「어린이 보호구역」與 30 速限標字</p>
+          <p data-i18n="k074" class="src">首爾 · 學區路面「어린이 보호구역」與 30 速限標字</p>
         </div>
       </div>
 
       <div class="tl-row">
-        <div class="tl-year">2021.4<small>安全速度 5030</small></div>
+        <div class="tl-year">2021.4<small data-i18n="k075">安全速度 5030</small></div>
         <div class="tl-body">
-          <h3>都市道路 50，住宅與學區巷道 30</h3>
-          <p>2021 年 4 月 17 日全國實施。口號是「速度降下來，行人就看得見」。警察廳、國土交通部、行政安全部共同成立「5030 協議會」，研究機構與學會組成諮詢團，並出版《安全速度 5030 設計運用手冊》。</p>
-          <p class="src">資料：韓相鎮簡報 p.26 [1]</p>
+          <h3 data-i18n="k076">都市道路 50，住宅與學區巷道 30</h3>
+          <p data-i18n="k077">2021 年 4 月 17 日全國實施。口號是「速度降下來，行人就看得見」。警察廳、國土交通部、行政安全部共同成立「5030 協議會」，研究機構與學會組成諮詢團，並出版《安全速度 5030 設計運用手冊》。</p>
+          <p data-i18n="k078" class="src">資料：韓相鎮簡報 p.26 [1]</p>
         </div>
         <div class="tl-fig">
           <img src="media/p9848.jpg" alt="從巴士車窗看到的首爾道路，路旁有 SLOW 行人警告標誌與 50 速限標誌">
-          <p class="src">首爾 · 巴士車窗外的「천천히 SLOW」與 50 km/h 速限</p>
+          <p data-i18n="k079" class="src">首爾 · 巴士車窗外的「천천히 SLOW」與 50 km/h 速限</p>
         </div>
       </div>
 
       <div class="tl-row">
-        <div class="tl-year">2022<small>行人優先道路</small></div>
+        <div class="tl-year">2022<small data-i18n="k080">行人優先道路</small></div>
         <div class="tl-body">
-          <h3>沒有人行道的路，駕駛要讓行人</h3>
-          <p>2022 年《道路交通法》把「보행자우선도로」入法：速限 20 km/h 以下，或與步行速度相同；停車只能停在指定位置。手法以鋪面材質和色彩為主，不另外分隔人行道。</p>
-          <p class="src">資料：韓相鎮簡報 p.29 [1]</p>
+          <h3 data-i18n="k081">沒有人行道的路，駕駛要讓行人</h3>
+          <p data-i18n="k082">2022 年《道路交通法》把「보행자우선도로」入法：速限 20 km/h 以下，或與步行速度相同；停車只能停在指定位置。手法以鋪面材質和色彩為主，不另外分隔人行道。</p>
+          <p data-i18n="k083" class="src">資料：韓相鎮簡報 p.29 [1]</p>
         </div>
         <div class="tl-fig">
           <img src="media/p0380.jpg" alt="首爾市區紅色鋪面路口，大量行人穿越">
-          <p class="src">首爾市區 · 整片紅色鋪面的行人優先路口</p>
+          <p data-i18n="k084" class="src">首爾市區 · 整片紅色鋪面的行人優先路口</p>
         </div>
       </div>
     </div>
@@ -494,25 +506,25 @@ a{color:var(--marking)}
       <div class="media-box"><video data-src="media/v_IMG_9844.mp4" poster="media/v_IMG_9844.jpg" muted loop playsinline autoplay preload="none"></video></div>
       <div style="display:grid;gap:22px;min-width:0">
         <div class="signs"><span class="sign">50</span><span class="sign">30</span></div>
-        <p class="eyebrow">首爾奉恩寺路 · 5030 降速前後實測</p>
-        <h2 style="font-size:clamp(30px,4.2vw,56px)">市區的效率<br>看的是<span class="hl">紅綠燈</span>，不是速限</h2>
-        <p>降速最常聽到的反對是「會塞車」。首爾在奉恩寺路做了降速前後的實測：四個時段的旅行時間差異，在統計上都不顯著。</p>
+        <p data-i18n="k085" class="eyebrow">首爾奉恩寺路 · 5030 降速前後實測</p>
+        <h2 data-i18n="k086" style="font-size:clamp(30px,4.2vw,56px)">市區的效率<br>看的是<span class="hl">紅綠燈</span>，不是速限</h2>
+        <p data-i18n="k087">降速最常聽到的反對是「會塞車」。首爾在奉恩寺路做了降速前後的實測：四個時段的旅行時間差異，在統計上都不顯著。</p>
       </div>
     </div>
 
     <div class="chapter-head" style="margin-bottom:28px">
-      <h3>同一條路、同一段距離，降速前後的旅行時間</h3>
-      <p class="muted" style="font-size:15px"><i class="dot" style="background:var(--pave)"></i>在路口停等的時間　<i class="dot" style="background:#4a5058;margin-left:14px"></i>在路段上行駛的時間　· 單位：秒，平均值</p>
+      <h3 data-i18n="k088">同一條路、同一段距離，降速前後的旅行時間</h3>
+      <p data-i18n="k089" class="muted" style="font-size:15px"><i class="dot" style="background:var(--pave)"></i>在路口停等的時間　<i class="dot" style="background:#4a5058;margin-left:14px"></i>在路段上行駛的時間　· 單位：秒，平均值</p>
     </div>
     <div class="sig-rows" id="sigRows"></div>
 
     <div class="kpis">
-      <div class="kpi"><div class="stat-big hl">−3 ~ +54</div><p>秒。四個時段降速前後的平均旅行時間差，統計上都不顯著。</p></div>
-      <div class="kpi"><div class="stat-big red">57.6%</div><p>傍晚尖峰（17–20 時），767 秒裡有 460 秒停在路口。白天時段也有 55% 以上。</p></div>
-      <div class="kpi"><div class="stat-big">13–28</div><p>km/h。這條路實際的空間平均速度。車子本來就跑不到 50，速限從來不是瓶頸。</p></div>
+      <div class="kpi"><div class="stat-big hl">−3 ~ +54</div><p data-i18n="k090">秒。四個時段降速前後的平均旅行時間差，統計上都不顯著。</p></div>
+      <div class="kpi"><div class="stat-big red">57.6%</div><p data-i18n="k091">傍晚尖峰（17–20 時），767 秒裡有 460 秒停在路口。白天時段也有 55% 以上。</p></div>
+      <div class="kpi"><div class="stat-big">13–28</div><p data-i18n="k092">km/h。這條路實際的空間平均速度。車子本來就跑不到 50，速限從來不是瓶頸。</p></div>
     </div>
-    <p class="hl" style="font-weight:700;font-size:clamp(19px,2vw,24px);margin-top:clamp(36px,5vw,56px);max-width:34em">要讓市區道路更有效率，該檢討的是號誌週期、時相和連鎖。這也是韓國接下來把號誌週期壓到 120 秒以內、改用行人等待時間當指標的原因。</p>
-    <p class="src" style="margin-top:12px">資料：韓相鎮簡報 p.27–28，首爾奉恩寺路 5030 實施前後比較（樣本 24–61 趟）[1]；號誌週期與行人等待時間見 p.33。</p>
+    <p data-i18n="k093" class="hl" style="font-weight:700;font-size:clamp(19px,2vw,24px);margin-top:clamp(36px,5vw,56px);max-width:34em">要讓市區道路更有效率，該檢討的是號誌週期、時相和連鎖。這也是韓國接下來把號誌週期壓到 120 秒以內、改用行人等待時間當指標的原因。</p>
+    <p data-i18n="k094" class="src" style="margin-top:12px">資料：韓相鎮簡報 p.27–28，首爾奉恩寺路 5030 實施前後比較（樣本 24–61 趟）[1]；號誌週期與行人等待時間見 p.33。</p>
   </div>
 </section>
 
@@ -520,8 +532,8 @@ a{color:var(--marking)}
 <section id="field" class="pin solid">
   <div class="stick">
     <div class="gutter"><div class="wrap field-head">
-      <div style="display:grid;gap:10px"><p class="eyebrow">現場 · 首爾與世宗</p><h2 style="font-size:clamp(30px,4.4vw,56px)">在街上看到的韓國</h2></div>
-      <p class="muted" style="max-width:24em;font-size:15px">照片與影片為考察期間拍攝。</p>
+      <div style="display:grid;gap:10px"><p data-i18n="k095" class="eyebrow">現場 · 首爾與世宗</p><h2 data-i18n="k096" style="font-size:clamp(30px,4.4vw,56px)">在街上看到的韓國</h2></div>
+      <p data-i18n="k097" class="muted" style="max-width:24em;font-size:15px">照片與影片為考察期間拍攝。</p>
     </div></div>
     <div class="track" id="track"></div>
     <div class="progress"><i id="fieldProg"></i></div>
@@ -535,20 +547,20 @@ a{color:var(--marking)}
     <div id="hotLabels" style="position:absolute;inset:0;pointer-events:none"></div>
     <div class="cheese-ui gutter">
       <div class="wrap" style="width:100%;display:grid;gap:14px">
-        <p class="eyebrow">五、錢怎麼分 · 改善哪些路口</p>
-        <h2 style="font-size:clamp(28px,4vw,52px);max-width:14em">要改善死亡多的路口，<br>還是事故多的路口？</h2>
+        <p data-i18n="k098" class="eyebrow">五、錢怎麼分 · 改善哪些路口</p>
+        <h2 data-i18n="k099" style="font-size:clamp(28px,4vw,52px);max-width:14em">要改善死亡多的路口，<br>還是事故多的路口？</h2>
       </div>
       <div class="wrap" style="width:100%">
         <div class="legend" style="margin-bottom:14px">
-          <span><i class="dot" style="background:var(--marking)"></i>受傷事故</span>
-          <span><i class="dot" style="background:var(--pave)"></i>死亡事故</span>
+          <span data-i18n="k100"><i class="dot" style="background:var(--marking)"></i>受傷事故</span>
+          <span data-i18n="k101"><i class="dot" style="background:var(--pave)"></i>死亡事故</span>
         </div>
         <div class="steps" id="hsteps" style="min-height:9.5em">
-          <div class="step on"><h3>一年的事故，落在城市路網上</h3><p>每個點是一件事故。大多數是受傷事故，死亡事故只占很小一部分。</p></div>
-          <div class="step"><h3 class="red">只看死亡，點太少、太分散</h3><p>死亡事故散落各處，很難看出哪個路口有問題。等到死亡發生才改善，通常已經晚了。</p></div>
-          <div class="step"><h3 class="hl">韓國看的是事故件數</h3><p>易肇事路段改善計畫的選點標準：廣域市 200 公尺內 5 件以上、其他城市 400 公尺內 3 件以上。受傷事故也算進去，問題路口提早浮現。</p></div>
+          <div class="step on"><h3 data-i18n="k102">一年的事故，落在城市路網上</h3><p data-i18n="k103">每個點是一件事故。大多數是受傷事故，死亡事故只占很小一部分。</p></div>
+          <div class="step"><h3 data-i18n="k104" class="red">只看死亡，點太少、太分散</h3><p data-i18n="k105">死亡事故散落各處，很難看出哪個路口有問題。等到死亡發生才改善，通常已經晚了。</p></div>
+          <div class="step"><h3 data-i18n="k106" class="hl">韓國看的是事故件數</h3><p data-i18n="k107">易肇事路段改善計畫的選點標準：廣域市 200 公尺內 5 件以上、其他城市 400 公尺內 3 件以上。受傷事故也算進去，問題路口提早浮現。</p></div>
         </div>
-        <p class="src" style="margin-top:10px">路網與事故點為示意；選點標準出自韓相鎮簡報 p.39 [1]</p>
+        <p data-i18n="k108" class="src" style="margin-top:10px">路網與事故點為示意；選點標準出自韓相鎮簡報 p.39 [1]</p>
       </div>
     </div>
   </div>
@@ -557,73 +569,73 @@ a{color:var(--marking)}
 <section class="chapter solid gutter" id="budget">
   <div class="wrap">
     <div class="chapter-head">
-      <p class="eyebrow">兩套改善計畫 · 2025 年預算</p>
-      <h2>先用事故件數找點，<br>再用嚴重度排優先</h2>
-      <p class="lede">韓國有兩套道路改善計畫。地方與都市道路用事故件數選點，國道用加權評分排序，其中事故的部分用 EPDO（當量財損事故），把死亡與受傷事故依嚴重程度換算成同一個單位。</p>
+      <p data-i18n="k109" class="eyebrow">兩套改善計畫 · 2025 年預算</p>
+      <h2 data-i18n="k110">先用事故件數找點，<br>再用嚴重度排優先</h2>
+      <p data-i18n="k111" class="lede">韓國有兩套道路改善計畫。地方與都市道路用事故件數選點，國道用加權評分排序，其中事故的部分用 EPDO（當量財損事故），把死亡與受傷事故依嚴重程度換算成同一個單位。</p>
     </div>
 
     <div class="grid2">
       <div class="panel">
-        <span class="tag">易肇事路段改善計畫 Black Spot</span>
-        <div class="stat-big">756 <span style="font-size:.45em;color:var(--muted)">億韓元</span></div>
-        <p>道路交通公團（KoROAD）選點，國土交通部改善國道、行政安全部改善地方道路。</p>
+        <span data-i18n="k112" class="tag">易肇事路段改善計畫 Black Spot</span>
+        <div class="stat-big">756 <span data-i18n="k113" style="font-size:.45em;color:var(--muted)">億韓元</span></div>
+        <p data-i18n="k114">道路交通公團（KoROAD）選點，國土交通部改善國道、行政安全部改善地方道路。</p>
         <div style="overflow-x:auto"><table class="crit">
-          <tr><th>類型</th><th>地區</th><th>門檻</th><th>範圍</th></tr>
-          <tr><td>地點</td><td>廣域市</td><td class="n">5 件以上</td><td>都市道路 200 m 內</td></tr>
-          <tr><td></td><td>其他城市</td><td class="n">3 件以上</td><td>其他道路 400 m 內</td></tr>
-          <tr><td>路段</td><td>廣域市</td><td class="n">17 件以上</td><td>1 km 以上路段</td></tr>
-          <tr><td></td><td>其他城市</td><td class="n">8 件以上</td><td>1 km 以上路段</td></tr>
+          <tr><th data-i18n="k115">類型</th><th data-i18n="k116">地區</th><th data-i18n="k117">門檻</th><th data-i18n="k118">範圍</th></tr>
+          <tr><td data-i18n="k119">地點</td><td data-i18n="k120">廣域市</td><td data-i18n="k121" class="n">5 件以上</td><td data-i18n="k122">都市道路 200 m 內</td></tr>
+          <tr><td></td><td data-i18n="k123">其他城市</td><td data-i18n="k124" class="n">3 件以上</td><td data-i18n="k125">其他道路 400 m 內</td></tr>
+          <tr><td data-i18n="k126">路段</td><td data-i18n="k127">廣域市</td><td data-i18n="k128" class="n">17 件以上</td><td data-i18n="k129">1 km 以上路段</td></tr>
+          <tr><td></td><td data-i18n="k130">其他城市</td><td data-i18n="k131" class="n">8 件以上</td><td data-i18n="k132">1 km 以上路段</td></tr>
         </table></div>
       </div>
       <div class="panel">
-        <span class="tag">國道安全改善計畫</span>
-        <div class="stat-big">224 <span style="font-size:.45em;color:var(--muted)">億韓元</span></div>
-        <p>國土交通部自行選點並改善國道，以 100 分評分排序。</p>
+        <span data-i18n="k133" class="tag">國道安全改善計畫</span>
+        <div class="stat-big">224 <span data-i18n="k134" style="font-size:.45em;color:var(--muted)">億韓元</span></div>
+        <p data-i18n="k135">國土交通部自行選點並改善國道，以 100 分評分排序。</p>
         <div class="bars" data-bars>
-          <div class="bar-row"><span>道路幾何</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">45 分</span></div>
-          <div class="bar-row"><span>事故 EPDO＋交通量</span><div class="bar-track"><div class="bar-fill y" data-w="100"></div></div><span class="bar-val">45 分</span></div>
-          <div class="bar-row"><span>工程費、陳情</span><div class="bar-track"><div class="bar-fill" data-w="22"></div></div><span class="bar-val">10 分</span></div>
+          <div class="bar-row"><span data-i18n="k136">道路幾何</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span data-i18n="k137" class="bar-val">45 分</span></div>
+          <div class="bar-row"><span data-i18n="k138">事故 EPDO＋交通量</span><div class="bar-track"><div class="bar-fill y" data-w="100"></div></div><span data-i18n="k139" class="bar-val">45 分</span></div>
+          <div class="bar-row"><span data-i18n="k140">工程費、陳情</span><div class="bar-track"><div class="bar-fill" data-w="22"></div></div><span data-i18n="k141" class="bar-val">10 分</span></div>
         </div>
-        <p class="muted" style="font-size:14.5px">道路幾何包括曲率半徑、路況、視距、縱坡、車道寬與路肩寬。</p>
+        <p data-i18n="k142" class="muted" style="font-size:14.5px">道路幾何包括曲率半徑、路況、視距、縱坡、車道寬與路肩寬。</p>
       </div>
     </div>
 
     <div style="margin-top:clamp(40px,6vw,64px)">
-      <h3 style="margin-bottom:6px">從找出熱點到驗收成效</h3>
-      <p class="muted" style="font-size:15px;margin-bottom:18px">易肇事路段改善計畫的流程，最後一步由選點的同一個單位評估成效。</p>
+      <h3 data-i18n="k143" style="margin-bottom:6px">從找出熱點到驗收成效</h3>
+      <p data-i18n="k144" class="muted" style="font-size:15px;margin-bottom:18px">易肇事路段改善計畫的流程，最後一步由選點的同一個單位評估成效。</p>
       <div class="flow">
-        <div><b>1</b><strong>選點</strong><span class="muted" style="font-size:14.5px">KoROAD、警察廳、道路管理機關</span></div>
-        <div><b>2</b><strong>擬定改善計畫</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
-        <div><b>3</b><strong>施工</strong><span class="muted" style="font-size:14.5px">道路管理機關</span></div>
-        <div><b>4</b><strong>評估成效</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
+        <div><b>1</b><strong data-i18n="k145">選點</strong><span data-i18n="k146" class="muted" style="font-size:14.5px">KoROAD、警察廳、道路管理機關</span></div>
+        <div><b>2</b><strong data-i18n="k147">擬定改善計畫</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
+        <div><b>3</b><strong data-i18n="k148">施工</strong><span data-i18n="k149" class="muted" style="font-size:14.5px">道路管理機關</span></div>
+        <div><b>4</b><strong data-i18n="k150">評估成效</strong><span class="muted" style="font-size:14.5px">KoROAD</span></div>
       </div>
     </div>
 
     <div class="grid2" style="margin-top:clamp(40px,6vw,64px)">
       <div class="panel">
-        <span class="tag">問題：錢沒跟著死亡走</span>
+        <span data-i18n="k151" class="tag">問題：錢沒跟著死亡走</span>
         <div class="stat-big">75%</div>
-        <p>的死亡發生在地方政府管理的道路上（2020 年：地方道路 2,300 人、國道 781 人）。</p>
+        <p data-i18n="k152">的死亡發生在地方政府管理的道路上（2020 年：地方道路 2,300 人、國道 781 人）。</p>
         <div class="stack" style="height:34px;font-size:16px">
-          <div style="width:74.6%;background:var(--pave)">地方 2,300</div>
-          <div style="width:25.4%;background:var(--muted);color:var(--asphalt)">國道 781</div>
+          <div data-i18n="k153" style="width:74.6%;background:var(--pave)">地方 2,300</div>
+          <div data-i18n="k154" style="width:25.4%;background:var(--muted);color:var(--asphalt)">國道 781</div>
         </div>
       </div>
       <div class="panel">
-        <span class="tag">每公里改善預算</span>
+        <span data-i18n="k155" class="tag">每公里改善預算</span>
         <div class="stat-big">1/76</div>
-        <p>易肇事路段改善預算：國道每公里 251 萬韓元，廣域市道與地方道路每公里只有 3.3 萬韓元。韓相鎮教授建議提高對地方政府的補助，並評比地方政府與地方警察的道路安全績效。</p>
+        <p data-i18n="k156">易肇事路段改善預算：國道每公里 251 萬韓元，廣域市道與地方道路每公里只有 3.3 萬韓元。韓相鎮教授建議提高對地方政府的補助，並評比地方政府與地方警察的道路安全績效。</p>
         <div class="bars" data-bars>
-          <div class="bar-row"><span>國道</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">251 萬</span></div>
-          <div class="bar-row"><span>地方道路</span><div class="bar-track"><div class="bar-fill r" data-w="1.3"></div></div><span class="bar-val">3.3 萬</span></div>
+          <div class="bar-row"><span data-i18n="k157">國道</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span data-i18n="k158" class="bar-val">251 萬</span></div>
+          <div class="bar-row"><span data-i18n="k159">地方道路</span><div class="bar-track"><div class="bar-fill r" data-w="1.3"></div></div><span data-i18n="k160" class="bar-val">3.3 萬</span></div>
         </div>
       </div>
     </div>
     <div class="panel" style="margin-top:clamp(20px,3vw,40px)">
-      <span class="tag">濟州：罰款回到地方</span>
-      <p>濟州自治警察 2024 年接手測速照相，449 台的罰款進入濟州地方帳戶。2026 年的 <b class="hl">163 億韓元</b>用在學區與銀髮區安全設施、智慧行人穿越道、易肇事路段改善，以及汰換老舊號誌。</p>
+      <span data-i18n="k161" class="tag">濟州：罰款回到地方</span>
+      <p data-i18n="k162">濟州自治警察 2024 年接手測速照相，449 台的罰款進入濟州地方帳戶。2026 年的 <b class="hl">163 億韓元</b>用在學區與銀髮區安全設施、智慧行人穿越道、易肇事路段改善，以及汰換老舊號誌。</p>
     </div>
-    <p class="src" style="margin-top:16px">資料：韓相鎮簡報 p.37（地方道路與預算）、p.39–40（選點標準與流程）、p.44（濟州）[1]</p>
+    <p data-i18n="k163" class="src" style="margin-top:16px">資料：韓相鎮簡報 p.37（地方道路與預算）、p.39–40（選點標準與流程）、p.44（濟州）[1]</p>
   </div>
 </section>
 
@@ -631,40 +643,40 @@ a{color:var(--marking)}
 <section class="chapter solid gutter" id="future">
   <div class="wrap">
     <div class="chapter-head">
-      <p class="eyebrow">四、還沒做完的事</p>
-      <h2>2023 年起停在 4.9，<br>下一步在地方道路</h2>
-      <p class="lede">死亡人數連續三年持平。韓相鎮教授點出的未來課題，大多落在地方政府管的路、住宅巷道和行人穿越。</p>
+      <p data-i18n="k164" class="eyebrow">四、還沒做完的事</p>
+      <h2 data-i18n="k165">2023 年起停在 4.9，<br>下一步在地方道路</h2>
+      <p data-i18n="k166" class="lede">死亡人數連續三年持平。韓相鎮教授點出的未來課題，大多落在地方政府管的路、住宅巷道和行人穿越。</p>
     </div>
     <div class="grid2">
       <div class="panel">
-        <span class="tag">住宅巷道</span>
+        <span data-i18n="k167" class="tag">住宅巷道</span>
         <div class="stat-big">52.9%</div>
-        <p>首爾的事故發生在寬度不到 12 公尺的道路上，占死亡加重傷的 46.3%。住宅區要做 30 km/h 交通寧靜、停止路口和行人優先道路。</p>
-        <p class="src">資料：韓相鎮簡報 p.38 [1]</p>
+        <p data-i18n="k168">首爾的事故發生在寬度不到 12 公尺的道路上，占死亡加重傷的 46.3%。住宅區要做 30 km/h 交通寧靜、停止路口和行人優先道路。</p>
+        <p data-i18n="k169" class="src">資料：韓相鎮簡報 p.38 [1]</p>
       </div>
       <div class="panel">
-        <span class="tag">道路評估 KoRAP</span>
-        <p>iRAP 每車公里死傷成本（美元）：每升一顆星，風險約減半。聯合國目標是 2030 年前新建道路都達 3 星以上。</p>
+        <span data-i18n="k170" class="tag">道路評估 KoRAP</span>
+        <p data-i18n="k171">iRAP 每車公里死傷成本（美元）：每升一顆星，風險約減半。聯合國目標是 2030 年前新建道路都達 3 星以上。</p>
         <div class="stars" id="stars">
           <div data-h="100"><span>0.19</span></div><div data-h="47"><span>0.09</span></div><div data-h="26"><span>0.05</span></div><div data-h="11"><span>0.02</span></div><div data-h="5"><span>0.01</span></div>
         </div>
-        <div class="stars-x"><span>1 星</span><span>2 星</span><span>3 星</span><span>4 星</span><span>5 星</span></div>
-        <p class="src">資料：韓相鎮簡報 p.36，引用 iRAP 與聯合國道路安全全球目標 [1]</p>
+        <div class="stars-x"><span data-i18n="k172">1 星</span><span data-i18n="k173">2 星</span><span data-i18n="k174">3 星</span><span data-i18n="k175">4 星</span><span data-i18n="k176">5 星</span></div>
+        <p data-i18n="k177" class="src">資料：韓相鎮簡報 p.36，引用 iRAP 與聯合國道路安全全球目標 [1]</p>
       </div>
     </div>
 
     <div class="tl" style="margin-top:clamp(48px,7vw,88px)">
       <div class="tl-row">
-        <div class="tl-year">≤120<small>秒 · 號誌週期</small></div>
+        <div class="tl-year">≤120<small data-i18n="k178">秒 · 號誌週期</small></div>
         <div class="tl-body">
-          <h3>以行人等待時間當績效指標</h3>
-          <p>路口號誌週期原則上不超過 120 秒，一個週期給兩次行人時相；以平均行人等待時間作為績效指標，依步行速度設定號誌連鎖。</p>
-          <p class="src">資料：韓相鎮簡報 p.33，引《安全速度 5030 設計運用手冊》[1]</p>
+          <h3 data-i18n="k179">以行人等待時間當績效指標</h3>
+          <p data-i18n="k180">路口號誌週期原則上不超過 120 秒，一個週期給兩次行人時相；以平均行人等待時間作為績效指標，依步行速度設定號誌連鎖。</p>
+          <p data-i18n="k181" class="src">資料：韓相鎮簡報 p.33，引《安全速度 5030 設計運用手冊》[1]</p>
         </div>
         <div class="tl-body">
-          <h3>行人庇護島變成預設</h3>
-          <p>很多穿越道超過 70 公尺，高齡者難以一次走完。FHWA 研究指出庇護島可減少 32% 行人事故；行人觸動號誌在英國減少 30% 事故。</p>
-          <p class="src">資料：韓相鎮簡報 p.31，引美國 FHWA 與英國經驗 [1]</p>
+          <h3 data-i18n="k182">行人庇護島變成預設</h3>
+          <p data-i18n="k183">很多穿越道超過 70 公尺，高齡者難以一次走完。FHWA 研究指出庇護島可減少 32% 行人事故；行人觸動號誌在英國減少 30% 事故。</p>
+          <p data-i18n="k184" class="src">資料：韓相鎮簡報 p.31，引美國 FHWA 與英國經驗 [1]</p>
         </div>
       </div>
     </div>
@@ -675,32 +687,32 @@ a{color:var(--marking)}
 <section class="chapter solid gutter" id="lessons" style="padding-top:0">
   <div class="wrap">
     <div class="chapter-head">
-      <p class="eyebrow">給台灣的對照</p>
-      <h2>可以直接帶回來討論的六件事</h2>
+      <p data-i18n="k185" class="eyebrow">給台灣的對照</p>
+      <h2 data-i18n="k186">可以直接帶回來討論的六件事</h2>
     </div>
     <div class="lessons">
-      <div class="lesson"><h3>受傷人數也要列為目標</h3><p>台灣的死亡人數十幾年持平，受傷人數卻翻倍到 54 萬。只追死亡，會看不到這個趨勢。</p></div>
-      <div class="lesson"><h3>降速不等於塞車</h3><p>奉恩寺路的實測顯示，市區道路的時間花在路口。要談效率，該檢討的是號誌時制，不是速限。</p></div>
-      <div class="lesson"><h3>用事故件數選點，用嚴重度排序</h3><p>韓國用 200 公尺內的事故件數找出問題路口，受傷事故也算；國道再用 EPDO 依嚴重度加權。不必等到有人死亡才改善。</p></div>
-      <div class="lesson"><h3>錢要跟著死亡發生的地方走</h3><p>75% 的死亡在地方道路，每公里預算卻只有國道的 1/76。台灣的縣市道路可能也是類似結構。</p></div>
-      <div class="lesson"><h3>行人優先道路寫進法律</h3><p>沒有人行道的巷子，用法律加重駕駛責任、用鋪面讓人看得懂。對照台灣的人本巷弄與標線型人行道。</p></div>
-      <div class="lesson"><h3>罰款回到地方，變成安全設施</h3><p>濟州自 2024 年接手測速照相，罰款進入地方帳戶，2026 年 163 億韓元用在學區、銀髮區與智慧穿越道。</p></div>
+      <div class="lesson"><h3 data-i18n="k187">受傷人數也要列為目標</h3><p data-i18n="k188">台灣的死亡人數十幾年持平，受傷人數卻翻倍到 54 萬。只追死亡，會看不到這個趨勢。</p></div>
+      <div class="lesson"><h3 data-i18n="k189">降速不等於塞車</h3><p data-i18n="k190">奉恩寺路的實測顯示，市區道路的時間花在路口。要談效率，該檢討的是號誌時制，不是速限。</p></div>
+      <div class="lesson"><h3 data-i18n="k191">用事故件數選點，用嚴重度排序</h3><p data-i18n="k192">韓國用 200 公尺內的事故件數找出問題路口，受傷事故也算；國道再用 EPDO 依嚴重度加權。不必等到有人死亡才改善。</p></div>
+      <div class="lesson"><h3 data-i18n="k193">錢要跟著死亡發生的地方走</h3><p data-i18n="k194">75% 的死亡在地方道路，每公里預算卻只有國道的 1/76。台灣的縣市道路可能也是類似結構。</p></div>
+      <div class="lesson"><h3 data-i18n="k195">行人優先道路寫進法律</h3><p data-i18n="k196">沒有人行道的巷子，用法律加重駕駛責任、用鋪面讓人看得懂。對照台灣的人本巷弄與標線型人行道。</p></div>
+      <div class="lesson"><h3 data-i18n="k197">罰款回到地方，變成安全設施</h3><p data-i18n="k198">濟州自 2024 年接手測速照相，罰款進入地方帳戶，2026 年 163 億韓元用在學區、銀髮區與智慧穿越道。</p></div>
     </div>
-    <p class="src" style="margin-top:16px">依本頁各段資料整理，出處見頁尾 [1]–[5]。</p>
+    <p data-i18n="k199" class="src" style="margin-top:16px">依本頁各段資料整理，出處見頁尾 [1]–[5]。</p>
   </div>
 </section>
 
 <footer class="gutter">
   <div class="wrap">
-    <h3 style="color:var(--ink);font-size:20px;margin-bottom:6px">資料來源</h3>
+    <h3 data-i18n="k200" style="color:var(--ink);font-size:20px;margin-bottom:6px">資料來源</h3>
     <ol class="refs">
-      <li><b>[1]</b> 韓相鎮（Sangjin HAN），首爾大學環境研究所。〈Road Safety Policies in Korea: Achievements and Future Tasks〉，簡報，2026 年 9 月 9 日，共 44 頁。本頁韓國 2010–2025 年死亡人數、OECD 比較、Safe System、各項政策成效、奉恩寺路 5030 實測、選點標準與預算、未來課題皆出自此簡報，頁碼標於各段。簡報中引用的 FHWA、英國號誌經驗、iRAP、聯合國目標與 OECD 數據，均依簡報轉引。各頁數據基準年不同（2016、2019、2020、2022、2024、2025），引用時請註明年份。</li>
-      <li><b>[2]</b> 監察院調查報告，引用交通部道路交通事故統計：台灣 2009–2023 年 30 日死亡與受傷人數。<a href="https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72182" target="_blank" rel="noopener">cybsbox.cy.gov.tw</a></li>
-      <li><b>[3]</b> 韓國警察廳／道路交通公團（KoROAD）交通事故分析系統 TAAS：韓國 2005–2009 年死亡人數、2009–2014 年受傷人數。指標頁面：<a href="https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=1614" target="_blank" rel="noopener">e-나라지표 교통사고 현황</a></li>
-      <li><b>[4]</b> 韓國 2015–2019 年受傷人數交叉比對：<a href="https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/south-korea-number-of-injured-in-road-accidents" target="_blank" rel="noopener">South Korea – Number of Injured in Road Accidents</a>；2020 年受傷人數見簡報 p.3 [1]。</li>
-      <li><b>[5]</b> 每十萬人受傷數為本頁換算：2023 年底台灣人口約 2,342 萬（內政部戶政司），韓國約 5,133 萬（韓國行政安全部住民登錄人口）。結果取概數。</li>
+      <li data-i18n="k201"><b>[1]</b> 韓相鎮（Sangjin HAN），首爾大學環境研究所。〈Road Safety Policies in Korea: Achievements and Future Tasks〉，簡報，2026 年 9 月 9 日，共 44 頁。本頁韓國 2010–2025 年死亡人數、OECD 比較、Safe System、各項政策成效、奉恩寺路 5030 實測、選點標準與預算、未來課題皆出自此簡報，頁碼標於各段。簡報中引用的 FHWA、英國號誌經驗、iRAP、聯合國目標與 OECD 數據，均依簡報轉引。各頁數據基準年不同（2016、2019、2020、2022、2024、2025），引用時請註明年份。</li>
+      <li data-i18n="k202"><b>[2]</b> 監察院調查報告，引用交通部道路交通事故統計：台灣 2009–2023 年 30 日死亡與受傷人數。<a href="https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72182" target="_blank" rel="noopener">cybsbox.cy.gov.tw</a></li>
+      <li data-i18n="k203"><b>[3]</b> 韓國警察廳／道路交通公團（KoROAD）交通事故分析系統 TAAS：韓國 2005–2009 年死亡人數、2009–2014 年受傷人數。指標頁面：<a href="https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=1614" target="_blank" rel="noopener">e-나라지표 교통사고 현황</a></li>
+      <li data-i18n="k204"><b>[4]</b> 韓國 2015–2019 年受傷人數交叉比對：<a href="https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/south-korea-number-of-injured-in-road-accidents" target="_blank" rel="noopener">South Korea – Number of Injured in Road Accidents</a>；2020 年受傷人數見簡報 p.3 [1]。</li>
+      <li data-i18n="k205"><b>[5]</b> 每十萬人受傷數為本頁換算：2023 年底台灣人口約 2,342 萬（內政部戶政司），韓國約 5,133 萬（韓國行政安全部住民登錄人口）。結果取概數。</li>
     </ol>
-    <p style="margin-top:8px">照片與影片：劉冠頡提供，攝於 2026 年 9 月韓國道路安全考察（首爾、世宗）。「錢怎麼分」段落的路網與事故點 3D 圖為示意，非實際事故資料。</p>
+    <p data-i18n="k206" style="margin-top:8px">照片與影片：劉冠頡提供，攝於 2026 年 9 月韓國道路安全考察（首爾、世宗）。「錢怎麼分」段落的路網與事故點 3D 圖為示意，非實際事故資料。</p>
   </div>
 </footer>
 
@@ -717,6 +729,11 @@ const C={marking:css('--marking'),pave:css('--pave'),ink:css('--ink'),muted:css(
 function prog(el){const r=el.getBoundingClientRect();const span=r.height-innerHeight;return clamp(-r.top/span)}
 function visible(el){const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight}
 
+/* ---------- 多語 ---------- */
+const D={"en": {"k000": "September 2026 · Korea road safety study tour", "k001": "20 years on, <span class=\"hl\">less than half</span> as many lives lost", "k002": "Each dot is one person who died on Korea's roads in 2005. Scroll to see how many fewer died in 2025.", "k003": "road traffic deaths that year", "k004": "<i class=\"dot\" style=\"background:var(--pave)\"></i>Died that year", "k005": "<i class=\"dot\" style=\"background:var(--marking)\"></i>Fewer deaths than in 2005", "k006": "↓ Scroll", "k007": "Data: 2005–2009 Korean National Police Agency / KoROAD TAAS; 2010–2025 Han Sangjin's presentation p.6 [1][3]", "k008": "Seoul · Gwanghwamun · 9 Sep 2026", "k009": "In Seoul,<br/>seeing how it was done", "k010": "Professor Sangjin HAN of the Graduate School of Environmental Studies, Seoul National University, presented \"Road Safety Policies in Korea: Achievements and Future Tasks\" on 9 September 2026. Most Korean figures on this page come from that presentation. Page numbers are noted in each section, and full sources are listed at the bottom.", "k011": "1. Achievements · Deaths 2010–2025", "k012": "Year", "k013": "Deaths", "k014": "Deaths per 100,000 people", "k015": "Data: Han Sangjin's presentation p.6 (National Police Agency / KoROAD statistics) [1]", "k016": "Beyond deaths · Injuries", "k017": "Taiwan counts only deaths,<br/>while injuries have doubled", "k018": "From 2009 to 2023, Taiwan's 30-day road deaths barely moved (3,232 → 3,023), but injuries rose from 246,000 to a record <b class=\"red\">540,000</b>. Over the same period, injuries in Korea fell by about a fifth.", "k019": "Year", "k020": "<i class=\"dot\" style=\"background:var(--pave)\"></i>Injured in Taiwan", "k021": "<i class=\"dot\" style=\"background:var(--marking)\"></i>Injured in Korea", "k022": "Korea's population is about 2.2 times Taiwan's. Per 100,000 people in 2023, about <b style=\"color:var(--ink)\">2,300</b> were injured in Taiwan and about <b style=\"color:var(--ink)\">550</b> in Korea, a gap of more than four times.<br/><span class=\"src\">* Taiwan data currently runs to 2023.</span>", "k023": "Data: Taiwan from Ministry of Transportation statistics cited in a Control Yuan investigation report (2009–2023, 30-day deaths and injuries) [2]; Korea 2009–2020 from National Police Agency / KoROAD TAAS [3][4], 2021–2025 from Han Sangjin's presentation p.3 [1]; per-100,000 figures use 2023 population [5].", "k024": "International comparison", "k025": "Cutting deaths per 100,000 from 10 to 5.9<br/>took Sweden 18 years. Korea did it in <span class=\"hl\">7</span>", "k026": "From 2013 to 2020, Korea covered the same distance faster than advanced OECD countries. Cutting deaths per 10,000 vehicles from 2 to 1.1 took 6 years; Japan took 17.", "k027": "Data: Han Sangjin's presentation p.9–10 (OECD comparison) [1]. Years follow the table in the presentation; the arrow chart shows Ireland at 9 years and the table at 8, so the table is used.", "k028": "Deaths per 100,000 people, 2024<br/>OECD average 4.73", "k029": "Deaths per 10,000 vehicles, 2024<br/>OECD average 0.82", "k030": "From the bottom of the OECD to the middle. In 2016 only Seoul, Busan and Incheon beat the OECD average; by 2024, nine regions did.", "k031": "Data: Han Sangjin's presentation p.4–5 [1]", "k032": "2. Safe System", "k033": "\"We cannot change the human condition, but we can change the conditions under which humans work.\"<br/><span class=\"src\" style=\"font-style:normal\">James Reason · Han Sangjin's presentation p.14</span>", "k034": "Each slice of cheese is a layer of defence", "k035": "Road users, vehicles and roads are each a layer of defence, and each has holes: distraction, speeding, poor sight lines, design flaws. If any one layer holds, the crash doesn't happen.", "k036": "When the holes line up, a crash happens", "k037": "The person approach blames whoever made the mistake: punishment, retraining, accountability. The system approach accepts that people will make mistakes and asks why every layer failed at once.", "k038": "Add one more layer: safe speed", "k039": "When vehicles and roads can't keep impact forces within what the human body can survive, lower the speed limit. That is the shared responsibility of Sweden's Vision Zero: system designers are responsible for the overall level of safety.", "k040": "Data: Han Sangjin's presentation p.14–17 (Swiss cheese model, Vision Zero, Safe System) [1]", "k041": "3. What worked", "k042": "From 2018,<br/>road deaths became a national target", "k043": "In January 2018, the president's New Year address named suicide, traffic crashes and workplace deaths as the three national life-protection priorities, with a goal of halving traffic deaths from 4,292 (2016) by 2022. The vice minister of the Office for Government Policy Coordination reviewed progress every quarter, and each ministry reported every two months.", "k044": "Data: Han Sangjin's presentation p.20 [1]", "k045": "Seat belts in every seat", "k046": "Seat belts on every road, in every seat", "k047": "Seat belts in all seats had been required only on motorways; the rule was extended to all roads. Drivers are fined 30,000 won.", "k048": "Data: Han Sangjin's presentation p.21 [1]", "k049": "Rear seat belt use", "k050": "Germany", "k051": "Japan", "k052": "Korea", "k053": "Yoon Chang-ho Act", "k054": "Drink-driving: stricter limits, longer sentences", "k055": "Drink-driving limit BAC 0.05% → <b class=\"hl\">0.03%</b>; licence revoked at 0.1% → 0.08%", "k056": "Causing death while drunk: minimum 1 year → life or at least 3 years", "k057": "Three strikes became two; the ban on retaking the test went from 1 year to 2", "k058": "Data: Han Sangjin's presentation p.23 [1]", "k059": "Drink-driving deaths", "k060": "Older people and professional drivers", "k061": "Older people are 45.5% of deaths, three times their share of the population", "k062": "Drivers 75 and older now take an aptitude test every 3 years instead of 5, with a cognitive self-check", "k063": "People 65 and older who hand in their licence get a free transit card", "k064": "Bus drivers now fall under the 52-hour working-week cap, moving from \"two days on, one off, nearly 15 hours a day\" to one on, one off", "k065": "Pedal-misapplication prevention devices: 3,260 vehicles in a 2026 pilot, mandatory on new cars from 2029", "k066": "Data: Han Sangjin's presentation p.22, p.24 [1]", "k067": "Share of deaths aged 65 and older (2010 → 2019). People 65 and older are only 15.4% of the population.", "k068": "Kim Min-sik Act", "k069": "School zones: speed cameras, speed humps, no parking", "k070": "Passed after a school-zone crash in Asan, South Chungcheong, in September 2019. School zones got more speed cameras, speed humps and signals, and kerbside parking was removed. Killing a child in a school zone carries life or at least 3 years in prison, and fines were tripled.", "k071": "Speed cameras 2019", "k072": "One year later: school-zone crashes 567 → 483 (−15%), fatal crashes 6 → 3.", "k073": "Data: Han Sangjin's presentation p.25 [1]", "k074": "Seoul · \"어린이 보호구역\" (children's protection zone) and a 30 limit painted on the road", "k075": "Safe Speed 5030", "k076": "50 on urban roads, 30 on residential streets and in school zones", "k077": "Introduced nationwide on 17 April 2021 under the slogan \"Slow down, and you can see people walking.\" The National Police Agency, the Ministry of Land, Infrastructure and Transport and the Ministry of the Interior and Safety set up a 5030 council, with research institutes and academic societies as advisers, and published the Safe Speed 5030 Design and Operation Manual.", "k078": "Data: Han Sangjin's presentation p.26 [1]", "k079": "Seoul · \"천천히 SLOW\" and a 50 km/h limit seen from a bus window", "k080": "Pedestrian priority streets", "k081": "On streets without footpaths, drivers must give way to people walking", "k082": "The 2022 Road Traffic Act made \"보행자우선도로\" (pedestrian priority streets) law: a limit of 20 km/h or walking pace, and parking only in marked spaces. They rely on paving materials and colour rather than a separate footpath.", "k083": "Data: Han Sangjin's presentation p.29 [1]", "k084": "Central Seoul · a pedestrian priority junction paved entirely in red", "k085": "Bongeunsa-ro, Seoul · before and after 5030", "k086": "In the city, efficiency<br/>depends on <span class=\"hl\">traffic signals</span>, not speed limits", "k087": "The most common objection to lower speeds is congestion. Seoul measured travel times on Bongeunsa-ro before and after the change: across four time periods, none of the differences was statistically significant.", "k088": "Same road, same distance: travel time before and after the lower limit", "k089": "<i class=\"dot\" style=\"background:var(--pave)\"></i>Waiting at junctions　<i class=\"dot\" style=\"background:#4a5058;margin-left:14px\"></i>Moving between junctions　· Seconds, average", "k090": "seconds. The change in average travel time across the four periods; none statistically significant.", "k091": "In the evening peak (17:00–20:00), 460 of 767 seconds were spent at junctions. Daytime periods were also above 55%.", "k092": "km/h. The actual space-mean speed on this road. Cars could never reach 50 anyway, so the limit was never the bottleneck.", "k093": "To make urban roads more efficient, look at signal cycles, phases and coordination. That is why Korea is now capping signal cycles at 120 seconds and measuring performance by pedestrian waiting time.", "k094": "Data: Han Sangjin's presentation p.27–28, Bongeunsa-ro before/after comparison (24–61 runs) [1]; signal cycles and pedestrian waiting time on p.33.", "k095": "On site · Seoul and Sejong", "k096": "Korea, seen from the street", "k097": "Photos and videos taken during the study tour.", "k098": "5. Where the money goes · Which junctions get fixed", "k099": "Fix the junctions with the most deaths,<br/>or the most crashes?", "k100": "<i class=\"dot\" style=\"background:var(--marking)\"></i>Injury crash", "k101": "<i class=\"dot\" style=\"background:var(--pave)\"></i>Fatal crash", "k102": "A year of crashes on a city street grid", "k103": "Each dot is one crash. Most are injury crashes; fatal crashes are a small fraction.", "k104": "Count only deaths, and there are too few dots, too scattered", "k105": "Fatal crashes are spread everywhere, so it's hard to see which junction has a problem. Waiting for a death before fixing a junction is usually too late.", "k106": "Korea counts crashes", "k107": "The black spot programme's site criteria: 5 or more crashes within 200 m in metropolitan cities, 3 or more within 400 m elsewhere. Injury crashes count, so problem junctions show up earlier.", "k108": "Street grid and crash points are illustrative; site criteria from Han Sangjin's presentation p.39 [1]", "k109": "Two improvement programmes · 2025 budget", "k110": "Find sites by crash count,<br/>then rank them by severity", "k111": "Korea runs two road improvement programmes. Local and urban roads are selected by crash count; national roads are ranked by a weighted score whose crash component uses EPDO (equivalent property damage only), which converts fatal and injury crashes into one unit by severity.", "k112": "Black spot improvement programme", "k113": "billion won", "k114": "KoROAD selects sites; the Ministry of Land, Infrastructure and Transport fixes national roads and the Ministry of the Interior and Safety fixes local roads.", "k115": "Type", "k116": "Area", "k117": "Threshold", "k118": "Range", "k119": "Spot", "k120": "Metropolitan city", "k121": "5 or more", "k122": "Urban roads, within 200 m", "k123": "Other cities", "k124": "3 or more", "k125": "Other roads, within 400 m", "k126": "Section", "k127": "Metropolitan city", "k128": "17 or more", "k129": "Sections of 1 km or more", "k130": "Other cities", "k131": "8 or more", "k132": "Sections of 1 km or more", "k133": "National road safety improvement programme", "k134": "billion won", "k135": "The Ministry of Land, Infrastructure and Transport selects and fixes national roads, ranked on a 100-point score.", "k136": "Road geometry", "k137": "45 pts", "k138": "Crash EPDO + traffic volume", "k139": "45 pts", "k140": "Cost, public complaints", "k141": "10 pts", "k142": "Road geometry covers curve radius, surface condition, sight distance, gradient, lane width and shoulder width.", "k143": "From finding a hotspot to checking the result", "k144": "In the black spot programme, the agency that picks the site also evaluates the result.", "k145": "Select sites", "k146": "KoROAD, National Police Agency, road authorities", "k147": "Draft the plan", "k148": "Build", "k149": "Road authorities", "k150": "Evaluate results", "k151": "The problem: money doesn't follow deaths", "k152": "of deaths happen on roads run by local governments (2020: 2,300 on local roads, 781 on national roads).", "k153": "Local 2,300", "k154": "National 781", "k155": "Improvement budget per km", "k156": "Black spot budget: 2.51 million won per km on national roads, only 33,000 won per km on metropolitan and local roads. Professor Han recommends more funding for local governments and performance ratings for local governments and local police.", "k157": "National roads", "k158": "2.51 M", "k159": "Local roads", "k160": "33 k", "k161": "Jeju: fines go back to local safety", "k162": "Jeju's autonomous police took over speed cameras in 2024, and fines from 449 cameras now go into Jeju's own account. In 2026, <b class=\"hl\">16.3 billion won</b> goes to safety facilities in school and senior zones, smart crossings, black spot fixes and replacing old signals.", "k163": "Data: Han Sangjin's presentation p.37 (local roads and budget), p.39–40 (site criteria and process), p.44 (Jeju) [1]", "k164": "4. Unfinished work", "k165": "Stuck at 4.9 since 2023,<br/>the next step is local roads", "k166": "Deaths have been flat for three years. Most of the future tasks Professor Han identified are on local government roads, residential streets and pedestrian crossings.", "k167": "Residential streets", "k168": "of Seoul's crashes happen on roads narrower than 12 m, accounting for 46.3% of deaths and serious injuries. Residential areas need 30 km/h traffic calming, stop-controlled junctions and pedestrian priority streets.", "k169": "Data: Han Sangjin's presentation p.38 [1]", "k170": "Road assessment: KoRAP", "k171": "iRAP casualty cost per vehicle-km (USD): each extra star roughly halves the risk. The UN target is for all new roads to be 3-star or better by 2030.", "k172": "1 star", "k173": "2 stars", "k174": "3 stars", "k175": "4 stars", "k176": "5 stars", "k177": "Data: Han Sangjin's presentation p.36, citing iRAP and the UN Global Road Safety Performance Targets [1]", "k178": "seconds · signal cycle", "k179": "Measure performance by pedestrian waiting time", "k180": "Signal cycles should generally not exceed 120 seconds, with two pedestrian phases per cycle; average pedestrian waiting time becomes the performance measure, and coordination is set to walking speed.", "k181": "Data: Han Sangjin's presentation p.33, citing the Safe Speed 5030 Design and Operation Manual [1]", "k182": "Pedestrian refuge islands by default", "k183": "Many crossings are over 70 m long, too far for older people to cross in one go. FHWA research shows refuge islands cut pedestrian crashes by 32%; pedestrian-actuated signals cut crashes by 30% in the UK.", "k184": "Data: Han Sangjin's presentation p.31, citing the US FHWA and UK experience [1]", "k185": "Lessons for Taiwan", "k186": "Six things worth bringing back for discussion", "k187": "Make injuries a target too", "k188": "Taiwan's deaths have been flat for over a decade while injuries doubled to 540,000. Tracking only deaths hides that trend.", "k189": "Slower doesn't mean more congestion", "k190": "Bongeunsa-ro shows that urban travel time is spent at junctions. If the concern is efficiency, review signal timing, not speed limits.", "k191": "Select sites by crash count, rank by severity", "k192": "Korea finds problem junctions by counting crashes within 200 m, injury crashes included, then weights national roads by severity with EPDO. There's no need to wait for a death.", "k193": "Money should follow where people die", "k194": "75% of deaths are on local roads, yet their budget per km is 1/76 of national roads. Taiwan's county and city roads may have a similar structure.", "k195": "Put pedestrian priority streets into law", "k196": "On lanes without footpaths, the law raises drivers' responsibility and the paving makes it legible. Compare Taiwan's people-oriented lanes and painted footpaths.", "k197": "Return fines to local safety", "k198": "Jeju took over speed cameras in 2024; fines go into the local account, and 16.3 billion won in 2026 goes to school zones, senior zones and smart crossings.", "k199": "Compiled from the sections above; sources listed below [1]–[5].", "k200": "Sources", "k201": "<b>[1]</b> Sangjin HAN, Graduate School of Environmental Studies, Seoul National University. \"Road Safety Policies in Korea: Achievements and Future Tasks\", presentation, 9 September 2026, 44 pages. Korean deaths 2010–2025, OECD comparisons, Safe System, policy results, the Bongeunsa-ro 5030 study, site criteria and budgets, and future tasks on this page all come from this presentation, with page numbers in each section. FHWA, UK signal experience, iRAP, UN targets and OECD data are cited as given in the presentation. Base years differ between pages (2016, 2019, 2020, 2022, 2024, 2025); please note the year when citing.", "k202": "<b>[2]</b> Control Yuan investigation report citing Ministry of Transportation road crash statistics: Taiwan 30-day deaths and injuries, 2009–2023. <a href=\"https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72182\" rel=\"noopener\" target=\"_blank\">cybsbox.cy.gov.tw</a>", "k203": "<b>[3]</b> Korean National Police Agency / KoROAD Traffic Accident Analysis System (TAAS): Korean deaths 2005–2009 and injuries 2009–2014. Indicator page: <a href=\"https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=1614\" rel=\"noopener\" target=\"_blank\">e-나라지표 교통사고 현황</a>", "k204": "<b>[4]</b> Cross-check for Korean injuries 2015–2019: <a href=\"https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/south-korea-number-of-injured-in-road-accidents\" rel=\"noopener\" target=\"_blank\">South Korea – Number of Injured in Road Accidents</a>; 2020 injuries from the presentation p.3 [1].", "k205": "<b>[5]</b> Injuries per 100,000 are calculated on this page using end-2023 population: Taiwan about 23.42 million (Ministry of the Interior), Korea about 51.33 million (Ministry of the Interior and Safety resident registration). Results are rounded.", "k206": "Photos and videos by Kuan Liu (劉冠頡), taken during the September 2026 Korea road safety study tour (Seoul, Sejong). The 3D street grid and crash points in \"Where the money goes\" are illustrative, not real crash data."}, "ja": {"k000": "2026年9月 · 韓国道路安全視察", "k001": "20年で、失われる命が<span class=\"hl\">半分以下</span>に", "k002": "画面の点のひとつひとつが、2005年に韓国の道路で亡くなった一人です。スクロールすると、2025年までにどれだけ減ったかが見えてきます。", "k003": "年間の交通事故死者数", "k004": "<i class=\"dot\" style=\"background:var(--pave)\"></i>その年の死者", "k005": "<i class=\"dot\" style=\"background:var(--marking)\"></i>2005年より減った死者", "k006": "↓ スクロール", "k007": "データ：2005–2009年 韓国警察庁／道路交通公団 TAAS；2010–2025年 韓相鎮氏の発表資料 p.6 [1][3]", "k008": "ソウル · 光化門周辺 · 2026.9.9", "k009": "ソウルで、<br/>どうやって実現したのかを見る", "k010": "ソウル大学校環境大学院の韓相鎮（Sangjin HAN）教授が2026年9月9日に行った発表「Road Safety Policies in Korea: Achievements and Future Tasks」。本ページの韓国のデータは主にこの資料によるものです。各セクションにページ番号を記し、出典の一覧はページ下部にあります。", "k011": "1. 成果 · 死者数 2010–2025", "k012": "年", "k013": "死者数", "k014": "人口10万人あたり死者数", "k015": "データ：韓相鎮氏の発表資料 p.6（警察庁／道路交通公団統計）[1]", "k016": "死者だけでなく · 負傷者数", "k017": "台湾は死者だけを見ているが、<br/>負傷者は倍以上に増えた", "k018": "2009年から2023年にかけて、台湾の30日以内死者数はほぼ横ばい（3,232 → 3,023）でしたが、負傷者数は24.6万人から過去最多の<b class=\"red\">54.0万人</b>に増えました。同じ期間に、韓国の負傷者数は約2割減っています。", "k019": "年", "k020": "<i class=\"dot\" style=\"background:var(--pave)\"></i>台湾の負傷者", "k021": "<i class=\"dot\" style=\"background:var(--marking)\"></i>韓国の負傷者", "k022": "韓国の人口は台湾の約2.2倍です。人口10万人あたりに換算すると、2023年は台湾が約<b style=\"color:var(--ink)\">2,300人</b>、韓国が約<b style=\"color:var(--ink)\">550人</b>で、4倍以上の差があります。<br/><span class=\"src\">* 台湾のデータは現時点で2023年まで。</span>", "k023": "データ：台湾は監察院の調査報告が引用する交通部統計（2009–2023、30日以内死者数と負傷者数）[2]；韓国の2009–2020年は警察庁／道路交通公団 TAAS [3][4]、2021–2025年は韓相鎮氏の発表資料 p.3 [1]；10万人あたりの換算は2023年の人口による [5]。", "k024": "国際比較", "k025": "10万人あたり死者数を10から5.9へ。<br/>スウェーデンは18年、韓国は<span class=\"hl\">7年</span>", "k026": "2013年から2020年にかけて、韓国はOECD先進国より短い期間で同じ距離を縮めました。1万台あたり死者数を2から1.1に下げるのにかかったのも6年で、日本は17年でした。", "k027": "データ：韓相鎮氏の発表資料 p.9–10（OECD諸国比較）[1]。年数は資料の表による。アイルランドは矢印図では9年、表では8年のため表を採用。", "k028": "2024年 人口10万人あたり死者数<br/>OECD平均 4.73", "k029": "2024年 車両1万台あたり死者数<br/>OECD平均 0.82", "k030": "OECDの下位グループから中位へ。2016年にOECD平均を下回っていたのはソウル・釜山・仁川の3市道だけでしたが、2024年には9つに増えました。", "k031": "データ：韓相鎮氏の発表資料 p.4–5 [1]", "k032": "2. セーフシステム", "k033": "「人間の性質は変えられないが、人間が置かれた条件は変えられる。」<br/><span class=\"src\" style=\"font-style:normal\">James Reason · 韓相鎮氏の発表資料 p.14</span>", "k034": "チーズの一枚一枚が、ひとつの防護層", "k035": "道路利用者、車両、道路はそれぞれ防護層で、どれにも穴があります。わき見、速度超過、見通しの悪さ、設計の欠陥。どれか一枚でも防げれば、事故は起きません。", "k036": "穴が一直線に並んだとき、事故が起きる", "k037": "個人アプローチは、ミスをした人に責任を負わせます：処罰、再教育、責任追及。システムアプローチは、人は必ずミスをすると認めたうえで、なぜすべての防護層が同時に破られたのかを問います。", "k038": "もう一枚加える：安全な速度", "k039": "車と道路で衝撃を人体が耐えられる範囲に抑えられないなら、制限速度を下げる。これがスウェーデンのビジョン・ゼロにおける責任分担です。システムの設計者が全体の安全水準に責任を持ちます。", "k040": "データ：韓相鎮氏の発表資料 p.14–17（スイスチーズモデル、ビジョン・ゼロ、セーフシステム）[1]", "k041": "3. 効果があった施策", "k042": "2018年から、<br/>交通死亡を国家目標に", "k043": "2018年1月、大統領の新年の辞で自殺・交通事故・労働災害による死亡が「国民生命を守る3大プロジェクト」とされ、交通死者数を2022年までに4,292人（2016年）から半減させる目標が掲げられました。国務調整室の次官が四半期ごとに会議で点検し、各省庁は2か月ごとに報告しました。", "k044": "データ：韓相鎮氏の発表資料 p.20 [1]", "k045": "全席シートベルト", "k046": "すべての道路、すべての座席でシートベルト着用", "k047": "全席着用はもともと高速道路だけの義務でしたが、すべての道路に広げられました。違反した運転者には3万ウォンの罰金。", "k048": "データ：韓相鎮氏の発表資料 p.21 [1]", "k049": "後部座席のシートベルト着用率", "k050": "ドイツ", "k051": "日本", "k052": "韓国", "k053": "ユン・チャンホ法", "k054": "飲酒運転：基準はより厳しく、刑はより重く", "k055": "飲酒運転の基準 BAC 0.05% → <b class=\"hl\">0.03%</b>；免許取消 0.1% → 0.08%", "k056": "飲酒運転による死亡：最低1年 → 無期懲役または最低3年", "k057": "三振制を二振制に、再受験禁止期間を1年から2年に延長", "k058": "データ：韓相鎮氏の発表資料 p.23 [1]", "k059": "飲酒運転による死者数", "k060": "高齢者と職業運転者", "k061": "死者に占める高齢者は45.5%、人口比の3倍", "k062": "75歳以上の運転適性検査を5年ごとから3年ごとに短縮し、認知機能の自己チェックを導入", "k063": "65歳以上が自主的に免許を返納すると、無料の交通カードを支給", "k064": "バス運転手を週52時間の労働時間上限の対象に。「2日勤務1日休み、1日約15時間」から隔日勤務へ", "k065": "ペダル踏み間違い防止装置：2026年に3,260台で試行、2029年から新車に義務化", "k066": "データ：韓相鎮氏の発表資料 p.22、p.24 [1]", "k067": "死者に占める65歳以上の割合（2010 → 2019）。人口に占める高齢者は15.4%にすぎません。", "k068": "キム・ミンシク法", "k069": "スクールゾーン：速度取締カメラ、ハンプ、駐車禁止", "k070": "2019年9月に忠清南道牙山市のスクールゾーンで起きた事故を受けて制定。スクールゾーンに速度取締カメラ、ハンプ、信号を増設し、路上駐車を禁止。スクールゾーンで子どもを死亡させた場合は無期懲役または3年以上、反則金は3倍に。", "k071": "取締カメラ 2019", "k072": "1年後：スクールゾーンの事故 567 → 483件（−15%）、死亡事故 6 → 3件。", "k073": "データ：韓相鎮氏の発表資料 p.25 [1]", "k074": "ソウル · 路面の「어린이 보호구역」（子ども保護区域）と制限速度30の表示", "k075": "安全速度 5030", "k076": "市街地の道路は50、住宅地とスクールゾーンの生活道路は30", "k077": "2021年4月17日に全国で施行。スローガンは「速度を落とせば、歩行者が見える」。警察庁・国土交通部・行政安全部が「5030協議会」を設置し、研究機関や学会が諮問団に加わり、『安全速度5030 設計運用マニュアル』を発行しました。", "k078": "データ：韓相鎮氏の発表資料 p.26 [1]", "k079": "ソウル · バスの窓から見た「천천히 SLOW」と制限速度50 km/h", "k080": "歩行者優先道路", "k081": "歩道のない道路では、運転者が歩行者に道を譲る", "k082": "2022年の道路交通法で「보행자우선도로」（歩行者優先道路）が法制化されました。制限速度は20 km/h以下か歩行速度と同じ、駐車は指定場所のみ。歩道を分離せず、舗装の素材や色で示します。", "k083": "データ：韓相鎮氏の発表資料 p.29 [1]", "k084": "ソウル市内 · 全面を赤く舗装した歩行者優先の交差点", "k085": "ソウル奉恩寺路 · 5030導入前後の実測", "k086": "街なかの効率を決めるのは<br/><span class=\"hl\">信号</span>であって、制限速度ではない", "k087": "速度を下げると「渋滞する」という反対がよく聞かれます。ソウルは奉恩寺路で導入前後の旅行時間を実測しました。4つの時間帯のいずれでも、差は統計的に有意ではありませんでした。", "k088": "同じ道路、同じ距離。速度引き下げ前後の旅行時間", "k089": "<i class=\"dot\" style=\"background:var(--pave)\"></i>交差点で止まっている時間　<i class=\"dot\" style=\"background:#4a5058;margin-left:14px\"></i>区間を走っている時間　· 単位：秒、平均値", "k090": "秒。4つの時間帯における導入前後の平均旅行時間の差。いずれも統計的に有意ではない。", "k091": "夕方のピーク（17–20時）では、767秒のうち460秒が交差点での停止。日中の時間帯も55%を超えます。", "k092": "km/h。この道路の実際の空間平均速度。もともと50まで出せないため、制限速度がボトルネックになったことはありません。", "k093": "市街地の道路の効率を上げたいなら、見直すべきは信号のサイクル、現示、系統制御です。韓国がこれから信号サイクルを120秒以内に抑え、歩行者の待ち時間を指標にするのはそのためです。", "k094": "データ：韓相鎮氏の発表資料 p.27–28、ソウル奉恩寺路の5030導入前後比較（サンプル24–61回）[1]；信号サイクルと歩行者待ち時間は p.33。", "k095": "現地 · ソウルと世宗", "k096": "街で見た韓国", "k097": "写真と動画は視察中に撮影したものです。", "k098": "5. 予算の配分 · どの交差点を改善するか", "k099": "改善すべきは死者が多い交差点か、<br/>事故が多い交差点か", "k100": "<i class=\"dot\" style=\"background:var(--marking)\"></i>負傷事故", "k101": "<i class=\"dot\" style=\"background:var(--pave)\"></i>死亡事故", "k102": "1年間の事故を、都市の道路網に落とす", "k103": "点ひとつが事故1件。大半は負傷事故で、死亡事故はごく一部です。", "k104": "死亡だけを見ると、点が少なく散らばりすぎる", "k105": "死亡事故はあちこちに散らばっていて、どの交差点に問題があるのか見えません。死者が出てから改善するのでは、たいてい手遅れです。", "k106": "韓国は事故の件数を見る", "k107": "事故多発地点改善事業の選定基準：広域市では200 m以内で5件以上、その他の市では400 m以内で3件以上。負傷事故も数えるので、問題のある交差点が早く浮かび上がります。", "k108": "道路網と事故の点はイメージ。選定基準は韓相鎮氏の発表資料 p.39 [1]", "k109": "2つの改善事業 · 2025年予算", "k110": "まず事故件数で地点を選び、<br/>次に重大度で優先順位をつける", "k111": "韓国には2つの道路改善事業があります。地方道と都市の道路は事故件数で地点を選び、国道は加重スコアで順位をつけます。事故の項目にはEPDO（物損事故換算件数）を使い、死亡事故と負傷事故を重大度に応じて同じ単位に換算します。", "k112": "事故多発地点改善事業 Black Spot", "k113": "億ウォン", "k114": "道路交通公団（KoROAD）が地点を選び、国土交通部が国道を、行政安全部が地方道を改善します。", "k115": "種別", "k116": "地域", "k117": "基準", "k118": "範囲", "k119": "地点", "k120": "広域市", "k121": "5件以上", "k122": "都市の道路 200 m以内", "k123": "その他の市", "k124": "3件以上", "k125": "その他の道路 400 m以内", "k126": "区間", "k127": "広域市", "k128": "17件以上", "k129": "1 km以上の区間", "k130": "その他の市", "k131": "8件以上", "k132": "1 km以上の区間", "k133": "国道安全改善事業", "k134": "億ウォン", "k135": "国土交通部が自ら地点を選んで国道を改善し、100点満点のスコアで順位をつけます。", "k136": "道路の幾何構造", "k137": "45点", "k138": "事故EPDO＋交通量", "k139": "45点", "k140": "工事費、住民の要望", "k141": "10点", "k142": "幾何構造には曲線半径、路面状態、視距、縦断勾配、車線幅、路肩幅が含まれます。", "k143": "危険箇所の特定から効果の検証まで", "k144": "事故多発地点改善事業では、地点を選んだ機関が最後に効果を評価します。", "k145": "地点の選定", "k146": "KoROAD、警察庁、道路管理者", "k147": "改善計画の策定", "k148": "施工", "k149": "道路管理者", "k150": "効果の評価", "k151": "課題：予算が死亡の多い場所に向かっていない", "k152": "の死亡が地方自治体の管理する道路で起きています（2020年：地方道2,300人、国道781人）。", "k153": "地方 2,300", "k154": "国道 781", "k155": "1 kmあたりの改善予算", "k156": "事故多発地点の改善予算は、国道が1 kmあたり251万ウォン、広域市道と地方道は1 kmあたりわずか3.3万ウォン。韓教授は地方自治体への補助の拡大と、自治体・地方警察の道路安全実績の評価を提言しています。", "k157": "国道", "k158": "251万", "k159": "地方道", "k160": "3.3万", "k161": "済州：反則金を地域の安全に", "k162": "済州自治警察は2024年に速度取締カメラを引き継ぎ、449台分の反則金が済州の財源に入るようになりました。2026年は<b class=\"hl\">163億ウォン</b>をスクールゾーンや高齢者保護区域の安全施設、スマート横断歩道、事故多発地点の改善、老朽化した信号の更新に充てます。", "k163": "データ：韓相鎮氏の発表資料 p.37（地方道と予算）、p.39–40（選定基準と流れ）、p.44（済州）[1]", "k164": "4. まだ残る課題", "k165": "2023年から4.9で足踏み。<br/>次は地方の道路", "k166": "死者数は3年続けて横ばいです。韓教授が挙げた今後の課題は、多くが地方自治体の道路、住宅地の生活道路、歩行者の横断に関わるものです。", "k167": "住宅地の生活道路", "k168": "のソウルの事故が幅12 m未満の道路で起きており、死亡・重傷の46.3%を占めます。住宅地には30 km/hの交通静穏化、一時停止交差点、歩行者優先道路が必要です。", "k169": "データ：韓相鎮氏の発表資料 p.38 [1]", "k170": "道路評価 KoRAP", "k171": "iRAPの車両1 kmあたり死傷コスト（米ドル）：星がひとつ増えるごとにリスクはほぼ半分に。国連の目標は、2030年までにすべての新設道路を3つ星以上にすることです。", "k172": "1つ星", "k173": "2つ星", "k174": "3つ星", "k175": "4つ星", "k176": "5つ星", "k177": "データ：韓相鎮氏の発表資料 p.36、iRAPと国連の道路安全グローバル目標を引用 [1]", "k178": "秒 · 信号サイクル", "k179": "歩行者の待ち時間を評価指標に", "k180": "交差点の信号サイクルは原則120秒以内とし、1サイクルに歩行者現示を2回。平均歩行者待ち時間を評価指標とし、歩行速度に合わせて系統制御を設定します。", "k181": "データ：韓相鎮氏の発表資料 p.33、『安全速度5030 設計運用マニュアル』を引用 [1]", "k182": "歩行者用の中央島を標準に", "k183": "70 mを超える横断歩道も多く、高齢者は一度で渡りきれません。FHWAの研究では中央島で歩行者事故が32%減少、英国では押しボタン式・感知式信号で事故が30%減少しています。", "k184": "データ：韓相鎮氏の発表資料 p.31、米国FHWAと英国の事例を引用 [1]", "k185": "台湾への示唆", "k186": "持ち帰って議論したい6つのこと", "k187": "負傷者数も目標に", "k188": "台湾の死者数は十数年横ばいなのに、負傷者は倍増して54万人に。死亡だけを追っていては、この流れが見えません。", "k189": "速度を下げても渋滞はしない", "k190": "奉恩寺路の実測が示すように、街なかの時間は交差点で費やされています。効率を論じるなら、見直すべきは制限速度ではなく信号制御です。", "k191": "事故件数で選び、重大度で順位をつける", "k192": "韓国は200 m以内の事故件数で問題のある交差点を見つけ、負傷事故も数に入れます。国道ではさらにEPDOで重大度を重みづけ。死者が出るまで待つ必要はありません。", "k193": "予算は死亡が起きる場所へ", "k194": "死亡の75%は地方の道路で起きているのに、1 kmあたりの予算は国道の1/76。台湾の県市道も似た構造かもしれません。", "k195": "歩行者優先道路を法律に", "k196": "歩道のない路地で、法律が運転者の責任を重くし、舗装でそれをわかりやすく示す。台湾の人本路地や標示による歩道と比べてみたい点です。", "k197": "反則金を地域の安全施設に", "k198": "済州は2024年から速度取締カメラを管理し、反則金は地域の財源に。2026年は163億ウォンをスクールゾーン、高齢者保護区域、スマート横断歩道に充てます。", "k199": "本ページ各セクションのデータから整理。出典はページ下部 [1]–[5]。", "k200": "出典", "k201": "<b>[1]</b> 韓相鎮（Sangjin HAN）、ソウル大学校環境大学院。「Road Safety Policies in Korea: Achievements and Future Tasks」、発表資料、2026年9月9日、全44ページ。本ページの韓国2010–2025年の死者数、OECD比較、セーフシステム、各施策の成果、奉恩寺路5030の実測、選定基準と予算、今後の課題はすべてこの資料によるもので、ページ番号は各セクションに記載。資料中のFHWA、英国の信号の事例、iRAP、国連目標、OECDのデータは資料からの孫引き。ページによって基準年が異なる（2016、2019、2020、2022、2024、2025）ため、引用の際は年を明記してください。", "k202": "<b>[2]</b> 監察院の調査報告（交通部の道路交通事故統計を引用）：台湾2009–2023年の30日以内死者数と負傷者数。<a href=\"https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72182\" rel=\"noopener\" target=\"_blank\">cybsbox.cy.gov.tw</a>", "k203": "<b>[3]</b> 韓国警察庁／道路交通公団（KoROAD）交通事故分析システム TAAS：韓国2005–2009年の死者数、2009–2014年の負傷者数。指標ページ：<a href=\"https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=1614\" rel=\"noopener\" target=\"_blank\">e-나라지표 교통사고 현황</a>", "k204": "<b>[4]</b> 韓国2015–2019年の負傷者数の照合：<a href=\"https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/south-korea-number-of-injured-in-road-accidents\" rel=\"noopener\" target=\"_blank\">South Korea – Number of Injured in Road Accidents</a>；2020年の負傷者数は資料 p.3 [1]。", "k205": "<b>[5]</b> 10万人あたり負傷者数は本ページでの換算：2023年末の人口は台湾約2,342万人（内政部戸政司）、韓国約5,133万人（韓国行政安全部の住民登録人口）。結果は概数。", "k206": "写真・動画：劉冠頡 提供。2026年9月の韓国道路安全視察（ソウル、世宗）で撮影。「予算の配分」セクションの道路網と事故の点の3D図はイメージで、実際の事故データではありません。"}, "tw": {"k000": "2026 年 9 月 · 韓國道路安全考察", "k001": "20 冬，交通死亡減少<span class=\"hl\">超過一半</span>", "k002": "畫面頂的每一點，是 2005 年一个佇韓國路頂過身的人。沓沓仔捲落去，看到 2025 年減少偌濟。", "k003": "一冬內底交通事故過身的人數", "k004": "<i class=\"dot\" style=\"background:var(--pave)\"></i>彼冬過身的人", "k005": "<i class=\"dot\" style=\"background:var(--marking)\"></i>佮 2005 年比，少走的人", "k006": "↓ 沓沓仔捲落去", "k008": "首爾 · 光化門附近 · 2026.9.9", "k009": "去到首爾，<br/>看伊是按怎做到的", "k010": "首爾大學環境研究所韓相鎮（Sangjin HAN）教授，2026 年 9 月 9 日的簡報〈Road Safety Policies in Korea: Achievements and Future Tasks〉。這頁韓國的數字大部分攏是對這份簡報來的，每一段攏有註頁數，完整的出處囥佇上尾。", "k011": "一、成果 · 過身人數 2010–2025", "k013": "過身人數", "k014": "每十萬人過身的比率", "k016": "毋但看死亡 · 受傷人數", "k017": "台灣干焦看死亡，<br/>受傷的人煞加一倍", "k018": "2009 到 2023 年，台灣 30 日內過身的人數差不多無變（3,232 → 3,023），受傷的人煞對 24.6 萬增加到 <b class=\"red\">54.0 萬</b>，創新懸。仝一段時間，韓國受傷的人減少兩成。", "k020": "<i class=\"dot\" style=\"background:var(--pave)\"></i>台灣受傷", "k021": "<i class=\"dot\" style=\"background:var(--marking)\"></i>韓國受傷", "k022": "韓國的人口差不多是台灣的 2.2 倍。換算做每十萬人，2023 年台灣差不多 <b style=\"color:var(--ink)\">2,300 人</b>受傷，韓國差不多 <b style=\"color:var(--ink)\">550 人</b>，差四倍外。<br/><span class=\"src\">* 台灣的數字這馬干焦到 2023 年。</span>", "k024": "國際比較", "k025": "每十萬人過身的比率對 10 降到 5.9，<br/>瑞典開 18 冬，韓國干焦 <span class=\"hl\">7 冬</span>", "k026": "2013 到 2020 年，韓國用比 OECD 先進國家較短的時間行過仝一段路。每一萬台車過身的比率對 2 降到 1.1，嘛干焦開 6 冬，日本開 17 冬。", "k028": "2024 年每十萬人過身的比率<br/>OECD 平均 4.73", "k029": "2024 年每一萬台車過身的比率<br/>OECD 平均 0.82", "k030": "對 OECD 的後段班行到中段。2016 年干焦首爾、釜山、仁川三个市道比 OECD 平均較好，2024 年加到九个。", "k032": "二、Safe System 安全系統", "k033": "「咱改袂了人性，毋過會當改人所踮的條件。」<br/><span class=\"src\" style=\"font-style:normal\">James Reason · 韓相鎮簡報 p.14</span>", "k034": "每一塊起司，攏是一層防線", "k035": "用路人、車、路，逐項攏是一層防線，逐層攏有空：無專心、開傷緊、看無清楚、設計有問題。只要有一層擋牢，事故就袂發生。", "k036": "空拄好排做一逝，事故就發生矣", "k037": "個人取向共責任推予犯錯的人：處罰、閣訓練、追究責任。系統取向承認人一定會犯錯，閣問防線是按怎仝時失效。", "k038": "閣加一層：安全的速度", "k039": "車佮路若無法度共衝擊控制佇人的身軀擋會牢的範圍，就共速限降落來。這是瑞典 Vision Zero 的責任分擔：設計系統的人愛為規个安全水準負責。", "k041": "三、做著的代誌", "k042": "2018 年開始，<br/>共交通死亡當做國家目標", "k043": "2018 年 1 月，總統新年的講話共自殺、交通事故、職災死亡列做「保護國民性命三大計畫」，目標是佇 2022 年進前共交通死亡對 4,292 人（2016）減一半。國務調整室的副首長逐季開會檢查，各部會兩個月報告一擺。", "k045": "全座位安全帶", "k046": "所有的路、所有的座位攏愛縛安全帶", "k047": "本來干焦高速公路規定全座位愛縛安全帶，改做所有的路攏愛。違規罰駕駛 3 萬韓元。", "k049": "後座安全帶的使用率", "k053": "尹昌浩法", "k054": "酒駕：標準較嚴，刑期較重", "k055": "酒駕標準 BAC 0.05% → <b class=\"hl\">0.03%</b>；吊照 0.1% → 0.08%", "k056": "酒駕致死：上少 1 冬 → 無期徒刑抑是上少 3 冬", "k057": "三振改做兩振，禁考的期間對 1 冬延長做 2 冬", "k059": "酒駕過身的人數", "k060": "老大人佮職業駕駛", "k061": "老大人佔過身人數的 45.5%，是老大人口比例的 3 倍", "k062": "75 歲以上的駕駛適性檢查，對 5 冬一擺改做 3 冬一擺，閣加認知能力的自我檢測", "k063": "65 歲以上家己去繳駕照，就發免費的交通卡", "k064": "公車司機納入每禮拜 52 點鐘的工時上限，對「做兩工歇一工、一工差不多 15 點鐘」改做做一工歇一工", "k065": "防止踏毋著踏板的裝置：2026 年試辦 3,260 台，2029 年開始新車攏愛有", "k067": "過身的人內底 65 歲以上的比例（2010 → 2019）。老大人口比例干焦 15.4%。", "k068": "金民植法", "k069": "學區：測速照相、減速丘、袂使停車", "k070": "2019 年 9 月忠南牙山學區事故了後立法。學區加設測速照相、減速丘佮號誌，路邊袂使停車；佇學區挵死囡仔，判無期徒刑抑是 3 冬以上，罰鍰加重做 3 倍。", "k071": "測速照相 2019", "k072": "一冬了後：學區事故 567 → 483 件（−15%），死亡事故 6 → 3 件。", "k074": "首爾 · 學區路面的「어린이 보호구역」佮 30 速限標字", "k076": "都市的路 50，厝邊佮學區的巷仔 30", "k077": "2021 年 4 月 17 日全國實施。口號是「速度慢落來，行人就看會著」。警察廳、國土交通部、行政安全部做伙成立「5030 協議會」，研究機構佮學會組諮詢團，閣出版《安全速度 5030 設計運用手冊》。", "k079": "首爾 · 巴士窗仔外的「천천히 SLOW」佮 50 km/h 速限", "k080": "行人優先道路", "k081": "無行人路的路，駕駛愛讓行人", "k082": "2022 年《道路交通法》共「보행자우선도로」寫入法律：速限 20 km/h 以下，抑是佮行路仝款緊；停車干焦會當停佇指定的所在。做法主要是用鋪面的材料佮色水，無另外分出行人路。", "k084": "首爾市區 · 規片紅色鋪面的行人優先路口", "k085": "首爾奉恩寺路 · 5030 降速前後的實測", "k086": "市內的效率<br/>看的是<span class=\"hl\">紅綠燈</span>，毋是速限", "k087": "降速上捷聽著的反對是「會塞車」。首爾佇奉恩寺路做降速前後的實測：四个時段的旅行時間差，佇統計上攏無顯著。", "k088": "仝一條路、仝一段距離，降速前後的旅行時間", "k089": "<i class=\"dot\" style=\"background:var(--pave)\"></i>佇路口停咧等的時間　<i class=\"dot\" style=\"background:#4a5058;margin-left:14px\"></i>佇路段頂行駛的時間　· 單位：秒，平均值", "k090": "秒。四个時段降速前後平均的旅行時間差，統計上攏無顯著。", "k091": "暗頭仔的尖峰（17–20 點），767 秒內底有 460 秒停佇路口。日時的時段嘛有超過 55%。", "k092": "km/h。這條路實際的空間平均速度。車本底就駛袂到 50，速限從來毋是瓶頸。", "k093": "欲予市內的路閣較有效率，愛檢討的是號誌週期、時相佮連鎖。這嘛是韓國紲落來共號誌週期壓佇 120 秒以內、改用行人等的時間做指標的原因。", "k095": "現場 · 首爾佮世宗", "k096": "佇街路頂看著的韓國", "k097": "相片佮影片是考察的時陣翕的。", "k098": "五、錢按怎分 · 改善佗一寡路口", "k099": "欲改善過身人較濟的路口，<br/>抑是事故較濟的路口？", "k100": "<i class=\"dot\" style=\"background:var(--marking)\"></i>受傷事故", "k101": "<i class=\"dot\" style=\"background:var(--pave)\"></i>死亡事故", "k102": "一冬的事故，落佇城市的路網頂", "k103": "每一點是一件事故。大部分是受傷事故，死亡事故干焦佔真少的一部分。", "k104": "干焦看死亡，點傷少、傷散", "k105": "死亡事故四界散，真僫看出佗一个路口有問題。等到有人過身才改善，通常已經傷慢矣。", "k106": "韓國看的是事故的件數", "k107": "易肇事路段改善計畫揀點的標準：廣域市 200 公尺內 5 件以上、其他城市 400 公尺內 3 件以上。受傷事故嘛算入去，有問題的路口較早就會浮出來。", "k109": "兩套改善計畫 · 2025 年預算", "k110": "先用事故件數揣點，<br/>閣用嚴重度排優先", "k111": "韓國有兩套道路改善計畫。地方佮都市的路用事故件數揀點，國道用加權評分排順序，其中事故的部分用 EPDO（當量財損事故），共死亡佮受傷事故照嚴重的程度換算做仝一个單位。", "k114": "道路交通公團（KoROAD）揀點，國土交通部改善國道、行政安全部改善地方道路。", "k135": "國土交通部家己揀點閣改善國道，用 100 分的評分排順序。", "k142": "道路幾何包括曲率半徑、路況、視距、縱坡、車道闊佮路肩闊。", "k143": "對揣出熱點到驗收成效", "k144": "易肇事路段改善計畫的流程，上尾一步由揀點的仝一个單位評估成效。", "k145": "揀點", "k147": "擬改善計畫", "k151": "問題：錢無綴死亡行", "k152": "的死亡發生佇地方政府管的路頂（2020 年：地方道路 2,300 人、國道 781 人）。", "k156": "易肇事路段改善預算：國道每公里 251 萬韓元，廣域市道佮地方道路每公里干焦 3.3 萬韓元。韓相鎮教授建議提懸對地方政府的補助，閣評比地方政府佮地方警察的道路安全績效。", "k161": "濟州：罰款轉去地方", "k162": "濟州自治警察 2024 年接手測速照相，449 台的罰款入去濟州地方的帳戶。2026 年的 <b class=\"hl\">163 億韓元</b>用佇學區佮老大人區的安全設施、智慧行人穿越道、易肇事路段改善，閣有換掉舊的號誌。", "k164": "四、猶未做完的代誌", "k165": "2023 年開始停佇 4.9，<br/>下一步是地方的路", "k166": "過身的人數連紲三冬無啥變。韓相鎮教授講的未來課題，大部分攏佇地方政府管的路、厝邊的巷仔佮行人過路。", "k167": "厝邊的巷仔", "k168": "首爾的事故發生佇闊無 12 公尺的路頂，佔死亡加重傷的 46.3%。住宅區愛做 30 km/h 交通寧靜、停止路口佮行人優先道路。", "k171": "iRAP 每台車每公里的死傷成本（美金）：每加一粒星，風險差不多減一半。聯合國的目標是 2030 年進前新起的路攏愛有 3 粒星以上。", "k172": "1 粒星", "k173": "2 粒星", "k174": "3 粒星", "k175": "4 粒星", "k176": "5 粒星", "k178": "秒 · 號誌週期", "k179": "用行人等的時間做績效指標", "k180": "路口號誌週期原則上無超過 120 秒，一个週期予行人兩擺時相；用行人平均等的時間做績效指標，照行路的速度設定號誌連鎖。", "k182": "行人庇護島變做預設", "k183": "真濟穿越道超過 70 公尺，老大人真僫一擺行完。FHWA 的研究講庇護島會當減少 32% 的行人事故；行人觸動號誌佇英國減少 30% 的事故。", "k185": "予台灣的對照", "k186": "會當直接紮轉來討論的六件代誌", "k187": "受傷人數嘛愛列做目標", "k188": "台灣過身的人數十幾冬無啥變，受傷的人煞加倍到 54 萬。若干焦綴死亡，會看袂著這个趨勢。", "k189": "降速毋是塞車", "k190": "奉恩寺路的實測顯示，市內的時間攏開佇路口。欲講效率，愛檢討的是號誌時制，毋是速限。", "k191": "用事故件數揀點，用嚴重度排順序", "k192": "韓國用 200 公尺內的事故件數揣出有問題的路口，受傷事故嘛算；國道閣用 EPDO 照嚴重度加權。毋免等到有人過身才改善。", "k193": "錢愛綴死亡發生的所在行", "k194": "75% 的死亡佇地方的路，每公里的預算煞干焦國道的 1/76。台灣的縣市道路凡勢嘛是類似的結構。", "k195": "行人優先道路寫入法律", "k196": "無行人路的巷仔，用法律加重駕駛的責任、用鋪面予人看有。佮台灣的人本巷仔佮標線型行人路做對照。", "k197": "罰款轉去地方，變做安全設施", "k198": "濟州對 2024 年接手測速照相，罰款入去地方的帳戶，2026 年 163 億韓元用佇學區、老大人區佮智慧穿越道。", "k199": "照這頁各段的資料整理，出處看上尾 [1]–[5]。", "k206": "相片佮影片：劉冠頡提供，2026 年 9 月韓國道路安全考察的時陣翕的（首爾、世宗）。「錢按怎分」這段的路網佮事故點 3D 圖是示意，毋是實際的事故資料。"}};
+const UI={"zh": {"title": "韓國道路安全考察", "desc": "韓國 2005–2025 年道路交通死亡減少超過一半：數據、政策與首爾、世宗現場影像。", "notes": ["{y} 年死亡 <b>{d} 人</b>。2010 年代前半每年只少幾百人，在 OECD 國家中屬於後段班。", "2018 年起，交通死亡被列為國家目標：四年內減半。安全帶、酒駕、學區、高齡駕駛的措施在這段時間接連上路。{y} 年死亡 <b>{d} 人</b>。", "2021 年 4 月「安全速度 5030」全國實施。{y} 年死亡 <b>{d} 人</b>，每十萬人死亡率降到 {r}。", "2023 年到 2025 年停在每十萬人 <b>4.9</b> 左右，降幅趨緩。比 2017 年少了 1,636 人（−39.1%）。"], "ref": "2017 年水準 4,185", "unit": " 萬", "div": 10000, "kr": "韓國", "tw": "台灣", "race": ["瑞典", "英國", "挪威", "以色列", "瑞士", "日本", "丹麥", "德國", "愛爾蘭", "西班牙", "韓國"], "yr": " 年", "slices": ["安全用路人", "安全車輛", "安全道路", "安全速度"], "hot": "{n} 件", "sigWhen": ["深夜", "早上", "午後", "傍晚尖峰"], "sigHour": " 時", "sigShare": "路口占 {p}%", "pre": "降速前", "post": "降速後", "video": "影片", "tap": "▶ 點一下播放", "cards": [["光化門北側的小型圓環", "單車道圓環、中央島植栽。影片中車輛減速進環，讓環內車先行。"], ["倒三角「양보 YIELD」", "號誌桿上掛著「讓」與「회전차량우선」（環內車輛優先），整個路口鋪紅色。"], ["世宗市新市鎮圓環", "入口同時有行人穿越道、自行車穿越道和整排護柱，速限 40 km/h。"], ["鍾路巷口的高架穿越道", "支道口和人行道同高，車輛在穿越道前停下讓行人先走。"], ["人行道不中斷", "不同鋪面材質、導盲磚、護柱和斑馬線，讓出入的車知道自己正在穿越人行道。"], ["縮小轉角半徑", "緣石延伸到路口，縮短穿越距離，也逼右轉車減速。"], ["槽化島變成行人等候區", "世宗市路口：紅色自行車道沿路口穿越，右轉槽化島上設行人等候空間。"], ["右轉槽化島兼庇護島", "首爾忠正路一帶，長距離穿越被切成兩段。"], ["窄巷的低成本人行道", "一道低緣石加護柱隔出紅褐色人行道，車道上有 30 速限與自行車標誌。"], ["德壽宮旁的公車站", "世宗大路上，自行車道從候車亭後方繞過，和候車乘客分開。"], ["中央分隔欄杆", "搭配反光環與「무단횡단금지」（禁止任意穿越）。"]]}, "tw": {"title": "韓國道路安全考察", "desc": "韓國 2005–2025 年交通死亡減少超過一半：數字、政策佮首爾、世宗的現場影像。", "notes": ["{y} 年過身 <b>{d} 人</b>。2010 年代頭前幾冬，一冬干焦減幾百人，佇 OECD 國家內底是後段班。", "2018 年開始，交通死亡列做國家目標：四冬內減一半。安全帶、酒駕、學區、老大人駕駛的措施，佇這段時間一項一項上路。{y} 年過身 <b>{d} 人</b>。", "2021 年 4 月「安全速度 5030」全國實施。{y} 年過身 <b>{d} 人</b>，每十萬人過身的比率降到 {r}。", "2023 到 2025 年停佇每十萬人 <b>4.9</b> 左右，降的速度變慢矣。比 2017 年少 1,636 人（−39.1%）。"], "ref": "2017 年的水準 4,185", "unit": " 萬", "div": 10000, "kr": "韓國", "tw": "台灣", "race": ["瑞典", "英國", "挪威", "以色列", "瑞士", "日本", "丹麥", "德國", "愛爾蘭", "西班牙", "韓國"], "yr": " 冬", "slices": ["安全用路人", "安全的車", "安全的路", "安全的速度"], "hot": "{n} 件", "sigWhen": ["半暝", "早起", "下晡", "暗頭仔尖峰"], "sigHour": " 點", "sigShare": "路口佔 {p}%", "pre": "降速前", "post": "降速後", "video": "影片", "tap": "▶ 揤一下來播", "cards": [["光化門北爿的細圓環", "單車道的圓環，中央島有種花草。影片內底的車減速入環，予環內的車先行。"], ["倒三角「양보 YIELD」", "號誌桿頂掛「讓」佮「회전차량우선」（環內的車優先），規个路口鋪紅色。"], ["世宗市新市鎮的圓環", "入口仝時有行人穿越道、自行車穿越道佮規排的護柱，速限 40 km/h。"], ["鍾路巷仔口抬懸的穿越道", "巷仔口佮行人路仝懸，車佇穿越道頭前停落來，予行人先行。"], ["行人路無斷去", "無仝的鋪面材料、導盲磚、護柱佮斑馬線，予出入的車知影家己當咧行過行人路。"], ["共轉角半徑縮細", "緣石伸到路口，過路的距離變短，嘛逼右轉的車慢落來。"], ["槽化島變做行人等的所在", "世宗市路口：紅色的自行車道沿路口過，右轉槽化島頂有行人等的空間。"], ["右轉槽化島兼庇護島", "首爾忠正路附近，長長的過路切做兩段。"], ["狹巷仔的低成本行人路", "一條低緣石加護柱隔出紅褐色的行人路，車道頂有 30 速限佮自行車標誌。"], ["德壽宮邊仔的公車站", "世宗大路頂，自行車道對候車亭後壁踅過，佮等車的人分開。"], ["中央分隔欄杆", "配反光環佮「무단횡단금지」（禁止烏白過路）。"]]}, "ja": {"title": "韓国道路安全視察", "desc": "韓国の交通事故死者は2005–2025年で半分以下に。データ、政策、ソウルと世宗の現地映像。", "notes": ["{y}年の死者は<b>{d}人</b>。2010年代前半は毎年数百人ずつしか減らず、OECD諸国の中で下位グループでした。", "2018年から交通死亡が国家目標に：4年で半減。シートベルト、飲酒運転、スクールゾーン、高齢運転者の対策が相次いで導入されました。{y}年の死者は<b>{d}人</b>。", "2021年4月、「安全速度5030」を全国で施行。{y}年の死者は<b>{d}人</b>、10万人あたり死者数は{r}に。", "2023年から2025年は10万人あたり<b>4.9</b>前後で足踏みし、減少のペースが鈍っています。2017年より1,636人少ない（−39.1%）。"], "ref": "2017年の水準 4,185", "unit": "万", "div": 10000, "kr": "韓国", "tw": "台湾", "race": ["スウェーデン", "英国", "ノルウェー", "イスラエル", "スイス", "日本", "デンマーク", "ドイツ", "アイルランド", "スペイン", "韓国"], "yr": "年", "slices": ["安全な道路利用者", "安全な車両", "安全な道路", "安全な速度"], "hot": "{n}件", "sigWhen": ["深夜", "朝", "午後", "夕方ピーク"], "sigHour": "時", "sigShare": "交差点で停止 {p}%", "pre": "引き下げ前", "post": "引き下げ後", "video": "動画", "tap": "▶ タップして再生", "cards": [["光化門北側の小さなラウンドアバウト", "1車線のラウンドアバウトで、中央島には植栽。動画では車が減速して進入し、環道内の車に道を譲っています。"], ["逆三角の「양보 YIELD」", "信号柱に「譲れ」と「회전차량우선」（環道内の車優先）の標識。交差点全体が赤く舗装されています。"], ["世宗市ニュータウンのラウンドアバウト", "入口に横断歩道、自転車横断帯、ボラードの列。制限速度は40 km/h。"], ["鍾路の路地入口のハンプ型横断歩道", "路地の入口が歩道と同じ高さで、車は横断歩道の手前で止まり歩行者に道を譲ります。"], ["途切れない歩道", "舗装材、点字ブロック、ボラード、横断歩道で、出入りする車に歩道を横切っていることを知らせます。"], ["隅切りを小さく", "縁石を交差点まで張り出し、横断距離を短くし、右折車の速度も落とします。"], ["導流島を歩行者の待機スペースに", "世宗市の交差点：赤い自転車道が交差点を通り、右折用の導流島に歩行者の待機スペース。"], ["右折導流島を兼ねた安全島", "ソウル忠正路周辺。長い横断を二段に分けています。"], ["狭い路地の低コストな歩道", "低い縁石とボラードで赤褐色の歩道を区切り、車道には制限速度30と自転車のマーク。"], ["徳寿宮わきのバス停", "世宗大路で、自転車道が待合所の裏側を回り、バスを待つ人と分けられています。"], ["中央分離柵", "反射リングと「무단횡단금지」（横断禁止）の表示。"]]}, "en": {"title": "Korea Road Safety Study Tour", "desc": "Korea cut road deaths by more than half from 2005 to 2025: the data, the policies, and footage from Seoul and Sejong.", "notes": ["{d} people died in {y}. In the early 2010s deaths fell by only a few hundred a year, near the bottom of the OECD.", "From 2018, road deaths became a national target: halve them in four years. Measures on seat belts, drink-driving, school zones and older drivers followed in quick succession. {d} people died in {y}.", "Safe Speed 5030 took effect nationwide in April 2021. {d} people died in {y}; deaths per 100,000 fell to {r}.", "From 2023 to 2025 the rate held at about <b>4.9</b> per 100,000 as progress slowed. That is 1,636 fewer deaths than in 2017 (−39.1%)."], "ref": "2017 level 4,185", "unit": "k", "div": 1000, "kr": "Korea", "tw": "Taiwan", "race": ["Sweden", "UK", "Norway", "Israel", "Switzerland", "Japan", "Denmark", "Germany", "Ireland", "Spain", "Korea"], "yr": " yrs", "slices": ["Safe road users", "Safe vehicles", "Safe roads", "Safe speed"], "hot": "{n} crashes", "sigWhen": ["Late night", "Morning", "Afternoon", "Evening peak"], "sigHour": "", "sigShare": "{p}% at junctions", "pre": "Before", "post": "After", "video": "Video", "tap": "▶ Tap to play", "cards": [["A small roundabout north of Gwanghwamun", "Single-lane roundabout with a planted central island. In the video, cars slow on entry and give way to traffic already circulating."], ["An inverted “양보 YIELD”", "The signal pole carries a yield sign and “회전차량우선” (circulating vehicles have priority); the whole junction is paved red."], ["A roundabout in Sejong new town", "Each entry has a pedestrian crossing, a cycle crossing and a row of bollards. Speed limit 40 km/h."], ["A raised crossing at a Jongno side street", "The side-street entry is level with the footpath; cars stop before the crossing and let people walk first."], ["An unbroken footpath", "Paving, tactile tiles, bollards and zebra stripes tell turning drivers they are crossing a footpath."], ["Tighter corner radii", "Kerbs extend into the junction, shortening the crossing and forcing right-turning cars to slow down."], ["Channelising islands become waiting areas", "A Sejong junction: a red cycle track runs through, and the right-turn island doubles as a place for pedestrians to wait."], ["Right-turn island as a refuge", "Near Chungjeong-ro in Seoul, a long crossing is split into two stages."], ["A low-cost footpath on a narrow lane", "A low kerb and bollards separate a red-brown footpath; the carriageway has a 30 limit and cycle symbol."], ["A bus stop beside Deoksugung", "On Sejong-daero, the cycle track runs behind the shelter, away from people waiting for the bus."], ["Median barrier", "With reflective rings and “무단횡단금지” (no jaywalking)."]]}};
+let LC='zh';const T=k=>UI[LC][k];const tpl=(s,o)=>s.replace(/\{(\w)\}/g,(m,k)=>o[k]);
+
 /* ---------- 資料 ---------- */
 const YEARS=[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
 const DEATHS=[5505,5229,5392,5092,4762,4621,4292,4185,3781,3349,3081,2916,2735,2551,2521,2549];
@@ -728,22 +745,24 @@ const INJ_KR=[361875,352458,341391,344565,328711,337497,350400,331720,322829,323
 const INJ_TW=[245835,292534,314003,332940,372445,412010,408861,402697,393046,426799,455400,482333,476304,499179,539535,null,null];
 
 /* ---------- 受傷 SVG ---------- */
-const inj=(function(){
+let inj,injF=0;function buildInj(){inj=(function(){
   const svg=document.getElementById('injSvg');const W=1000,H=620,L=92,R=120,T=30,B=60;
   const x=y=>L+(y-2009)/(2025-2009)*(W-L-R);const yv=v=>T+(1-v/600000)*(H-T-B);
   let s='';
-  for(let v=0;v<=600000;v+=100000){s+=`<line x1="${L}" x2="${W-R}" y1="${yv(v)}" y2="${yv(v)}" stroke="${C.line}"/><text x="${L-12}" y="${yv(v)+7}" fill="${C.muted}" font-size="20" text-anchor="end" font-family="Barlow Condensed, sans-serif" font-weight="600">${v/10000} 萬</text>`}
+  for(let v=0;v<=600000;v+=100000){s+=`<line x1="${L}" x2="${W-R}" y1="${yv(v)}" y2="${yv(v)}" stroke="${C.line}"/><text x="${L-12}" y="${yv(v)+7}" fill="${C.muted}" font-size="20" text-anchor="end" font-family="Barlow Condensed, sans-serif" font-weight="600">${v/UI[LC].div}${UI[LC].unit}</text>`}
   for(let y=2009;y<=2025;y+=2)s+=`<text x="${x(y)}" y="${H-B+34}" fill="${C.muted}" font-size="20" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="600">${y}</text>`;
   const path=(arr)=>arr.map((v,i)=>v==null?'':`${i&&arr[i-1]!=null?'L':'M'}${x(INJ_Y[i]).toFixed(1)},${yv(v).toFixed(1)}`).join('');
   s+=`<defs><clipPath id="injClip"><rect id="injClipR" x="0" y="0" width="${W}" height="${H}"/></clipPath></defs>`;
   s+=`<g clip-path="url(#injClip)"><path d="${path(INJ_KR)}" fill="none" stroke="${C.marking}" stroke-width="5" stroke-linejoin="round"/><path d="${path(INJ_TW)}" fill="none" stroke="${C.pave}" stroke-width="5" stroke-linejoin="round"/></g>`;
   s+=`<circle id="injDK" r="8" fill="${C.marking}"/><circle id="injDT" r="8" fill="${C.pave}"/>`;
-  s+=`<text id="injLK" fill="${C.marking}" font-size="22" font-weight="700">韓國</text><text id="injLT" fill="${C.pave}" font-size="22" font-weight="700">台灣</text>`;
+  s+=`<text id="injLK" fill="${C.marking}" font-size="22" font-weight="700">${UI[LC].kr}</text><text id="injLT" fill="${C.pave}" font-size="22" font-weight="700">${UI[LC].tw}</text>`;
   svg.innerHTML=s;
   const g=id=>document.getElementById(id);
   return {x,yv,clip:g('injClipR'),dk:g('injDK'),dt:g('injDT'),lk:g('injLK'),lt:g('injLT'),L,R,W};
-})();
+})();}
+buildInj();
 function setInj(f){ // f: 0..1 → 年份位置
+  injF=f;
   const yr=2009+f*16;const i=Math.min(16,Math.floor(yr-2009+1e-6));const fr=yr-2009-i;
   inj.clip.setAttribute('width',inj.x(yr)+2);
   const lerp=(a,b)=>a+(b-a)*fr;
@@ -761,26 +780,28 @@ function setInj(f){ // f: 0..1 → 年份位置
 setInj(0);
 
 /* ---------- 號誌：降速前後旅行時間 ---------- */
-(function sig(){
-  const D=[['00–05','深夜',[335,119],[349,131]],['07–10','早上',[396,138],[405,155]],['13–16','午後',[741,431],[737,430]],['17–20','傍晚尖峰',[713,413],[767,460]]];
+function renderSig(){
+  const W=T('sigWhen');const DS=[['00–05',W[0],[335,119],[349,131]],['07–10',W[1],[396,138],[405,155]],['13–16',W[2],[741,431],[737,430]],['17–20',W[3],[713,413],[767,460]]];
   const MAX=820;
   const bar=(lab,[t,d])=>`<div class="sig-bar"><span>${lab}</span><div class="sig-track"><div class="sig-fill bar-fill" data-w="${(t/MAX*100).toFixed(1)}" style="width:${(t/MAX*100).toFixed(1)}%"><span class="d" style="width:${(d/t*100).toFixed(1)}%">${d}</span><span class="m" style="width:${(100-d/t*100).toFixed(1)}%">${t-d}</span></div><span class="sig-t" style="left:${(t/MAX*100).toFixed(1)}%">${t}</span></div></div>`;
-  document.getElementById('sigRows').innerHTML=D.map(r=>`<div class="sig-row"><div class="when">${r[0]} 時<small>${r[1]} · 路口占 ${(r[3][1]/r[3][0]*100).toFixed(1)}%</small></div><div class="sig-pair">${bar('降速前',r[2])}${bar('降速後',r[3])}</div></div>`).join('');
-})();
+  document.getElementById('sigRows').innerHTML=DS.map(r=>`<div class="sig-row"><div class="when">${r[0]}${T('sigHour')}<small>${r[1]} · ${tpl(T('sigShare'),{p:(r[3][1]/r[3][0]*100).toFixed(1)})}</small></div><div class="sig-pair">${bar(T('pre'),r[2])}${bar(T('post'),r[3])}</div></div>`).join('');
+}
+renderSig();
 
 /* ---------- 國際比較 SVG ---------- */
-(function race(){
+function renderRace(){
   const data=[['瑞典',1980,1998],['英國',1983,1998],['挪威',1987,1996],['以色列',1993,2006],['瑞士',1994,2005],['日本',1995,2006],['丹麥',1996,2004],['德國',1998,2007],['愛爾蘭',2001,2009],['西班牙',2005,2009],['韓國',2013,2020]];
   const svg=document.getElementById('raceSvg');const W=1000,L=96,R=40,T=40,rowH=40;
   const x=y=>L+(y-1980)/(2021-1980)*(W-L-R);
   let s='';
   for(let y=1980;y<=2020;y+=5){s+=`<line x1="${x(y)}" x2="${x(y)}" y1="${T-14}" y2="${T+data.length*rowH}" stroke="${C.line}" stroke-width="1"/><text x="${x(y)}" y="${T-20}" fill="${C.muted}" font-size="14" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="600">${y}</text>`}
-  data.forEach((d,i)=>{const yy=T+i*rowH+10;const k=d[0]==='韓國';const col=k?C.marking:C.muted;
-    s+=`<text x="${L-14}" y="${yy+15}" fill="${k?C.marking:C.ink}" font-size="16" text-anchor="end" font-weight="${k?700:500}">${d[0]}</text>`;
+  data.forEach((d,i)=>{const yy=T+i*rowH+10;const k=i===data.length-1;const col=k?C.marking:C.muted;
+    s+=`<text x="${L-14}" y="${yy+15}" fill="${k?C.marking:C.ink}" font-size="16" text-anchor="end" font-weight="${k?700:500}">${UI[LC].race[i]}</text>`;
     s+=`<rect class="rbar" data-w="${x(d[2])-x(d[1])}" x="${x(d[1])}" y="${yy+2}" width="${x(d[2])-x(d[1])}" height="18" rx="2" fill="${col}" opacity="${k?1:.55}"/>`;
-    s+=`<text class="rlab" x="${x(d[2])+8}" y="${yy+16}" fill="${k?C.marking:C.ink}" font-size="18" font-family="Barlow Condensed, sans-serif" font-weight="700">${d[2]-d[1]} 年</text>`;});
+    s+=`<text class="rlab" x="${x(d[2])+8}" y="${yy+16}" fill="${k?C.marking:C.ink}" font-size="18" font-family="Barlow Condensed, sans-serif" font-weight="700">${d[2]-d[1]}${UI[LC].yr}</text>`;});
   svg.setAttribute('viewBox',`0 0 ${W} ${T+data.length*rowH+10}`);svg.innerHTML=s;
-})();
+}
+renderRace();
 
 /* ---------- 橫條進場（靜止狀態可見；只把尚未進入畫面的先歸零） ---------- */
 const grow=[...document.querySelectorAll('.bar-fill'),...document.querySelectorAll('#stars div'),...document.querySelectorAll('.rbar')];
@@ -808,7 +829,7 @@ const CARDS=[
   ['p','p0320.jpg','中央分隔欄杆','搭配反光環與「무단횡단금지」（禁止任意穿越）。','補充 · 中央分隔']
 ];
 const track=document.getElementById('track');
-track.innerHTML=CARDS.map(c=>`<article class="card"><div class="m">${c[0]==='v'?`<video data-src="media/${c[1]}" poster="media/${c[1].replace('.mp4','.jpg')}" muted loop playsinline preload="none"></video><span class="badge v">影片</span>`:`<img src="media/${c[1]}" alt="${c[2]}">`}</div><h3>${c[2]}</h3><p>${c[3]}</p></article>`).join('')+'<div style="flex:0 0 1px"></div>';
+track.innerHTML=CARDS.map(c=>`<article class="card"><div class="m">${c[0]==='v'?`<video data-src="media/${c[1]}" poster="media/${c[1].replace('.mp4','.jpg')}" muted loop playsinline preload="none"></video><span class="badge v" data-ui="video">影片</span>`:`<img src="media/${c[1]}" alt="${c[2]}">`}</div><h3 data-card="${CARDS.indexOf(c)}">${c[2]}</h3><p data-card="${CARDS.indexOf(c)}">${c[3]}</p></article>`).join('')+'<div style="flex:0 0 1px"></div>';
 const vids=[...document.querySelectorAll('video')];
 /* 影片：手機上較保險的載入與播放 */
 vids.forEach(v=>{v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('webkit-playsinline','');v.addEventListener('click',()=>{v.paused?v.play().catch(()=>{}):v.pause()});v.addEventListener('playing',()=>v.closest('.tap')?.classList.remove('tap'))});
@@ -871,7 +892,7 @@ if(hasGL){
   const ref=new THREE.Mesh(new THREE.BoxGeometry(17.2,.012,.012),new THREE.MeshBasicMaterial({color:col(C.ink),transparent:true,opacity:.35}));ref.position.y=4.185;s.add(ref);
   const labels=document.getElementById('trendLabels');
   const yl=YEARS.map(y=>{const e=document.createElement('span');e.className='glabel';e.textContent=y;labels.appendChild(e);return e});
-  const refL=document.createElement('span');refL.className='glabel';refL.style.transform='translate(0,-50%)';refL.textContent='2017 年水準 4,185';labels.appendChild(refL);
+  const refL=document.createElement('span');refL.className='glabel';refL.style.transform='translate(0,-50%)';refL.textContent=T('ref');labels.appendChild(refL);
   trend={s,cam,bars,yl,ref,refL};
 }
 
@@ -881,7 +902,7 @@ if(hasGL){
   const s=new THREE.Scene();const cam=new THREE.PerspectiveCamera(40,1,.1,200);
   s.add(new THREE.AmbientLight(0xffffff,.55));const dl=new THREE.DirectionalLight(0xffffff,.85);dl.position.set(-5,8,6);s.add(dl);const dl2=new THREE.DirectionalLight(0xffffff,.3);dl2.position.set(6,-2,-4);s.add(dl2);
   let seed=7;const rand=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
-  const R=.95;const names=['安全用路人','安全車輛','安全道路','安全速度'];const theta=[.9,2.6,4.2,5.4];
+  const R=.95;const names=T('slices');const theta=[.9,2.6,4.2,5.4];
   const slices=[];
   names.forEach((nm,i)=>{
     const sh=new THREE.Shape();const w=1.6,h=1.6,r=.25;
@@ -936,7 +957,7 @@ if(hasGL){
   const pInj=mk(inj,C.marking,.26),pFat=mk(fat,C.pave,.42);
   const rings=hotIdx.map(h=>{const m=new THREE.Mesh(new THREE.RingGeometry(.95,1.05,48),new THREE.MeshBasicMaterial({color:col(C.ink),transparent:true,opacity:0,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;m.position.set((h[0]-(NX-1)/2)*G,.05,(h[1]-(NZ-1)/2)*G);s.add(m);return m});
   const labels=document.getElementById('hotLabels');
-  const rl=hotIdx.map(h=>{const e=document.createElement('span');e.className='slabel';e.style.color=C.ink;e.textContent=h[2]+' 件';labels.appendChild(e);return e});
+  const rl=hotIdx.map(h=>{const e=document.createElement('span');e.className='slabel';e.style.color=C.ink;e.textContent=tpl(T('hot'),{n:h[2]});e.dataset.n=h[2];labels.appendChild(e);return e});
   hot={s,cam,pInj,pFat,rings,rl,nInj:inj.length/3};
 }
 
@@ -954,12 +975,7 @@ const elInj=document.getElementById('injury'),elBud=document.getElementById('bud
 const v3=hasGL?new THREE.Vector3():null;
 function toScreen(v,cam){v.project(cam);return [(v.x*.5+.5)*innerWidth,(-v.y*.5+.5)*innerHeight]}
 
-const NOTES=[
-  [2010,2016,y=>`${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>。2010 年代前半每年只少幾百人，在 OECD 國家中屬於後段班。`],
-  [2017,2020,y=>`2018 年起，交通死亡被列為國家目標：四年內減半。安全帶、酒駕、學區、高齡駕駛的措施在這段時間接連上路。${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>。`],
-  [2021,2022,y=>`2021 年 4 月「安全速度 5030」全國實施。${y} 年死亡 <b>${fmt(DEATHS[y-2010])} 人</b>，每十萬人死亡率降到 ${RATE[y-2010]}。`],
-  [2023,2025,y=>`2023 年到 2025 年停在每十萬人 <b>4.9</b> 左右，降幅趨緩。比 2017 年少了 1,636 人（−39.1%）。`]
-];
+const NOTES=[[2010,2016,0],[2017,2020,1],[2021,2022,2],[2023,2025,3]].map(n=>[n[0],n[1],y=>tpl(T('notes')[n[2]],{y,d:fmt(DEATHS[y-2010]),r:RATE[y-2010]})]);
 let lastNote='';
 
 let t0=performance.now();
@@ -1045,6 +1061,34 @@ function frame(now){
   }
   requestAnimationFrame(frame);
 }
+
+/* ---------- 語言切換 ---------- */
+const LANGS={zh:'zh-Hant',tw:'nan-Hant-TW',ja:'ja',en:'en'};
+const i18nEls=[...document.querySelectorAll('[data-i18n]')];i18nEls.forEach(e=>e.__zh=e.innerHTML);
+const metaDesc=document.querySelector('meta[name="description"]');
+function setLang(l){
+  if(!LANGS[l])l='zh';LC=l;
+  i18nEls.forEach(e=>{const k=e.dataset.i18n;const v=(l!=='zh'&&D[l]&&D[l][k]!=null)?D[l][k]:e.__zh;if(e.innerHTML!==v)e.innerHTML=v});
+  document.documentElement.lang=LANGS[l];document.title=T('title');if(metaDesc)metaDesc.setAttribute('content',T('desc'));
+  document.documentElement.style.setProperty('--tap',JSON.stringify(T('tap')));
+  document.querySelectorAll('[data-card]').forEach(e=>{const c=T('cards')[+e.dataset.card];e.innerHTML=e.tagName==='H3'?c[0]:c[1]});
+  document.querySelectorAll('#track img').forEach((im,i)=>{const h=im.closest('.card').querySelector('h3');if(h)im.alt=h.textContent});
+  document.querySelectorAll('[data-ui="video"]').forEach(e=>e.textContent=T('video'));
+  buildInj();setInj(injF);renderSig();renderRace();
+  if(trend&&trend.refL)trend.refL.textContent=T('ref');
+  if(cheese&&cheese.sl)cheese.sl.forEach((e,i)=>e.textContent=T('slices')[i]);
+  if(hot&&hot.rl)hot.rl.forEach(e=>e.textContent=tpl(T('hot'),{n:e.dataset.n}));
+  lastNote='';
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+  try{localStorage.setItem('kuan-lang',l)}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{
+  setLang(b.dataset.lang);
+  try{const u=new URL(location.href);if(b.dataset.lang==='zh')u.searchParams.delete('lang');else u.searchParams.set('lang',b.dataset.lang);history.replaceState(null,'',u)}catch(e){}
+}));
+let initLang='zh';
+try{const q=new URLSearchParams(location.search).get('lang');if(q&&LANGS[q])initLang=q;else{const s=localStorage.getItem('kuan-lang');if(s&&LANGS[s])initLang=s;}}catch(e){}
+if(initLang!=='zh')setLang(initLang);
 if(hasGL)renderer.autoClear=false;
 requestAnimationFrame(frame);
 })();
